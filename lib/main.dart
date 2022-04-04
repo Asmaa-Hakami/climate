@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AllNotifications.appNotifications();
+    //AllNotifications.appNotifications();
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,

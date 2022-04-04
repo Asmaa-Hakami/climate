@@ -25,7 +25,8 @@ class _HomeZodiac extends State<HomeZodiac> {
         child: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
-                image: NetworkImage('https://i.postimg.cc/LswqctrX/months-back.png'),
+                image: NetworkImage(
+                    'https://i.postimg.cc/LswqctrX/months-back.png'),
                 fit: BoxFit.fill),
           ),
           child: Column(
@@ -36,13 +37,13 @@ class _HomeZodiac extends State<HomeZodiac> {
                   children: [
                     const Padding(padding: EdgeInsets.only(right: 15)),
                     const TextScaleFactorClamper(
-                              child: Text('المواسم',
-                        //textScaleFactor: 1.0,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25,
-                            height: 1.3,
-                            fontFamily: 'ArbFONTS'))),
+                        child: Text('المواسم',
+                            //textScaleFactor: 1.0,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25,
+                                height: 1.3,
+                                fontFamily: 'ArbFONTS'))),
                   ]),
               Expanded(
                 child: ListView.builder(
@@ -66,7 +67,8 @@ class _HomeZodiac extends State<HomeZodiac> {
                       image = 'assets/images/zodiac_white.png';
                     }
                     return GestureDetector(
-                      onTap: () => context.router.push(ZodiacInfo(index: index)),
+                      onTap: () =>
+                          context.router.push(ZodiacInfo(index: index)),
                       child: Container(
                         height: MediaQuery.of(context).size.height * 0.14,
                         decoration: BoxDecoration(
@@ -79,36 +81,37 @@ class _HomeZodiac extends State<HomeZodiac> {
                             Container(
                                 width: MediaQuery.of(context).size.width * 0.22,
                                 alignment: Alignment.center,
-                            child:TextScaleFactorClamper(
-                              child: Text(
-                              '${AllData.getZWhen(index).split(' ')[0]}\n${AllData.getZWhen(index).split(' ')[1]} ${AllData.getZWhen(index).split(' ')[2]}',
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 13),
-                              textAlign: TextAlign.center,
-                            ))),
+                                child: TextScaleFactorClamper(
+                                    child: Text(
+                                  '${AllData.getZWhen(index).split(' ')[0]}\n${AllData.getZWhen(index).split(' ')[1]} ${AllData.getZWhen(index).split(' ')[2]}',
+                                  style: const TextStyle(
+                                      color: Colors.white, fontSize: 13),
+                                  textAlign: TextAlign.center,
+                                ))),
                             Container(
-                              padding: const EdgeInsets.only(right: 25),
+                                padding: const EdgeInsets.only(right: 25),
                                 width: MediaQuery.of(context).size.width * 0.53,
-                                height: MediaQuery.of(context).size.height * 0.08, //8
+                                height: MediaQuery.of(context).size.height *
+                                    0.08, //8
                                 alignment: Alignment.centerRight,
                                 child: Column(
                                   children: [
                                     TextScaleFactorClamper(
-                              child: Text(
+                                        child: Text(
                                       now,
                                       style: const TextStyle(
                                           fontSize: 10, color: Colors.white),
                                       textAlign: TextAlign.right,
                                     )),
                                     TextScaleFactorClamper(
-                              child: Text(
-                                        'موسم ${ZodiacsData().zodiacData[index][0]}',
-                                        //textScaleFactor: 1.0,
-                                        style: const TextStyle(
-                                            color: Color(0xFF3A6978),
-                                            fontSize: 17,
-                                            height: 1.3),
-                                        textAlign: TextAlign.right)),
+                                        child: Text(
+                                            'موسم ${ZodiacsData().zodiacData[index][0]}',
+                                            //textScaleFactor: 1.0,
+                                            style: const TextStyle(
+                                                color: Color(0xFF3A6978),
+                                                fontSize: 17,
+                                                height: 1.3),
+                                            textAlign: TextAlign.right)),
                                   ],
                                 )),
                             Padding(
@@ -130,7 +133,7 @@ class _HomeZodiac extends State<HomeZodiac> {
           ),
         ),
       ),
-                 drawer: const NavigationDrawer(),
+      drawer: const NavigationDrawer(),
     );
   }
 }
