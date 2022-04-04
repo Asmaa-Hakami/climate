@@ -1,15 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:auto_route/auto_route.dart';
 import 'package:climate_calendar_new/ui/text_scale.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:hijri_picker/hijri_picker.dart';
 import 'package:flutter/material.dart';
-
 import '../dates.dart';
-import '../main.dart';
-import 'calendar.dart';
 
-import 'nav_bar.dart';
+import '../routes/ router.gr.dart';
 import 'navdraw.dart';
 import 'top_icons.dart';
 
@@ -48,26 +46,6 @@ class _CalendarHijri extends State<CalendarHijri> {
                 selectedDate: HijriCalendar.now(),
                 
               );
-    /*
-     SfHijriDateRangePicker(
-      //showTodayButton: true,
-      //headerStyle: DateRangePickerViewHeaderStyle(TextStyle(color: Color(0xff4C7884)),),
-      allowViewNavigation: true,
-      todayHighlightColor: Color(0xff4C7884),//Color(0xff4C7884),
-      selectionColor: Colors.white,
-      selectionTextStyle: TextStyle(color: Color(0xff4C7884)),
-      showNavigationArrow: true,
-      //monthFormat: 'ar',
-      view: HijriDatePickerView.month,
-      monthViewSettings: HijriDatePickerMonthViewSettings(
-        
-        firstDayOfWeek: 6,
-        //viewHeaderStyle:
-
-    ),
-    
-    );
-    */
     return Scaffold(
         body: SafeArea(
             top: false,
@@ -75,12 +53,11 @@ class _CalendarHijri extends State<CalendarHijri> {
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/images/ramadan.png'),
+                  image: NetworkImage('https://i.postimg.cc/qqdPg7tr/ramadan.png'),
                   fit: BoxFit.fill,
                 ),
               ),
               child: Column(
-                  //mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TopIconsWhite(context, 1),
                 Row(
@@ -193,13 +170,7 @@ class _CalendarHijri extends State<CalendarHijri> {
                             )),
                         ),
                         TextButton(
-                            onPressed: () {Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Calendar(),
-                          ),
-                        );
-                            },
+                            onPressed: () =>  context.pushRoute(Calendar()),
                             child: Text(
                               'ميلادي',
                               textScaleFactor: 1.0,
@@ -214,14 +185,14 @@ class _CalendarHijri extends State<CalendarHijri> {
                         
                       ],
                     ),
-                    Padding(padding: EdgeInsets.only(bottom: 40)),
+                    Padding(padding: EdgeInsets.only(bottom: 30)),
                     SingleChildScrollView(
                         child: 
                         Stack(
                          alignment: Alignment.bottomCenter,
                          children:[
                           
-                          Padding(padding: EdgeInsets.only(bottom: 10), //MediaQuery.of(context).textScaleFactor <= 1.3 ? 15: 
+                          Padding(padding: EdgeInsets.only(bottom: 15), //MediaQuery.of(context).textScaleFactor <= 1.3 ? 15: 
                         child:Image.asset('assets/images/cal_back.png', width: MediaQuery.of(context).size.width * 0.75, ),
                           ),
                         Container(
@@ -239,8 +210,7 @@ class _CalendarHijri extends State<CalendarHijri> {
                     ),
                   ]),
             )),
-      bottomNavigationBar: NavigationBarBottom(4),
-                  drawer: const navigationDrawer(),
+                  drawer: const NavigationDrawer(),
 
             );
             

@@ -2,10 +2,10 @@
 
 //import 'dart:convert';
 
-//import 'package:climate_calendar_new/get_location.dart';
+// ignore_for_file: unnecessary_this
+
 import 'package:climate_calendar_new/stores/observable_alarm/observable_alarm.dart';
 import 'package:climate_calendar_new/ui/text_scale.dart';
-//import 'package:climate_calendar_new/widgets/rounded_button.dart';
 //import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -75,8 +75,7 @@ super.initState();
                 ),
                 child: 
                 Container(
-                  padding: EdgeInsets.only(left: 10),
-                    //padding: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.12),
+                  padding: const EdgeInsets.only(left: 10),
                     width:  MediaQuery.of(context).size.width * 0.2,//130,
                     alignment: Alignment.center,
                     
@@ -87,7 +86,7 @@ super.initState();
                 )))),
                               Padding(
                 padding: EdgeInsets.only(
-                  right: MediaQuery.of(context).size.width * 0.065,
+                  right: MediaQuery.of(context).size.width * 0.055,
                   left: 9),
                 child:Container(
                   //padding: EdgeInsets.only(right: 10),
@@ -130,7 +129,7 @@ super.initState();
                   return Center(
                     child: TextScaleFactorClamper(
                               child:Text(
-                      (index++).toString(), style: TextStyle(color: Color(0xff506B75)),
+                      (index++).toString(), style: const TextStyle(color: Color(0xff506B75)),
                     )),
                   );
                 }),
@@ -176,7 +175,7 @@ super.initState();
                   return Center(
                     child:TextScaleFactorClamper(
                               child:Text(
-                      (++index).toString(),style: TextStyle(color: Color(0xff506B75))
+                      (++index).toString(),style: const TextStyle(color: Color(0xff506B75))
                     )),
                   );
                 }),
@@ -250,7 +249,7 @@ super.initState();
                                 fontWeight: FontWeight.normal,
                           fontFamily: 'ArbFONTS'),
                     )
-                                         ))),
+                     ))),
                   ],
               ),
                                     ),

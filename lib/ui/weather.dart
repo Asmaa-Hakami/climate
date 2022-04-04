@@ -1,7 +1,6 @@
-import 'package:climate_calendar_new/ui/nav_bar.dart';
+import 'package:climate_calendar_new/nav_bar.dart';
 import 'package:flutter/material.dart';
 
-import '../main.dart';
 import 'navdraw.dart';
 import 'top_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -18,7 +17,7 @@ class Weather extends StatelessWidget {
         child: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/images/weather_back.png'),
+              image: NetworkImage('https://i.postimg.cc/qqdPg7tr/ramadan.png'),
               fit: BoxFit.fill,
             ),
           ),
@@ -50,9 +49,9 @@ class Weather extends StatelessWidget {
                             width: MediaQuery.of(context).size.width * 0.8,
                             //fit: BoxFit.fill,
                           ),
-                                Text('المركز الوطني للأرصاد',
+                                const Text('المركز الوطني للأرصاد',
                                     textScaleFactor: 1.0,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                         fontSize: 15,
                                         color: Colors.white,
                                         fontFamily: 'ArbFONTS')),
@@ -70,9 +69,9 @@ class Weather extends StatelessWidget {
                             width: MediaQuery.of(context).size.width * 0.8,
                             //fit: BoxFit.fill,
                           ),
-                                Text('Windy',
+                                const Text('Windy',
                                     textScaleFactor: 1.0,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                         fontSize: 15,
                                         color: Colors.white,
                                         fontFamily: 'ArbFONTS')),
@@ -90,9 +89,9 @@ class Weather extends StatelessWidget {
                             width: MediaQuery.of(context).size.width * 0.8,
                             //fit: BoxFit.fill,
                           ),
-                                Text('توقعات حالة الطقس Meteologix',
+                                const Text('توقعات حالة الطقس Meteologix',
                                     textScaleFactor: 1.0,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                         fontSize: 15,
                                         color: Colors.white,
                                         fontFamily: 'ArbFONTS')),
@@ -112,9 +111,9 @@ class Weather extends StatelessWidget {
                             width: MediaQuery.of(context).size.width * 0.8,
                             //fit: BoxFit.fill,
                           ),
-                                Text('رادار الأمطار Rainviewer',
+                                const Text('رادار الأمطار Rainviewer',
                                     textScaleFactor: 1.0,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                         fontSize: 15,
                                         color: Colors.white,
                                         fontFamily: 'ArbFONTS')),
@@ -126,8 +125,7 @@ class Weather extends StatelessWidget {
             ),
         ),
       ),
-      bottomNavigationBar: NavigationBarBottom(4),
-      drawer: const navigationDrawer(),
+              drawer: const NavigationDrawer(),
     );
   }
         _launchURL(url) async {

@@ -2,9 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
-
-import '../main.dart';
-import 'nav_bar.dart';
+import '../nav_bar.dart';
 import 'navdraw.dart';
 import 'top_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -34,8 +32,7 @@ class ClimateCalendar extends StatelessWidget {
                         fontFamily: 'ArbFONTS'),
                     textAlign: TextAlign.center),
                     Padding(padding: EdgeInsets.only(top: 10)),
-                Image.asset(
-                  'assets/images/climate.png',
+                Image.network('https://i.postimg.cc/529FLNBx/climate.png',//'assets/images/climate.png',
                   height: MediaQuery.of(context).size.height * 0.27,//223,
                   //width: 210,
                 ),
@@ -76,7 +73,7 @@ class ClimateCalendar extends StatelessWidget {
 
                         GestureDetector(
                       onTap: () {
-                        Share.share('https://drive.google.com/file/d/1xf1CZeVC9-0Fs8FZ3ig9nwFNDUiFR-1d/view?usp=sharing');
+                        Share.share('https://drive.google.com/file/d/1xf1CZeVC9-0Fs8FZ3ig9nwFNDUiFR-1d/view');
                       },
                       child: Stack(
                         alignment: Alignment.center,
@@ -119,14 +116,13 @@ class ClimateCalendar extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: NavigationBarBottom(4),
-      drawer: navigationDrawer(),
+              drawer: NavigationDrawer(),
       // ],
       //),
     );
   }
     _launchURL() async {
-  const url = 'https://drive.google.com/file/d/1xf1CZeVC9-0Fs8FZ3ig9nwFNDUiFR-1d/view?usp=sharing';
+  const url = 'https://drive.google.com/file/d/1xf1CZeVC9-0Fs8FZ3ig9nwFNDUiFR-1d/view';
   if (await canLaunch(url)) {
     await launch(url);
   } else {

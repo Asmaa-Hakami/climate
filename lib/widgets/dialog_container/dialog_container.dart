@@ -1,53 +1,34 @@
-//import 'dart:ffi';
-
-//import 'package:climate_calendar_new/ui/navdraw.dart';
 import 'package:climate_calendar_new/ui/top_icons.dart';
 import 'package:flutter/material.dart';
 
 class DialogContainer extends StatelessWidget {
   final Widget child;
 
-  DialogContainer({required this.child});
-
+  const DialogContainer({Key? key, required this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      
-      // backgroundColor: Colors.black54,
-      body:     SafeArea(
-           
-      top: false,
-      bottom: false,
-     child:  Container(
-                        decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/ramadan.png'),
-                  fit: BoxFit.fill,
-                ),
+      body: SafeArea(
+        top: false,
+        bottom: false,
+        child: Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image:
+                    NetworkImage('https://i.postimg.cc/qqdPg7tr/ramadan.png'),
+                fit: BoxFit.fill,
               ),
-              
-        child: Column(
-          children: [
-            TopIconsWhite(context, 0),
-            child,
-          ],
-        )
-        /*
-        padding: const EdgeInsets.only(
-          bottom: 15,
-          left: 15,
-          right: 15,
-          top: 50,
-        ),
-
-        */
-       // child: this.child,
-      ),
+            ),
+            child: Column(
+              children: [
+                TopIconsWhite(context, 0),
+                child,
+              ],
+            )),
       ),
       appBar: null,
-       //drawer: const navigationDrawer(),
     );
   }
 }

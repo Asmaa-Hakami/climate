@@ -1,6 +1,7 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'dart:async';
 
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:adhan/adhan.dart';
 import 'package:climate_calendar_new/dates.dart';
 import 'package:climate_calendar_new/ui/text_scale.dart';
@@ -12,8 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 
 import '../get_location.dart';
-import '../main.dart';
-import 'nav_bar.dart';
+import '../nav_bar.dart';
 import 'navdraw.dart';
 import 'top_icons.dart';
 import 'package:intl/intl.dart';
@@ -32,8 +32,7 @@ class _PrayerTimesState extends State<Prayers> {
   Prayer? next;
   DateTime? nextPrayerTime;
   final date = DateTime.now();
-  String yourCityName = add.first.locality.toString(); //'';
-  //var address;
+  String yourCityName = '';//add.first.locality.toString(); //'';
   final location = Location(); 
 
   late String textAdzanRemaining = '';
@@ -46,7 +45,6 @@ class _PrayerTimesState extends State<Prayers> {
       }
       if (locationData != null) {
         setState(() {
-          //yourCityName =  add.first.locality.toString();
           prayerTimes = PrayerTimes(
               Coordinates(locationData.latitude, locationData.longitude),
               DateComponents.from(DateTime.now()),
@@ -70,6 +68,10 @@ class _PrayerTimesState extends State<Prayers> {
 
   @override
   Widget build(BuildContext context) {
+        if(add != null){
+            yourCityName =  add.first.locality.toString();
+    }
+    
     return Scaffold(
       body: SafeArea(
         top: false,
@@ -77,7 +79,7 @@ class _PrayerTimesState extends State<Prayers> {
         child: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/images/prayer_times.png'),
+              image: NetworkImage('https://i.postimg.cc/Bvj9VkWr/prayer-times.png'), //'assets/images/prayer_times.png'),
               fit: BoxFit.fill,
             ),
           ),
@@ -266,8 +268,7 @@ class _PrayerTimesState extends State<Prayers> {
           ),
         ),
       ),
-      bottomNavigationBar: NavigationBarBottom(4),
-      drawer: const navigationDrawer(),
+              drawer: const NavigationDrawer(),
     );
   }
 

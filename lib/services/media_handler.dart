@@ -2,11 +2,10 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:math';
-
-import 'package:climate_calendar_new/constants/global.dart';
 import 'package:climate_calendar_new/stores/observable_alarm/observable_alarm.dart';
 import 'package:vibration/vibration.dart';
 
+import '../constants/global.dart';
 import '../main.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
@@ -71,7 +70,9 @@ class MediaHandler {
     if (path.startsWith("http")) {
       // Online file
       AudioSource? source;
+      // ignore: unused_local_variable
       final pathExt = path.split(".").last;
+      
       if (livestreamFormats.contains(pathExt)) {
         // Stream source
         if (pathExt == "mdp") {
@@ -86,12 +87,13 @@ class MediaHandler {
         source = ProgressiveAudioSource(Uri.parse(path));
       } else
         return false;
-
+        
       if (source != null) {
         playingSoundPath.value =
             path; // Notifies UI isolate path is ready to play
         try {
           await _currentPlayer.setAudioSource(source);
+        // ignore: unused_catch_clause
         } on PlayerException catch (e) {
           // iOS/macOS: maps to NSError.code
           // Android: maps to ExoPlayerException.type
@@ -117,9 +119,9 @@ class MediaHandler {
 
     print("progressiveVolume: ${alarm.progressiveVolume!}");
     // Initialize player volume
-    if (alarm.progressiveVolume!)
-      await increaseVolumeProgressively(alarm.volume!);
-    else
+  //  if (alarm.progressiveVolume!)
+  //    await increaseVolumeProgressively(alarm.volume!);
+   // else
       await _currentPlayer.setVolume(alarm.volume!);
 
     return true;
@@ -138,24 +140,5 @@ class MediaHandler {
     await FlutterRingtonePlayer.stop();
     //Stop ongoing vibration.
     await Vibration.cancel();
-  }
-
-  /// This function increases the device volume progressively from
-  /// low to highest pitch.
-  /// @param volume - The initial volume
-  Future<void> increaseVolumeProgressively(double volume) async {
-    print("volume aaa: $volume");
-    volumeTimer = Timer.periodic(Duration(seconds: 2), (timer) async {
-      volume += 0.1;
-      print("volume: $volume");
-      if (volume == 1) {
-        // Max volume reached
-        timer.cancel();
-      } else {
-        //   print("volume: $volume");
-        // Increase the volume
-        await _currentPlayer.setVolume(volume);
-      }
-    });
   }
 }

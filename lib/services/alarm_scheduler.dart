@@ -1,12 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:intl/intl.dart';
-
-// import 'package:android_alarm_manager/android_alarm_manager.dart';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:bringtoforeground/bringtoforeground.dart';
 import 'package:climate_calendar_new/stores/observable_alarm/observable_alarm.dart';
-import 'package:climate_calendar_new/widgets/alarm_item/alarm_item.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -41,20 +38,23 @@ class AlarmScheduler {
         // Repeat alarm
         //print("Alarm active for day $i");
         repeatAlarm = true;
-        final targetDateTime = nextWeekday(i + 1, alarm.hour!, alarm.minute!, alarm.period!);
+        final targetDateTime =
+            nextWeekday(i + 1, alarm.hour!, alarm.minute!, alarm.period!);
         await newShot(targetDateTime, scheduleId + i);
       } else if (alarm.active! && !repeatAlarm && i == days.length - 1) {
         // One time alarm
-        var checkedDay = DateTime.now(); // TimeOfDay.fromDateTime(DateTime.now());//DateTime.now();
+        var checkedDay = DateTime
+            .now(); // TimeOfDay.fromDateTime(DateTime.now());//DateTime.now();
         var targetDateTime = //DateTime.parse('${checkedDay.year}-${checkedDay.month}-${checkedDay.day} ${alarm.hour}:${alarm.minute} ${alarm.period}}');
-        DateFormat('yyyyy.MM.dd h:mm a').parse('${checkedDay.year}.${checkedDay.month}.${checkedDay.day} ${alarm.hour}:${alarm.minute} ${alarm.period.toString().toUpperCase()} }');
+            DateFormat('yyyyy.MM.dd h:mm a').parse(
+                '${checkedDay.year}.${checkedDay.month}.${checkedDay.day} ${alarm.hour}:${alarm.minute} ${alarm.period.toString().toUpperCase()} }');
         //DateTime(checkedDay.year, checkedDay.month,  dd-MM-yyyy hh:mm aa
-          //  checkedDay.day, alarm.hour!, alarm.minute!);
+        //  checkedDay.day, alarm.hour!, alarm.minute!);
 
         if (targetDateTime.millisecondsSinceEpoch <
-            checkedDay.millisecondsSinceEpoch) // Time past?
-          targetDateTime =
-              targetDateTime.add(Duration(days: 1)); // Prepare for next day
+            checkedDay.millisecondsSinceEpoch) {
+          targetDateTime = targetDateTime.add(const Duration(days: 1));
+        } // Prepare for next day
 
         print("targetDateTime ${targetDateTime.toString()}");
         await newShot(targetDateTime, scheduleId + i);
@@ -67,23 +67,21 @@ class AlarmScheduler {
 
     if (checkedDay.weekday == weekday) {
       final todayAlarm = //DateTime.parse('${checkedDay.year}-${checkedDay.month}-${checkedDay.day} $alarmHour:$alarmMinute:$AlarmPriod}');
-        DateFormat('yyyyy.MM.dd h:mm a').parse('${checkedDay.year}.${checkedDay.month}.${checkedDay.day} $alarmHour:$alarmMinute ${AlarmPriod.toString().toUpperCase()}}');
+          DateFormat('yyyyy.MM.dd h:mm a').parse(
+              '${checkedDay.year}.${checkedDay.month}.${checkedDay.day} $alarmHour:$alarmMinute ${AlarmPriod.toString().toUpperCase()}}');
 
       if (checkedDay.isBefore(todayAlarm)) {
         return todayAlarm;
       }
-      return todayAlarm.add(Duration(days: 7));
+      return todayAlarm.add(const Duration(days: 7));
     }
 
     while (checkedDay.weekday != weekday) {
-      checkedDay = checkedDay.add(Duration(days: 1));
+      checkedDay = checkedDay.add(const Duration(days: 1));
     }
 
-    return //DateTime.parse('${checkedDay.year}-${checkedDay.month}-${checkedDay.day} $alarmHour:$alarmMinute:$AlarmPriod}');
-        DateFormat('yyyyy.MM.dd h:mm a').parse('${checkedDay.year}.${checkedDay.month}.${checkedDay.day} $alarmHour:$alarmMinute ${AlarmPriod.toString().toUpperCase()}}');
-
-    //DateTime(checkedDay.year, checkedDay.month, checkedDay.day,
-      //  alarmHour, alarmMinute, AlarmPriod);
+    return DateFormat('yyyyy.MM.dd h:mm a').parse(
+        '${checkedDay.year}.${checkedDay.month}.${checkedDay.day} $alarmHour:$alarmMinute ${AlarmPriod.toString().toUpperCase()}}');
   }
 
   static void callback(int id) async {
@@ -107,12 +105,12 @@ class AlarmScheduler {
     final dir = await getApplicationDocumentsDirectory();
     JsonFileStorage.toFile(File(dir.path + "/$id.alarm")).writeList([]);
 
-    final alarms = await JsonFileStorage().readList();
+    final alarms = await new JsonFileStorage().readList();
     var alarm = alarms.firstWhere((element) => element.id == id);
 
     if (alarm.active! && Platform.isAndroid) {
       restartApp();
-      Timer(Duration(seconds: 5), () {
+      Timer(const Duration(seconds: 5), () {
         Bringtoforeground.bringAppToForeground();
       });
       return;
@@ -140,7 +138,7 @@ class AlarmScheduler {
       ticker: 'ticker',
       title: '$hours:$minutes $period',
       body: alarm.name,
-      sound: RawResourceAndroidNotificationSound(''),
+      sound: const RawResourceAndroidNotificationSound(''),
       payload: id.toString(),
     );
   }

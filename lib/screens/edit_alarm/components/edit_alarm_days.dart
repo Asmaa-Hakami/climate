@@ -1,12 +1,13 @@
-import 'package:climate_calendar_new/constants/theme_data.dart';
+// ignore_for_file: unnecessary_this
+
+import 'package:auto_route/auto_route.dart';
+import 'package:climate_calendar_new/routes/%20router.gr.dart' as g;
 import 'package:climate_calendar_new/services/alarm_list_manager.dart';
 import 'package:climate_calendar_new/stores/alarm_list/alarm_list.dart';
 import 'package:climate_calendar_new/stores/observable_alarm/observable_alarm.dart';
 import 'package:climate_calendar_new/ui/text_scale.dart';
 import 'package:climate_calendar_new/ui/top_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-//import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 import '../edit_alarm.dart';
 
@@ -88,13 +89,10 @@ class _EditAlarmDays extends State<EditAlarmDays> {
                 GestureDetector(
                     onTap: //() { setState(() {RepeatAlarm(alarm: this.widget.alarm); }); }
                     () { setState(() {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => RepeatAlarm(
-                                      this.widget.manager,  this.widget.alarms,  this.widget.title, alarm: this.widget.alarm,
-                                  )));
-          
+                       Navigator.push(context, MaterialPageRoute(builder: (context) => RepeatAlarm( this.widget.manager,  this.widget.alarms, this.widget.title,  alarm: this.widget.alarm,)));
+                    //  context.pushRoute(g.RepeatAlarm(
+                      //                manager: this.widget.manager,  alarms: this.widget.alarms,  title: this.widget.title, alarm: this.widget.alarm,
+                        //          ));
                     });
                     },
                     child: Stack(
@@ -110,62 +108,12 @@ class _EditAlarmDays extends State<EditAlarmDays> {
                             )))
                       ],
                     ))
-                /*
-            WeekDayToggle(
-              text: 'Mo',
-              current: alarm!.monday!,
-              onToggle: (monday) => alarm!.monday = monday,
-            ),
-            WeekDayToggle(
-              text: 'Tu',
-              current: alarm!.tuesday!,
-              onToggle: (tuesday) => alarm!.tuesday = tuesday,
-            ),
-            WeekDayToggle(
-              text: 'We',
-              current: alarm!.wednesday!,
-              onToggle: (wednesday) => alarm!.wednesday = wednesday,
-            ),
-            WeekDayToggle(
-              text: 'Th',
-              current: alarm!.thursday!,
-              onToggle: (thursday) => alarm!.thursday = thursday,
-            ),
-            WeekDayToggle(
-              text: 'Fr',
-              current: alarm!.friday!,
-              onToggle: (friday) => alarm!.friday = friday,
-            ),
-            WeekDayToggle(
-              text: 'Sa',
-              current: alarm!.saturday!,
-              onToggle: (saturday) => alarm!.saturday = saturday,
-            ),
-            WeekDayToggle(
-              text: 'Su',
-              current: alarm!.sunday!,
-              onToggle: (sunday) => alarm!.sunday = sunday,
-            ),
-            */
               ],
             ),
-          ]//),
+          ]
     );
   }
 }
-/*
-class RepeatAlarmState extends StatelessWidget {
-  final ObservableAlarm? alarm;
-
-  const RepeatAlarmState({Key? key, this.alarm}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return RepeatAlarm(alarm: this.alarm,);
-  }
-}
-*/
-
 
 class RepeatAlarm extends StatefulWidget {
   final ObservableAlarm alarm;
@@ -297,30 +245,19 @@ class _RepeatAlarm extends State<RepeatAlarm> {
                                   index: 6)),
                         ],
                       )),
-                                                SizedBox(height: 25,),
+                                                const SizedBox(height: 25,),
 
                   GestureDetector(
                       onTap: (){
                        setState(() {
-                        //Navigator.pop(context);
                                               Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => EditAlarm(
                                     alarm: this.widget.alarm, manager: this.widget.manager, alarms: this.widget.alarms, title: this.widget.title, 
                                   )));
-
-                        //repeatDays = '';
-                       // Navigator.pushNamed(context, 'Setting');
                         });
                       },
-                        /*
-                          Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) =>
-                EditAlarmDays(alarm: this.widget.alarm,)));
-                */
                       
                       child: Stack(
                         alignment: Alignment.center,
@@ -363,86 +300,34 @@ class _RepeatAlarm extends State<RepeatAlarm> {
                 //onTap;//(sunday) => widget.alarm!.sunday = sunday;
               });
             },
-            child: Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TextScaleFactorClamper(
-                              child:Text(
-                  day,
-                  style:
-                      const TextStyle(fontSize: 18, color: Color(0xff506B75)),
-                )),
-                days[index]!
-                    ? Container(
-                        width: MediaQuery.of(context).size.width * 0.3,
-                        child: const Image(
-                          image: AssetImage('assets/icons/check.png'),
-                          height: 20.0,
-                          color: Color(0xff506B75),
-                        ))
-                    : Container(
-                        width: MediaQuery.of(context).size.width * 0.4,
-                        /*
-                        child: const Icon(
-                          Icons.circle,
-                          size: 30.0,
-                          color: Color(0xffE0E7E9),
-                        ),
-                        */
-                      ),
+            TextScaleFactorClamper(
+                          child:Text(
+              day,
+              style:
+                  const TextStyle(fontSize: 18, color: Color(0xff506B75)),
+            )),
+            days[index]!
+                ? SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.3,
+                    child: const Image(
+                      image: AssetImage('assets/icons/check.png'),
+                      height: 20.0,
+                      color: Color(0xff506B75),
+                    ))
+                : Container(
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    /*
+                    child: const Icon(
+                      Icons.circle,
+                      size: 30.0,
+                      color: Color(0xffE0E7E9),
+                    ),
+                    */
+                  ),
               ],
-            )));
+            ));
   }
 }
-
-//class WeekDayList extends
-/*
-class WeekDayToggle extends StatelessWidget {
-  final Function? onToggle;
-  final bool current;
-  final String text;
-
-  const WeekDayToggle(
-      {Key? key, this.onToggle, this.current = false, this.text = ""})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    const fontSize = 18.0;
-    const size = 25.0;
-
-    return GestureDetector(
-      child: SizedBox.fromSize(
-        size: Size.fromRadius(size),
-        child: Neumorphic(
-          style: NeumorphicStyle(
-            depth: this.current ? 2 : 0,
-            intensity: this.current ? 0.7 : 0,
-            //boxShape: NeumorphicBoxShape.circle(),
-          ),
-          child: Container(
-            width: size,
-            height: size,
-            child: FittedBox(
-              fit: BoxFit.scaleDown,
-              child: Text(
-                this.text,
-                style: TextStyle(
-                  fontSize: fontSize,
-                  fontWeight:
-                      this.current ? FontWeight.bold : FontWeight.normal,
-                  color: this.current
-                      ? CustomColors.sdPrimaryColor
-                      : CustomColors.sdPrimaryColor.withOpacity(0.5),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-      //onTap: () => this.onToggle!(!this.current),
-    );
-  }
-}
-*/

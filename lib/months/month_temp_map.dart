@@ -1,21 +1,16 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:io';
-import 'dart:typed_data';
-
+import 'package:auto_route/auto_route.dart';
 import 'package:climate_calendar_new/data/months/months_data.dart';
-import 'package:climate_calendar_new/ui/nav_bar.dart';
 import 'package:climate_calendar_new/ui/navdraw.dart';
 import 'package:climate_calendar_new/ui/top_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:hijri/hijri_array.dart';
+import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
-//import '../all_data.dart';
-import '../main.dart';
-import 'month_temp.dart';
+import '../routes/ router.gr.dart';
 
 // ignore: must_be_immutable
 class Monthgraphs extends StatefulWidget {
@@ -41,7 +36,8 @@ class _Monthgraphs extends State<Monthgraphs> {
           child: Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/temp_back.png'),
+                image:
+                    NetworkImage('https://i.postimg.cc/Dz9DYzPG/temp-back.png'),
                 fit: BoxFit.fill,
               ),
             ),
@@ -64,10 +60,9 @@ class _Monthgraphs extends State<Monthgraphs> {
                   width: MediaQuery.of(context).size.width, //double.infinity,//
                   height: MediaQuery.of(context).size.height * 0.08,
                   decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(image),
-                      //fit: BoxFit.fill
-                    )),
+                      image: DecorationImage(
+                    image: AssetImage(image),
+                  )),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -75,18 +70,13 @@ class _Monthgraphs extends State<Monthgraphs> {
                           onTap: () {
                             setState(() {
                               image = 'assets/images/month_temp.png';
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      MonthTemp(widget.mname, widget.mnum),
-                                ),
-                              );
-                              //temperatures();
+
+                              context.router.push(MonthTemp(
+                                mname: widget.mname,
+                                mnum: widget.mnum,
+                              ));
                             });
-                            //temperatures();
                           },
-                          //Image.asset(image, width: MediaQuery.of(context).size.width * 1),
                           child: Container(
                             width: MediaQuery.of(context).size.width * 0.5,
                             alignment: Alignment.center,
@@ -132,111 +122,58 @@ class _Monthgraphs extends State<Monthgraphs> {
               ]),
             ]),
           )),
-      bottomNavigationBar: NavigationBarBottom(4),
-      drawer: const navigationDrawer(),
+      drawer: const NavigationDrawer(),
     );
   }
 
   Widget map() {
-    return Column(
-        // mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(
-              height: MediaQuery.of(context).size.height * 0.6,
-              width: MediaQuery.of(context).size.width * 0.8,
-              // Flexible(
-              //  child: SingleChildScrollView(
-              //  scrollDirection: Axis.vertical,
-              //child: Expanded(
-                  child: ListView(scrollDirection: Axis.vertical,
-                      //child: Column(
-                      children: [
-                    //    Column(
-                    //    children:[
-                      /*
-                    Text(
-                      'متوسط درجة الحرارة الكبرى',
-                      textScaleFactor: 1.0,
-                      style: TextStyle(
-                          color: Color(0xff506B75),
-                          fontSize: 15,
-                          fontFamily: 'ArbFONTS'),
-                      textAlign: TextAlign.center,
+    return Column(children: [
+      SizedBox(
+          height: MediaQuery.of(context).size.height * 0.6,
+          width: MediaQuery.of(context).size.width * 0.8,
+          child: ListView(scrollDirection: Axis.vertical, children: [
+            GestureDetector(
+                onTap: () => showDialog(
+                      context: context,
+                      builder: (BuildContext context) => _buildPopupDialog(
+                          context,
+                          'متوسط درجة الحرارة الكبرى',
+                          MonthsData().monthInfo[widget.mnum][2][1]),
                     ),
-                    */
-                    GestureDetector(
-                        onTap: () => showDialog(
-                              context: context,
-                              builder: (BuildContext context) =>
-                                  _buildPopupDialog(
-                                      context,
-                                      'متوسط درجة الحرارة الكبرى',
-                                      MonthsData.monthInfo[widget.mnum][2][1]),
-                            ),
-                        child: Image(
-                          image: AssetImage(
-                              MonthsData.monthInfo[widget.mnum][2][1]),
-                        width: MediaQuery.of(context).size.width * 0.75,
-                        )),
-                        /*
-                    Text(
-                      'متوسط درجة الحرارة الصغرى',
-                      textScaleFactor: 1.0,
-                      style: TextStyle(
-                          color: Color(0xff506B75),
-                          fontSize: 15,
-                          fontFamily: 'ArbFONTS'),
-                      textAlign: TextAlign.center,
-                    ),
-                    */
-                    GestureDetector(
-                      onTap: () => showDialog(
-                        context: context,
-                        builder: (BuildContext context) => _buildPopupDialog(
-                            context,
-                            'متوسط درجة الحرارة الصغرى',
-                            MonthsData.monthInfo[widget.mnum][2][2]),
-                      ),
-                      child: Image(
-                        image:
-                            AssetImage(MonthsData.monthInfo[widget.mnum][2][2]),
-                        //height: MediaQuery.of(context).size.height * 0.4,
-                        width: MediaQuery.of(context).size.width * 0.75,
-
-                      ),
-                    ),
-                    /*
-                    Text(
-                      'متوسط هطول الأمطار (ملم)',
-                      textScaleFactor: 1.0,
-                      style: TextStyle(
-                          color: Color(0xff506B75),
-                          fontSize: 15,
-                          fontFamily: 'ArbFONTS'),
-                      textAlign: TextAlign.center,
-                    ),
-                    */
-                    GestureDetector(
-                      onTap: () => showDialog(
-                        context: context,
-                        builder: (BuildContext context) => _buildPopupDialog(
-                            context,
-                            'متوسط هطول الأمطار (ملم)',
-                            MonthsData.monthInfo[widget.mnum][2][3]),
-                      ),
-                      child: Image(
-                        image:
-                            AssetImage(MonthsData.monthInfo[widget.mnum][2][3]),
-                        width: MediaQuery.of(context).size.width * 0.75,
-                      ),
-                    ),
-
-                    //     ])
-                    // ],),
-                    // )
-                  ]))
-                  //)
-        ]);
+                child: Image(
+                  image:
+                      NetworkImage(MonthsData().monthInfo[widget.mnum][2][1]),
+                  width: MediaQuery.of(context).size.width * 0.75,
+                )),
+            GestureDetector(
+              onTap: () => showDialog(
+                context: context,
+                builder: (BuildContext context) => _buildPopupDialog(
+                    context,
+                    'متوسط درجة الحرارة الصغرى',
+                    MonthsData().monthInfo[widget.mnum][2][2]),
+              ),
+              child: Image(
+                image: NetworkImage(MonthsData().monthInfo[widget.mnum][2][2]),
+                width: MediaQuery.of(context).size.width * 0.75,
+              ),
+            ),
+            GestureDetector(
+              onTap: () => showDialog(
+                context: context,
+                builder: (BuildContext context) => _buildPopupDialog(
+                    context,
+                    'متوسط هطول الأمطار (ملم)',
+                    MonthsData().monthInfo[widget.mnum][2][3]),
+              ),
+              child: Image(
+                image: NetworkImage(MonthsData().monthInfo[widget.mnum][2][3]),
+                width: MediaQuery.of(context).size.width * 0.75,
+              ),
+            ),
+          ]))
+      //)
+    ]);
   }
 
   Widget _buildPopupDialog(BuildContext context, String title, String image) {
@@ -257,35 +194,23 @@ class _Monthgraphs extends State<Monthgraphs> {
               },
             ),
           ),
-          /*
-          Center(
-              child: Column(
-            children: [
-              Text(
-                title,
-                textScaleFactor: 1.0,
-                style: const TextStyle(
-                    fontSize: 19.0,
-                    color: Color(0xff506B75),
-                    height: 0.8,
-                    fontFamily: 'ArbFONTS'),
-              ),
-            ],
-          )),
-          */
         ],
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Image.asset(image),
+          Image.network(image),
           GestureDetector(
-            onTap: () async{
-                                ByteData imagebyte = await rootBundle.load(image);
-                  final temp = await getTemporaryDirectory();
-                  final path = '${temp.path}/$title.jpg';
-                  File(path).writeAsBytesSync(imagebyte.buffer.asUint8List());
-                  await Share.shareFiles([path]); //, text: '$title لشهر ${widget.mname}'
+            onTap: () async {
+              final urlImage = image;
+              final utl = Uri.parse(urlImage);
+              final response = await http.get(utl);
+              final bytes = response.bodyBytes;
+
+              final temp = await getTemporaryDirectory();
+              final path = '${temp.path}/$title.jpg';
+              File(path).writeAsBytesSync(bytes);
+              await Share.shareFiles([path]);
             },
             child: Stack(alignment: Alignment.center, children: [
               Image.asset(
@@ -306,6 +231,7 @@ class _Monthgraphs extends State<Monthgraphs> {
                         fontFamily: 'ArbFONTS'),
                   ),
                   const Padding(padding: EdgeInsets.only(right: 5)),
+                  // ignore: unnecessary_new
                   new Image(
                     image: AssetImage('assets/icons/sharing.png'),
                     height: 18,

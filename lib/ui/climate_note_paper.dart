@@ -2,9 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
-
-import '../main.dart';
-import 'nav_bar.dart';
+import '../nav_bar.dart';
 import 'navdraw.dart';
 import 'top_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -33,8 +31,7 @@ class ClimateNotePaper extends StatelessWidget {
                         fontSize: 35,
                         fontFamily: 'ArbFONTS'),
                     textAlign: TextAlign.center),
-                Image.asset(
-                  'assets/images/paper.png',
+                Image.network('https://i.postimg.cc/jdRVbL0Q/paper.png',//'assets/images/paper.png',
                   height: MediaQuery.of(context).size.height * 0.27,//203,
                   //width:229,
                 ),
@@ -75,7 +72,7 @@ class ClimateNotePaper extends StatelessWidget {
 
                         GestureDetector(
                       onTap: () {
-                        Share.share('https://drive.google.com/file/d/10Lls0jkYZ758um4BsPblUSxfQkSH_Suh/view?usp=sharing');
+                        Share.share('https://drive.google.com/file/d/14G_3zGdEmF1NViecwBwyRLK-s8oKNuxl/view');
                       },
                       child: Stack(
                         alignment: Alignment.center,
@@ -119,15 +116,14 @@ class ClimateNotePaper extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: NavigationBarBottom(4),
-      drawer: navigationDrawer(),
+              drawer: NavigationDrawer(),
       // ],
       //),
     );
   }
 
       _launchURL() async {
-  const url = 'https://drive.google.com/file/d/10Lls0jkYZ758um4BsPblUSxfQkSH_Suh/view?usp=sharing';
+  const url = 'https://drive.google.com/file/d/14G_3zGdEmF1NViecwBwyRLK-s8oKNuxl/view';
   if (await canLaunch(url)) {
     await launch(url);
   } else {

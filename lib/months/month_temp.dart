@@ -1,14 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:auto_route/auto_route.dart';
 import 'package:climate_calendar_new/data/months/months_data.dart';
-import 'package:climate_calendar_new/ui/nav_bar.dart';
 import 'package:climate_calendar_new/ui/navdraw.dart';
 import 'package:climate_calendar_new/ui/top_icons.dart';
 import 'package:flutter/material.dart';
-
-//import '../all_data.dart';
-import '../main.dart';
-import 'month_temp_map.dart';
+import '../routes/ router.gr.dart';
 
 // ignore: must_be_immutable
 class MonthTemp extends StatefulWidget {
@@ -21,20 +18,19 @@ class MonthTemp extends StatefulWidget {
 }
 
 class _MonthTemp extends State<MonthTemp> {
-  //bool pressed = true;
   String image = 'assets/images/month_temp.png';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //resizeToAvoidBottomInset: false,
       body: SafeArea(
           top: false,
           bottom: false,
           child: Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/temp_back.png'),
+                image:
+                    NetworkImage('https://i.postimg.cc/Dz9DYzPG/temp-back.png'),
                 fit: BoxFit.fill,
               ),
             ),
@@ -53,60 +49,50 @@ class _MonthTemp extends State<MonthTemp> {
                         fontFamily: 'ArbFONTS'),
                     textAlign: TextAlign.center),
                 Padding(padding: EdgeInsets.only(top: 12)),
-
                 Container(
-                  //width: MediaQuery.of(context).size.width, //double.infinity,//
                   height: MediaQuery.of(context).size.height * 0.08,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage(image),
-                      
-                      //fit: BoxFit.fill,
                     ),
                   ),
-                  //children: [
-                    //Image.asset(image, width: MediaQuery.of(context).size.width * 2 , height:  MediaQuery.of(context).size.height * 0.07, fit: BoxFit.fill,),
-                    child: Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            image = 'assets/images/month_temp.png';
-                            //temperatures();
-                          });
-                        },
-                                                child: Container(
-                          width: MediaQuery.of(context).size.width * 0.5,
-                          alignment: Alignment.center,
-                        child: Text('درجات الحرارة',
-                            textScaleFactor: 1.0,
-                            style: TextStyle(
-                                color: Color(0xff506B75),
-                                fontSize: 16,
-                                height: 1,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'ArbFONTS'),
-                            textAlign: TextAlign.center),
-                      )),
+                          onTap: () {
+                            setState(() {
+                              image = 'assets/images/month_temp.png';
+                            });
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.5,
+                            alignment: Alignment.center,
+                            child: Text('درجات الحرارة',
+                                textScaleFactor: 1.0,
+                                style: TextStyle(
+                                    color: Color(0xff506B75),
+                                    fontSize: 16,
+                                    height: 1,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'ArbFONTS'),
+                                textAlign: TextAlign.center),
+                          )),
                       GestureDetector(
                         onTap: () {
                           setState(() {
                             image = 'assets/images/month_graph.png';
-                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      Monthgraphs(widget.mname, widget.mnum),
-                                ),
-                              );
+                            context.router.push(
+                              Monthgraphs(
+                                mname: widget.mname,
+                                mnum: widget.mnum,
+                              ),
+                            );
                           });
                         },
                         child: Container(
                           width: MediaQuery.of(context).size.width * 0.5,
                           alignment: Alignment.center,
-                          //padding: EdgeInsets.only(
-                            //  right: MediaQuery.of(context).size.width * 0.2),
                           child: Text('الخريطة',
                               textScaleFactor: 1.0,
                               style: TextStyle(
@@ -119,17 +105,15 @@ class _MonthTemp extends State<MonthTemp> {
                       ),
                     ],
                   ),
-                  ),
+                ),
                 Padding(
                     padding: EdgeInsets.only(
                         top: MediaQuery.of(context).size.height * 0.03),
-                child: temperatures()
-                ),
+                    child: temperatures()),
               ]),
             ]),
           )),
-      bottomNavigationBar: NavigationBarBottom(4),
-      drawer: const navigationDrawer(),
+      drawer: const NavigationDrawer(),
     );
   }
 
@@ -139,90 +123,22 @@ class _MonthTemp extends State<MonthTemp> {
         Container(
           height: MediaQuery.of(context).size.height * 0.075,
           width: MediaQuery.of(context).size.width * 0.88,
-                            decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/table_title.png'),
-                      //fit: BoxFit.fill,
-                    ),
-                  ),
-                  /*
-          child: Row(
-            //mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.23,
-                                //height: 100,
-                                alignment: Alignment.center,
-                              child: 
-              Text(
-                'المدينة',
-                textScaleFactor: 1.0,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 10,
-                    height: 1,
-                    fontFamily: 'ArbFONTS'),
-                textAlign: TextAlign.center,
-              )),
-                                Padding(padding: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.08),
-                              child: Container(
-                                alignment: Alignment.center,
-                                width: MediaQuery.of(context).size.width * 0.55,
-                                //height: 100,
-                                child: Row(
-                                 // mainAxisAlignment: MainAxisAlignment.center,
-                                  // ignore: prefer_const_literals_to_create_immutables
-                                  children: [
-              //Padding(
-                //padding: EdgeInsets.only(
-                  //  right: MediaQuery.of(context).size.width * 0.065),
-                //child: 
-                Text('متوسط درجة\n الحرارة الكبرى',
-                    textScaleFactor: 1.0,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 10,
-                        fontFamily: 'ArbFONTS'),
-                    textAlign: TextAlign.center),
-                                Padding(padding: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.04)),
-
-              Text('متوسط درجة\nالحرارة الصغرى',
-                  textScaleFactor: 1.0,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10,
-                      fontFamily: 'ArbFONTS'),
-                  textAlign: TextAlign.center),
-                                Padding(padding: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.04)),
-
-              Text('متوسط هطول\nالأمطار (ملم)',
-                  textScaleFactor: 1.0,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10,
-                      fontFamily: 'ArbFONTS'),
-                  textAlign: TextAlign.center)
-                                  
-            ],
-          ),
-                                            )),
-            ]), 
-            */
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/table_title.png'),
             ),
-
+          ),
+        ),
         SizedBox(
-          width: MediaQuery.of(context).size.width * 0.87, //double.infinity,
+          width: MediaQuery.of(context).size.width * 0.87,
           height: MediaQuery.of(context).size.height * 0.55,
-          //child: Expanded(
           child: ListView.builder(
-              itemCount: MonthsData.monthInfo[widget.mnum][3].length,
+              itemCount: MonthsData().monthInfo[widget.mnum][3].length,
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
               itemBuilder: (BuildContext context, int index) {
                 return SizedBox(
                   height: 115,
-                  //width: MediaQuery.of(context).size.width * 0.6,
-                  //alignment: Alignment.centerRight,
                   child: Column(
                     children: [
                       Container(
@@ -230,50 +146,50 @@ class _MonthTemp extends State<MonthTemp> {
                         width: MediaQuery.of(context).size.width * 0.87,
                         decoration: const BoxDecoration(
                           image: DecorationImage(
-                              image:
-                                  AssetImage('assets/icons/temperatures.png'),
-                              fit: BoxFit.fill //fitHeight,
-                              ),
+                            image: AssetImage('assets/icons/temperatures.png'),
+                            fit: BoxFit.fill,
+                          ),
                         ),
                         child: Row(
-                          //mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            //Padding(
-                              //padding: EdgeInsets.only(right: 0, left: 50),
-                              //child: 
-                              Container(
+                            Container(
                                 width: MediaQuery.of(context).size.width * 0.23,
                                 alignment: Alignment.center,
-                              child: Text(
-                                MonthsData.monthInfo[widget.mnum][3][index][0],
-                                textScaleFactor: 1.0,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontFamily: 'ArbFONTS'),
-                                textAlign: TextAlign.center,
-                              )),
-                           // ),
-                            for (var i = 1;
-                                i <
-                                    MonthsData.monthInfo[widget.mnum][3][index]
-                                        .length;
-                                i++)
-                                Padding(padding: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.05),
-                              child: Container(
-                                alignment: Alignment.center,
-                                width: MediaQuery.of(context).size.width * 0.15,
                                 child: Text(
-                                  MonthsData.monthInfo[widget.mnum][3][index]
-                                      [i],
+                                  MonthsData().monthInfo[widget.mnum][3][index]
+                                      [0],
                                   textScaleFactor: 1.0,
                                   style: TextStyle(
-                                      color: Color(0xff506B75),
-                                      fontSize: 20,
+                                      color: Colors.white,
+                                      fontSize: 16,
                                       fontFamily: 'ArbFONTS'),
                                   textAlign: TextAlign.center,
-                                ),)
-                              ),
+                                )),
+                            for (var i = 1;
+                                i <
+                                    MonthsData()
+                                        .monthInfo[widget.mnum][3][index]
+                                        .length;
+                                i++)
+                              Padding(
+                                  padding: EdgeInsets.only(
+                                      right: MediaQuery.of(context).size.width *
+                                          0.05),
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.15,
+                                    child: Text(
+                                      MonthsData().monthInfo[widget.mnum][3]
+                                          [index][i],
+                                      textScaleFactor: 1.0,
+                                      style: TextStyle(
+                                          color: Color(0xff506B75),
+                                          fontSize: 20,
+                                          fontFamily: 'ArbFONTS'),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  )),
                           ],
                         ),
                       ),
@@ -282,7 +198,6 @@ class _MonthTemp extends State<MonthTemp> {
                 );
               }),
         ),
-        //  ),
       ],
     );
   }

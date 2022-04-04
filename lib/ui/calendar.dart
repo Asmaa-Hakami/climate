@@ -1,15 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:climate_calendar_new/ui/text_scale.dart';
-import 'package:hijri/hijri_array.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'dart:math' as math; // import this
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
     show CalendarCarousel;
 import 'package:intl/intl.dart' show DateFormat;
 import '../dates.dart';
-import '../main.dart';
-import 'calendar_hijri.dart';
-import 'nav_bar.dart';
+import '../routes/ router.gr.dart';
 import 'navdraw.dart';
 import 'top_icons.dart';
 //import 'package:easy_localization/easy_localization.dart' as localized;
@@ -29,18 +26,17 @@ class _Calendar extends State<Calendar> {
 
   @override
   Widget build(BuildContext context) {
-                                                      print(' text scale ${MediaQuery.of(context).textScaleFactor}');
+                                                     // print(' text scale ${MediaQuery.of(context).textScaleFactor}');
 
-      //final double fontScale = MediaQuery.of(context).textScaleFactor.clamp(0.8, 0.8);
 
     final _calendarCarousel = CalendarCarousel(
       showOnlyCurrentMonthDate: true,
       weekendTextStyle:  TextStyle(
-        color: Color(0xff4C7884),
+        color: const Color(0xff4C7884),
         fontFamily: 'ArbFONTS',
         fontSize: MediaQuery.of(context).textScaleFactor > 1.2 ? 14 : 20,// * fontScale,
       ),
-      headerMargin: EdgeInsets.only(bottom: 25),
+      headerMargin: const EdgeInsets.only(bottom: 25),
       thisMonthDayBorderColor: Colors.white,
       //weekDayMargin: const EdgeInsets.symmetric(horizontal: 10),
       customWeekDayBuilder: (weekday, weekdayName) =>
@@ -48,27 +44,16 @@ class _Calendar extends State<Calendar> {
       firstDayOfWeek: 0,
       //markedDatesMap: _markedDateMap,
       height: 420.0,
-      //selectedDateTime: _currentDate2,
       targetDateTime: _targetDateTime,
       customGridViewPhysics: const NeverScrollableScrollPhysics(),
-      //markedDateCustomShapeBorder:
-      //    CircleBorder(side: BorderSide(color: Colors.yellow)),
-      /* markedDateCustomTextStyle: TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.bold,
-        color: Colors.white,
-      ),*/
 
-      //showHeader: true,
       headerText: AllDates.replaceToEngMonth(
               DateFormat('MMM').format(_targetDateTime)) +
           ' ' +
           _targetDateTime.year.toString(),
-      //headerMargin: EdgeInsets.symmetric(
-      //   horizontal: MediaQuery.of(context).size.width * 0.25),
 
       headerTextStyle: TextStyle(
-          color: Color(0xff4C7884), fontSize: MediaQuery.of(context).textScaleFactor > 1.2 ? 14 : 20 , fontFamily: 'ArbFONTS'),
+          color: const Color(0xff4C7884), fontSize: MediaQuery.of(context).textScaleFactor > 1.2 ? 14 : 20 , fontFamily: 'ArbFONTS'),
   
 
       iconColor: Colors.black,
@@ -80,7 +65,7 @@ class _Calendar extends State<Calendar> {
         letterSpacing: -1, 
       ),
       daysTextStyle: TextStyle(
-          color: Color(0xff4C7884), fontFamily: 'ArbFONTS',letterSpacing: -1, fontSize: MediaQuery.of(context).textScaleFactor > 1.2 ? 14 :  20 ),
+          color: const Color(0xff4C7884), fontFamily: 'ArbFONTS',letterSpacing: -1, fontSize: MediaQuery.of(context).textScaleFactor > 1.2 ? 14 :  20 ),
 
       todayButtonColor: const Color(0xff4C7884),
       selectedDayTextStyle: const TextStyle(
@@ -102,9 +87,9 @@ class _Calendar extends State<Calendar> {
           top: false,
           bottom: false,
              child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/images/ramadan.png'),
+                  image: NetworkImage('https://i.postimg.cc/qqdPg7tr/ramadan.png'),
                   fit: BoxFit.fill,
                 ),
               ),
@@ -115,7 +100,7 @@ class _Calendar extends State<Calendar> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Padding(padding: EdgeInsets.only(right: 10),
+                    Padding(padding: const EdgeInsets.only(right: 10),
                     child: Column(
                       children: [
                         Container(
@@ -208,14 +193,9 @@ class _Calendar extends State<Calendar> {
                       children: [
 
                       TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const CalendarHijri(),
+                          onPressed: () => context.pushRoute(const CalendarHijri(),
                               ),
-                            );
-                          },
+
                           child: const Text(
                             'هجري',
                             textScaleFactor: 1.0,
@@ -245,9 +225,8 @@ class _Calendar extends State<Calendar> {
                         
                       ],
                     ),                  
-                    const Padding(padding: EdgeInsets.only(bottom: 20)),
+                    const Padding(padding: EdgeInsets.only(bottom: 15)),
 
-                 // Directionality(textDirection: TextDirection(TextDirection.rtl), child:
                   SingleChildScrollView(
                                             child: 
                         Stack(
@@ -266,8 +245,7 @@ class _Calendar extends State<Calendar> {
                   ),
                 ]),
           )),
-      bottomNavigationBar: NavigationBarBottom(4),
-      drawer: const navigationDrawer(),
+              drawer: const NavigationDrawer(),
     );
   }
 

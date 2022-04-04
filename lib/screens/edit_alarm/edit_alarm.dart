@@ -1,21 +1,13 @@
-//import 'package:climate_calendar_new/constants/theme_data.dart';
-import 'package:climate_calendar_new/screens/main/main_screen.dart';
+
+import 'package:auto_route/auto_route.dart';
 import 'package:climate_calendar_new/services/alarm_list_manager.dart';
 import 'package:climate_calendar_new/services/alarm_scheduler.dart';
 import 'package:climate_calendar_new/stores/alarm_list/alarm_list.dart';
 import 'package:climate_calendar_new/stores/observable_alarm/observable_alarm.dart';
 import 'package:climate_calendar_new/ui/text_scale.dart';
 import 'package:climate_calendar_new/widgets/dialog_container/dialog_container.dart';
-//import 'package:climate_calendar_new/widgets/simple_button.dart';
 import 'package:flutter/material.dart';
-//import 'package:flutter/rendering.dart';
-//import 'package:clockee/screens/edit_alarm/components/edit_alarm_days.dart';
-//import 'package:clockee/screens/edit_alarm/components/edit_alarm_music.dart';
-//import 'package:clockee/screens/edit_alarm/components/edit_alarm_slider.dart';
-//import 'package:clockee/utils/widget_helper.dart';
-//import 'package:flutter_mobx/flutter_mobx.dart';
-//import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-
+import '../../routes/ router.gr.dart';
 import 'components/edit_alarm_days.dart';
 import 'components/edit_alarm_head.dart';
 import 'components/edit_alarm_time.dart';
@@ -26,7 +18,8 @@ class EditAlarm extends StatelessWidget {
   final AlarmList? alarms;
   final String? title;
 
-  EditAlarm({this.alarm, this.manager, this.alarms, this.title});
+  // ignore: use_key_in_widget_constructors
+  const EditAlarm({this.alarm, this.manager, this.alarms, this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -52,9 +45,7 @@ class EditAlarm extends StatelessWidget {
                 TextScaleFactorClamper(
                               child:Text(
                   title!,
-                  //textScaleFactor: 1.0,
-                  //textAlign: TextAlign.right,
-                  style: TextStyle(color: Colors.white, fontSize: 30),
+                  style: const TextStyle(color: Colors.white, fontSize: 30),
                 )),
               ]),
           SizedBox(
@@ -62,26 +53,20 @@ class EditAlarm extends StatelessWidget {
           ),
           Column(
             children: <Widget>[
-              //Divider(),
               Padding(
                 padding:
                     EdgeInsets.symmetric(horizontal:  MediaQuery.of(context).size.height * 0.1),
                 child: EditAlarmTime(alarm: this.alarm!),
               ),
 
-              EditAlarmDays(this.manager,  this.alarms,  this.title, alarm: this.alarm!,),
+              EditAlarmDays(this.manager, this.alarms,  this.title, alarm: this.alarm!,  ), 
 
               EditAlarmHead(alarm: this.alarm!),
-              //Divider(),
-              //text("repeat", fontSize: CustomFontSize.textSizeSmall),
-              //Divider(),
-              SizedBox(
+
+              const SizedBox(
                 height: 10,
               ),
-              //EditAlarmMusic(alarm: this.alarm!),
-              //Divider(),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                //Expanded(child: EditAlarmSlider(alarm: this.alarm!)),
                 Padding(
                     padding: EdgeInsets.only(
                         top: MediaQuery.of(context).size.height * 0.05,
@@ -92,14 +77,15 @@ class EditAlarm extends StatelessWidget {
                           alarms!.alarms.add(alarm!);
                           await manager!.saveAlarm(alarm!);
                           await AlarmScheduler().scheduleAlarm(alarm!);
-                         // }
                           
                           //Navigator.pop(context);
-                                                                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MainScreen(alarms: this.alarms!,
-                                  )));
+                          //Navigator.push(
+                          //context,
+                          //MaterialPageRoute(
+                              //builder: (context) => 
+                             context.pushRoute(MainScreen(alarms: this.alarms!));
+                             //Navigator.pushNamed(context, "/");
+                             
                         },
                         child: Stack(
                           alignment: Alignment.center,
@@ -124,7 +110,6 @@ class EditAlarm extends StatelessWidget {
             ],
           ),
         ]),
-      //),
         ));
   }
 }

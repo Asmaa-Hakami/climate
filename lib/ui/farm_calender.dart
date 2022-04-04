@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../main.dart';
-import 'nav_bar.dart';
+import '../nav_bar.dart';
 import 'navdraw.dart';
 import 'top_icons.dart';
 
@@ -34,8 +33,7 @@ class FarmCalender extends StatelessWidget {
                         fontFamily: 'ArbFONTS'),
                     textAlign: TextAlign.center),
                     Padding(padding: EdgeInsets.only(top: 10)),
-                Image.asset(
-                  'assets/images/farm.png',
+                Image.network('https://i.postimg.cc/02sS5CrK/farm.png',//'assets/images/farm.png',
                   height: MediaQuery.of(context).size.height * 0.28,//230,
                   //width: 203,
                 ),
@@ -76,7 +74,7 @@ GestureDetector(
 
                         GestureDetector(
                       onTap: () {
-                        Share.share('https://drive.google.com/file/d/15UHlCAzoQRVKHUkSO8PnnA2j2FSfrWel/view?usp=sharing');
+                        Share.share('https://drive.google.com/file/d/15UHlCAzoQRVKHUkSO8PnnA2j2FSfrWel/view');
                       },
                       child: Stack(
                         alignment: Alignment.center,
@@ -119,15 +117,14 @@ GestureDetector(
           ],
         ),
       ),
-      bottomNavigationBar: NavigationBarBottom(4),
-      drawer: navigationDrawer(),
+              drawer: NavigationDrawer(),
       // ],
       //),
     );
   }
 
         _launchURL() async {
-  const url = 'https://drive.google.com/file/d/15UHlCAzoQRVKHUkSO8PnnA2j2FSfrWel/view?usp=sharing';
+  const url = 'https://drive.google.com/file/d/15UHlCAzoQRVKHUkSO8PnnA2j2FSfrWel/view';
   if (await canLaunch(url)) {
     await launch(url);
   } else {

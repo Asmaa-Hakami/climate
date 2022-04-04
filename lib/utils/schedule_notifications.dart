@@ -1,7 +1,7 @@
 import 'dart:async' show Future;
 import 'dart:math' show Random;
 import 'dart:typed_data' show Int64List;
-import 'dart:ui' show Color;
+//import 'dart:ui' show Color;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -176,6 +176,7 @@ class ScheduleNotifications with HandleError {
   /// Required for Android 8.0+.
   final String? channelDescription;
 
+  // ignore: unused_field
   DateTime? _schedule;
   String? _title;
   String? _body;
@@ -291,8 +292,8 @@ class ScheduleNotifications with HandleError {
     if (title != null) _title = title;
     if (body != null) _body = body;
     if (payload != null) _payload = payload;
-    if (androidAllowWhileIdle != null)
-      _androidAllowWhileIdle = androidAllowWhileIdle;
+    if (androidAllowWhileIdle != null) 
+    _androidAllowWhileIdle = androidAllowWhileIdle;
     if (icon != null) _icon = icon;
     if (importance != null) _importance = importance;
     if (priority != null) _priority = priority;
@@ -386,6 +387,7 @@ class ScheduleNotifications with HandleError {
   }) async {
     assert(_init, 'ScheduleNotifications: Failed to call init() first!');
     if (!_init) return false;
+    // ignore: prefer_typing_uninitialized_variables
     var implementation;
     try {
       implementation = _flutterLocalNotificationsPlugin
@@ -1032,6 +1034,7 @@ class ScheduleNotifications with HandleError {
     List<IOSNotificationAttachment>? attachments,
   ) {
     //
+    // ignore: avoid_init_to_null
     NotificationDetails? notificationSpecifics = null;
 
     // Failed to initialized.
@@ -1107,7 +1110,7 @@ class ScheduleNotifications with HandleError {
       androidSettings = AndroidNotificationDetails(
         channelId ?? "",
         channelName ?? "",
-        channelDescription ?? "",
+        //channelDescription ?? "",
         icon: icon,
         importance: importance ?? Importance.defaultImportance,
         priority: priority ?? Priority.defaultPriority,

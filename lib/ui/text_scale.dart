@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 class TextScaleFactorClamper extends StatelessWidget {
+  // ignore: use_key_in_widget_constructors
   const TextScaleFactorClamper({required this.child});
   final Widget child;
 

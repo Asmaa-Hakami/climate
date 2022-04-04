@@ -1,9 +1,12 @@
 import 'package:location/location.dart';
-import 'package:geocoder/geocoder.dart' as geocoder;
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:geocoding/geocoding.dart' as geocoding;
+
 import 'package:weather/weather.dart';
 
 final location = Location();
- var add;
+// ignore: prefer_typing_uninitialized_variables
+var add;
 
 String key = 'b4e3c02f31a7333f0a11c81d0fba3af7';
 WeatherFactory? wf;
@@ -26,41 +29,16 @@ Future<LocationData?> getLocationData() async {
     }
   }
 
-  LocationData locationData = await location.getLocation();
-  add = await geocoder.Geocoder.local.findAddressesFromCoordinates(
-    geocoder.Coordinates(locationData.latitude, locationData.longitude),
-  );
-  wf = WeatherFactory(key);
-  w = await wf!.currentWeatherByLocation(
-      locationData.latitude!, locationData.longitude!);
-      
-  return await location
-      .getLocation(); //locationData; //await location.getLocation();
-}
-
-/*
-  Future<geocoder.Address> getAddress() async {
-
+  if (add == null) {
     LocationData locationData = await location.getLocation();
-    //address = await geocoder.Geocoder.local.findAddressesFromCoordinates(
-    //  geocoder.Coordinates(locationData.latitude, locationData.longitude),
-    //);
-   // getLocationData().then((locationData) {
-     // if (locationData != null) {
-    address = geocoder.Geocoder.local.findAddressesFromCoordinates(
-      geocoder.Coordinates(locationData.latitude, locationData.longitude),
-    );
-    //yourCityName =  address.first.locality.toString();
+    add = await geocoding.placemarkFromCoordinates(
+        locationData.latitude!, locationData.longitude!,
+        localeIdentifier: "en");
 
-       // String key = 'b4e3c02f31a7333f0a11c81d0fba3af7';
-   // WeatherFactory wf = WeatherFactory(key);
-
-   //  Weather w = await  wf.currentWeatherByLocation(locationData.latitude!, locationData.longitude!);
-
-      //celsius = w.temperature!.celsius!.toInt();
-
-    return await address ; //+ ' ' + celsius.toString()
+    wf = WeatherFactory(key);
+    w = await wf!.currentWeatherByLocation(
+        locationData.latitude!, locationData.longitude!);
   }
-  */
-    
-  
+
+  return await location.getLocation();
+}

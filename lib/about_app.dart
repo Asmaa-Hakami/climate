@@ -1,7 +1,5 @@
-import 'package:climate_calendar_new/ui/nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
-import 'main.dart';
 import 'ui/navdraw.dart';
 import 'ui/top_icons.dart';
 
@@ -18,15 +16,14 @@ class AboutApp extends StatelessWidget {
             TopIconsGreen(context, 1),
             Center(
               child: Column(
-                //mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    'assets/images/logo.png',
-                    height: MediaQuery.of(context).size.height * 0.15//118,
-                    //width: 129,
-                  ),
+                  Image.network(
+                      'https://i.postimg.cc/wjFLGsqy/logo.png', //'assets/images/logo.png',
+                      height: MediaQuery.of(context).size.height * 0.15 //118,
+                      //width: 129,
+                      ),
                   const Text(
-                    '١.٠.٠',
+                    '١.٠.٢',
                     textScaleFactor: 1.0,
                     style: TextStyle(
                         color: Color(0xFF506B75),
@@ -89,49 +86,51 @@ class AboutApp extends StatelessWidget {
                     child:
 // ignore: deprecated_member_use
                         GestureDetector(
-                      onTap: () {
-                        Share.share('https://drive.google.com/file/d/1UaZs9z2RrtE181s2F48Ik-a-xFQ7dCqs/view?usp=sharing');
-                      },
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: 
-                        [
-                           Image.asset(
-                              'assets/images/sharing_box.png',
-                              width: MediaQuery.of(context).size.width * 0.33, //145,//
-                              height: MediaQuery.of(context).size.height * 0.06, //45,//
-                              fit: BoxFit.fill,
-                            ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Image.asset(
-                            'assets/icons/sharing.png',
-                            height: 20.0,
-                            width: 20.0,
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(left: 10, right: 10),
-                            child: Text(
-                              "مشاركة",
-                              textScaleFactor: 1.0,
-                              style: TextStyle(
-                                  fontSize: 20.0,
-                                  color: Colors.white,
-                                  fontFamily: 'ArbFONTS'),
-                            ),
-                          ),
-                        ],
-                      ),
-                        ])
-                    ),
+                            onTap: () {
+                              Share.share(
+                                  'https://play.google.com/store/apps/details?id=com.climate.climate_calendar_andtoid'); //https://drive.google.com/file/d/1UaZs9z2RrtE181s2F48Ik-a-xFQ7dCqs/view?usp=sharing
+                            },
+                            child:
+                                Stack(alignment: Alignment.center, children: [
+                              Image.asset(
+                                'assets/images/sharing_box.png',
+                                width: MediaQuery.of(context).size.width *
+                                    0.33, //145,//
+                                height: MediaQuery.of(context).size.height *
+                                    0.05, //45,//
+                                fit: BoxFit.fill,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Image.asset(
+                                    'assets/icons/sharing.png',
+                                    height: 20.0,
+                                    width: 20.0,
+                                  ),
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.only(left: 10, right: 10),
+                                    child: Text(
+                                      "مشاركة",
+                                      textScaleFactor: 1.0,
+                                      style: TextStyle(
+                                          fontSize: 20.0,
+                                          color: Colors.white,
+                                          fontFamily: 'ArbFONTS'),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ])),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.width * 0.23,
                         vertical: MediaQuery.of(context).size.height * 0.01),
-                    child: const Image(image: AssetImage('assets/icons/line.png')),
+                    child:
+                        const Image(image: AssetImage('assets/icons/line.png')),
                   ),
                   const Text(
                     'تصميم\n شذى الشيخي   Shatha.alsheikhii@gmail.com\n',
@@ -159,8 +158,7 @@ class AboutApp extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: NavigationBarBottom(4),
-      drawer: const navigationDrawer(),
+      drawer: const NavigationDrawer(),
     );
   }
 }

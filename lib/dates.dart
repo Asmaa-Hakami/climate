@@ -1,9 +1,7 @@
-
 import 'package:hijri/hijri_calendar.dart';
 import 'package:intl/intl.dart';
 
-class AllDates{
-
+class AllDates {
   static DateTime mToday = DateTime.now();
   static int mnum = mToday.month;
   static String mDate = replaceEngNumber(mToday.day.toString());
@@ -16,8 +14,8 @@ class AllDates{
   static String hMonth =
       replaceEngMonth(_today.hMonth.toString()); //Rabi' al-awwal
   static String hdate = replaceEngNumber(_today.hDay.toString());
-  
-   static String replaceEngDay(String day) {
+
+  static String replaceEngDay(String day) {
     const english = [
       'Sunday',
       'Monday',
@@ -89,8 +87,17 @@ class AllDates{
     return month;
   }
 
-  static String replaceToEngMonth(String month) {
+  String toEngNum(String num) {
+    const english = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    const arab = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
 
+    for (int i = 0; i < english.length; i++) {
+      num = num.replaceAll(arab[i], english[i]);
+    }
+    return num;
+  }
+
+  static String replaceToEngMonth(String month) {
     const english = [
       'Jan',
       'Feb',
@@ -125,5 +132,4 @@ class AllDates{
     }
     return month;
   }
-
 }

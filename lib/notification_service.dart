@@ -1,9 +1,8 @@
 
 // import 'package:path/path.dart';
 
-import 'package:climate_calendar_new/get_location.dart';
-import 'package:climate_calendar_new/ui/zodiac_info.dart';
-import 'package:flutter/material.dart';
+//import 'package:climate_calendar_new/ui/zodiac_info.dart';
+//import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -32,52 +31,37 @@ class NotificationService {
         AndroidInitializationSettings('@mipmap/ic_launcher');
 
     final IOSInitializationSettings initializationSettingsIOS =
+        // ignore: prefer_const_constructors
         IOSInitializationSettings(
       requestSoundPermission: false,
       requestBadgePermission: false,
       requestAlertPermission: false,
     );
 
+
     final InitializationSettings initializationSettings =
         InitializationSettings(
             android: initializationSettingsAndroid,
-            iOS: initializationSettingsIOS,
-            macOS: null);
+            iOS: initializationSettingsIOS);
 
     tz.initializeTimeZones();
 
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onSelectNotification: selectNotification);
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings); //onSelectNotification: selectNotification
   }
-
-Future<void> _createNotificationChannel(String id, String name,
-    String description) async {
-  final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-  var androidNotificationChannel = AndroidNotificationChannel(
-    id,
-    name,
-    description,
-  );
-  await flutterLocalNotificationsPlugin
-      .resolvePlatformSpecificImplementation<
-      AndroidFlutterLocalNotificationsPlugin>()
-      ?.createNotificationChannel(androidNotificationChannel);
-}
-
-//late Future<void> azanChannel = _createNotificationChannel('0', 'Azan', 'with specefic sound');
-//late Future<void> enteredChannel = _createNotificationChannel('1', 'Entered', 'just device sound');
 
 static Future _datesNotificationDetails() async{
   return const NotificationDetails(
       android: AndroidNotificationDetails(
     'date channel id 0',
     'channel name', //'channel name',
-    'channel description',
+    //'channel description',
     playSound: true,
     priority: Priority.high,
     importance: Importance.max,
   ),
-  iOS: IOSNotificationDetails(),
+  iOS: IOSNotificationDetails(
+
+  ),
   );
 }
 
@@ -85,9 +69,9 @@ static Future _notificationDetails() async{
   //var fileName = name;
   return const NotificationDetails(
       android: AndroidNotificationDetails(
-    'azan channel id 0',
+    'azan channel id 3',
     'channel name', //'channel name0',
-    'channel description',
+    //'channel description',
     
      sound: RawResourceAndroidNotificationSound('azan'),
     playSound: true,
@@ -95,6 +79,8 @@ static Future _notificationDetails() async{
     importance: Importance.max,
   ),
   iOS: IOSNotificationDetails(
+    presentSound: true,
+    sound: 'azan.mp3'
     //sound: 
   ),
   );
@@ -143,13 +129,16 @@ static Future _notificationDetails() async{
             UILocalNotificationDateInterpretation.absoluteTime);
   }
 
+     void requestIOSPermissions(
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin) {
+  flutterLocalNotificationsPlugin
+      .resolvePlatformSpecificImplementation<
+          IOSFlutterLocalNotificationsPlugin>()
+      ?.requestPermissions(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
 }
 
-Future selectNotification(String? payload) async {
-  Future<Widget?> build(BuildContext context) async {
-  return await Navigator.push(
-    context, // BuidContext context
-    MaterialPageRoute(builder: (context) => ZodiacInfo(int.parse(payload.toString()))),
-  );
-  }
 }

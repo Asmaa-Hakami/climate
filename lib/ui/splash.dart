@@ -2,11 +2,15 @@
 import 'dart:async';
 
 //import 'package:flutter/cupertino.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter/services.dart';
 //import 'package:video_player/video_player.dart';
 
-import '../home_page.dart';
+//import '../get_location.dart';
+import '../all_notifications.dart';
+import '../get_location.dart';
+import '../routes/ router.gr.dart';
 //import '../main.dart';
 
 
@@ -19,82 +23,21 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
 
-      @override void initState() { 
-    super.initState(); 
-    Future.delayed( const Duration(seconds: 7), () =>
-    Navigator.pushReplacement( context, 
-    MaterialPageRoute(builder: (context) => const HomePage()),
-       ));
-     }
-  /*
-  late VideoPlayerController? _controller;
-  bool _visible = true;
-
-  @override
+      @override 
   void initState() {
     super.initState();
-
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-    ]);
-
-    _controller = VideoPlayerController.asset("assets/video/start.mp4");
-    _controller!.initialize().then((_) {
-      _controller!.setLooping(true);
-      Timer(const Duration(milliseconds: 100), () {
-        setState(() {
-          _controller!.play();
-          _visible = true;
-        });
-      });
-    });
-
-    Future.delayed(const Duration(seconds: 6), () {
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-              builder: (context) => HomePage(MyApp.nowStatus)),
-          (e) => false);
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    if (_controller != null) {
-      _controller!.dispose();
-      _controller = null;
-    }
-  }
-
-  _getVideoBackground() {
-    return AnimatedOpacity(
-      opacity: _visible ? 1.0 : 0.0,
-      duration: const Duration(milliseconds: 1000),
-      child: VideoPlayer(_controller!),
+    //getLocationData();
+    //AllNotifications.appNotifications();  
+    Future.delayed(
+      const Duration(seconds: 8),
+      () => context.replaceRoute(const NavigationBarBottom()),
     );
   }
-
-/*
-  _getBackgroundColor() {
-    return Container(color: Colors.transparent //.withAlpha(120),
-        );
-  }
-
-  _getContent() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.start,
-    );
-  }
-  */
-*/
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Colors.white, 
-       body: Container( 
+       body: SizedBox( 
        height: double.infinity, 
        width: double.infinity, 
       child: Image.asset("assets/images/splash.gif", 
@@ -102,6 +45,7 @@ class _SplashPageState extends State<SplashPage> {
       fit: BoxFit.contain
       )
       ));
+      
       
       /*Center(
         child: Stack(

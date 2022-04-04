@@ -1,10 +1,9 @@
-//import 'package:clockee/constants/theme_data.dart';
+
 import 'package:climate_calendar_new/stores/observable_alarm/observable_alarm.dart';
 import 'package:climate_calendar_new/ui/text_scale.dart';
 import 'package:climate_calendar_new/ui/top_icons.dart';
 import 'package:flutter/material.dart';
-//import 'package:flutter_mobx/flutter_mobx.dart';
-//import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+
 
 class EditAlarmHead extends StatefulWidget {
   final ObservableAlarm alarm;
@@ -21,7 +20,6 @@ class _EditAlarmHeadState extends State<EditAlarmHead> {
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
       const Padding(padding: EdgeInsets.only(right: 10)),
       Column(
-          // ignore: prefer_const_literals_to_create_immutables
           children: <Widget>[
             Container(
               width: MediaQuery.of(context).size.width * 0.82,
@@ -34,11 +32,8 @@ class _EditAlarmHeadState extends State<EditAlarmHead> {
             ),
             GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              AlarmTitle(alarm: this.widget.alarm)));
+                   Navigator.push(context, MaterialPageRoute(builder: (context) => AlarmTitle(alarm: this.widget.alarm)));
+                  //context.pushRoute(g.AlarmTitle(alarm: this.widget.alarm));
                 },
                 child: Stack(
                   alignment: Alignment.centerRight,
@@ -55,27 +50,12 @@ class _EditAlarmHeadState extends State<EditAlarmHead> {
                 ))
           ])
     ]);
-    //onChanged: (newName) => newName == '' ? widget.alarm.name == 'منبه جديد' : widget.alarm.name = nameController.text,  //newName == '' ? widget.alarm.name == 'منبه جديد' :
-
-    /*
-        Observer(
-          builder: (context) => NeumorphicSwitch(
-            value: alarm.active!,
-            onChanged: (value) {
-              alarm.active = !alarm.active!;
-            },
-            style: NeumorphicSwitchStyle(
-              activeTrackColor: Colors.green,
-              inactiveTrackColor: CustomColors.sdShadowDarkColor,
-            ),
-          ),
-        )
-        */
   }
 }
 
 
 
+// ignore: must_be_immutable
 class AlarmTitle extends StatelessWidget {
   final ObservableAlarm alarm;
   AlarmTitle({Key? key, required this.alarm}) : super(key: key);
@@ -85,8 +65,18 @@ class AlarmTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Container(
+      resizeToAvoidBottomInset: false,
+      body: GestureDetector(
+          onTap: () {
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
+          child: SafeArea(
+            top: false,
+            bottom: false,
+            child: SingleChildScrollView(
+        child: Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage('assets/images/title_repeat_back.png'),
@@ -94,7 +84,6 @@ class AlarmTitle extends StatelessWidget {
             ),
           ),
           child: Column(
-            //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               TopIconsWhite(context, 0),
               Row(
@@ -107,7 +96,6 @@ class AlarmTitle extends StatelessWidget {
                               child:Text(
                     'العنوان',
                     textScaleFactor: 1.0,
-                    //textAlign: TextAlign.right,
                     style: TextStyle(color: Colors.white, fontSize: 25),
                   )),
                 ],
@@ -171,6 +159,7 @@ class AlarmTitle extends StatelessWidget {
                   )),
             ],
           ),
+        )))
         ));
   }
 }

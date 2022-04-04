@@ -1,3 +1,4 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:adhan/adhan.dart';
 import 'package:climate_calendar_new/all_data.dart';
 import 'package:location/location.dart';
@@ -8,17 +9,16 @@ import 'notification_service.dart';
 import 'package:intl/intl.dart';
 
 class AllNotifications {
-  static PrayerTimes? prayerTimes; //= PrayerTimes.today(, calculationParameters);
-  //Prayer? next;
+  static PrayerTimes? prayerTimes;
   final location = Location();
-   static DateTime mToday = DateTime.now(); // DateTime(2021, 1, 22, 12, 32); // 
+   static DateTime mToday = DateTime.now(); 
 
 
 static void prayerNotifications(locationData){
       //getLocationData().then((locationData) {
          DateTime now = DateTime.now(); 
       if (locationData != null) {
-        for (var i = 0; i < 7; i++) {
+        for (var i = 0; i < 5; i++) {
           prayerTimes = PrayerTimes(
               Coordinates(locationData.latitude, locationData.longitude),
               DateComponents.from(now.add(Duration(days: i))),
@@ -27,66 +27,55 @@ static void prayerNotifications(locationData){
 
             if (mToday.isBefore(prayerTimes!.dhuhr)) {
               NotificationService.azanScheduleNotifications(
-                //title: formattedPrayerName(next!).toString(),
                 body: ('الظهر'),
                 payload: '0',
                 schedualedDate: DateTime(prayerTimes!.dhuhr.year, prayerTimes!.dhuhr.month, prayerTimes!.dhuhr.day, prayerTimes!.dhuhr.hour, prayerTimes!.dhuhr.minute), //prayerTimes!.isha//'2022-01-07 01:48'
-                //'2022-01-07 01:48'  //'${now.year}-${now.month}-${now.day} ' + DateFormat.jm().format(
-              );//DateFormat('yyyyy-MM-dd h:mm').parse('${prayerTimes!.dhuhr}'),
+              );
               
               NotificationService.azanScheduleNotifications(
-                //title: formattedPrayerName(next!).toString(),
                 body: ('العصر'),
                 payload: '0',
                 schedualedDate: DateTime(prayerTimes!.asr.year, prayerTimes!.asr.month, prayerTimes!.asr.day, prayerTimes!.asr.hour, prayerTimes!.asr.minute), //prayerTimes!.isha//'2022-01-07 01:48'
               );
               NotificationService.azanScheduleNotifications(
-                //title: formattedPrayerName(next!).toString(),
                 body: ('المغرب'),
                 payload: '0',
                 schedualedDate: DateTime(prayerTimes!.maghrib.year, prayerTimes!.maghrib.month, prayerTimes!.maghrib.day, prayerTimes!.maghrib.hour, prayerTimes!.maghrib.minute), //prayerTimes!.isha//'2022-01-07 01:48'
               );
               NotificationService.azanScheduleNotifications(
-                //title: formattedPrayerName(next!).toString(),
                 body: ('العشاء'),
                 payload: '0',
                 schedualedDate: DateTime(prayerTimes!.isha.year, prayerTimes!.isha.month, prayerTimes!.isha.day, prayerTimes!.isha.hour, prayerTimes!.isha.minute), //prayerTimes!.isha//'2022-01-07 01:48'
               );
             } else if (mToday.isBefore(prayerTimes!.asr)) {
               NotificationService.azanScheduleNotifications(
-                //title: formattedPrayerName(next!).toString(),
                 body: ('العصر'),
                 payload: '0',
                 schedualedDate: DateTime(prayerTimes!.asr.year, prayerTimes!.asr.month, prayerTimes!.asr.day, prayerTimes!.asr.hour, prayerTimes!.asr.minute), //prayerTimes!.isha//'2022-01-07 01:48'
               );
               NotificationService.azanScheduleNotifications(
-                //title: formattedPrayerName(next!).toString(),
                 body: ('المغرب'),
                 payload: '0',
                 schedualedDate: DateTime(prayerTimes!.maghrib.year, prayerTimes!.maghrib.month, prayerTimes!.maghrib.day, prayerTimes!.maghrib.hour, prayerTimes!.maghrib.minute), //prayerTimes!.isha//'2022-01-07 01:48'
               );
               NotificationService.azanScheduleNotifications(
-                //title: formattedPrayerName(next!).toString(),
                 body: ('العشاء'),
                 payload: '0',
                 schedualedDate: DateTime(prayerTimes!.isha.year, prayerTimes!.isha.month, prayerTimes!.isha.day, prayerTimes!.isha.hour, prayerTimes!.isha.minute), //prayerTimes!.isha//'2022-01-07 01:48'
               );
             } else if (mToday.isBefore(prayerTimes!.maghrib)) {
               NotificationService.azanScheduleNotifications(
-                //title: formattedPrayerName(next!).toString(),
                 body: ('المغرب'),
                 payload: '0',
                 schedualedDate: DateTime(prayerTimes!.maghrib.year, prayerTimes!.maghrib.month, prayerTimes!.maghrib.day, prayerTimes!.maghrib.hour, prayerTimes!.maghrib.minute), //prayerTimes!.isha//'2022-01-07 01:48'
               );
               NotificationService.azanScheduleNotifications(
-                //title: formattedPrayerName(next!).toString(),
                 body: ('العشاء'),
                 payload: '0',
                 schedualedDate: DateTime(prayerTimes!.isha.year, prayerTimes!.isha.month, prayerTimes!.isha.day, prayerTimes!.isha.hour, prayerTimes!.isha.minute), //prayerTimes!.isha//'2022-01-07 01:48'
               );
             } else if (mToday.isBefore(prayerTimes!.isha)) {
               NotificationService.azanScheduleNotifications(
-                //title: formattedPrayerName(next!).toString(),
                 body: ('العشاء'),
                 payload: '0',
                 schedualedDate: DateTime(prayerTimes!.isha.year, prayerTimes!.isha.month, prayerTimes!.isha.day, prayerTimes!.isha.hour, prayerTimes!.isha.minute), //prayerTimes!.isha//'2022-01-07 01:48'
@@ -95,27 +84,22 @@ static void prayerNotifications(locationData){
 
           } else {
             NotificationService.azanScheduleNotifications(
-              //title: formattedPrayerName(next!).toString(),
               body: ('الفجر'),
               payload: '0',
                 schedualedDate: DateTime(prayerTimes!.fajr.year, prayerTimes!.fajr.month, prayerTimes!.fajr.day, prayerTimes!.fajr.hour, prayerTimes!.fajr.minute), //prayerTimes!.isha//'2022-01-07 01:48'
             );
               NotificationService.azanScheduleNotifications(
-                //title: formattedPrayerName(next!).toString(),
                 body: ('الظهر'),
                 payload: '0',
                 schedualedDate: DateTime(prayerTimes!.dhuhr.year, prayerTimes!.dhuhr.month, prayerTimes!.dhuhr.day, prayerTimes!.dhuhr.hour, prayerTimes!.dhuhr.minute), //prayerTimes!.isha//'2022-01-07 01:48'
-                //'2022-01-07 01:48'  //'${now.year}-${now.month}-${now.day} ' + DateFormat.jm().format(
-              );//DateFormat('yyyyy-MM-dd h:mm').parse('${prayerTimes!.dhuhr}'),
+              );
               
               NotificationService.azanScheduleNotifications(
-                //title: formattedPrayerName(next!).toString(),
                 body: ('العصر'),
                 payload: '0',
                 schedualedDate: DateTime(prayerTimes!.asr.year, prayerTimes!.asr.month, prayerTimes!.asr.day, prayerTimes!.asr.hour, prayerTimes!.asr.minute), //prayerTimes!.isha//'2022-01-07 01:48'
               );
               NotificationService.azanScheduleNotifications(
-                //title: formattedPrayerName(next!).toString(),
                 body: ('المغرب'),
                 payload: '0',
                 schedualedDate: DateTime(prayerTimes!.maghrib.year, prayerTimes!.maghrib.month, prayerTimes!.maghrib.day, prayerTimes!.maghrib.hour, prayerTimes!.maghrib.minute), //prayerTimes!.isha//'2022-01-07 01:48'
@@ -129,7 +113,6 @@ static void prayerNotifications(locationData){
           }
         }}
       else{
-        print('Location Error');
       }
 }
 
@@ -138,30 +121,7 @@ static void prayerNotifications(locationData){
    LocationData? locationData = await getLocationData();  
 
     prayerNotifications(locationData);
-
-/*
-    for (var i = 0; i < AllData.seasinsInfo.length; i++) {
-      for (var j = 0; j < AllData.seasinsInfo[i][2].length; j++) {
-        if  (mToday.isBefore(AllData.seasinsInfo[i][2][j][1])) {
-          NotificationService.datesScheduleNotifications(
-            title: AllDates.replaceEngNumber(
-                    AllData.seasinsInfo[i][2][j][1].day.toString()) + ' ' +
-                AllDates.replaceToEngMonth(DateFormat('MMM')
-                    .format(AllData.seasinsInfo[i][2][j][1])
-                    .toString()),
-            body: 'بداية موسم ' + AllData.seasinsInfo[i][2][j][0],
-            payload: '0',
-            schedualedDate: DateTime(
-                AllData.seasinsInfo[i][2][j][1].year,
-                AllData.seasinsInfo[i][2][j][1].month,
-                AllData.seasinsInfo[i][2][j][1].day,
-                0,
-                0),
-          );
-        }
-      }
-    }
-    */
+    
         for (var i = 0; i < AllData.zodiacDates.length; i++) {
         if  (mToday.isBefore(AllData.zodiacDates[i][1])) {
           NotificationService.datesScheduleNotifications(
@@ -182,72 +142,6 @@ static void prayerNotifications(locationData){
         }
     }
     
-    
-
-//_____________________________________________________TEST_____________________________________________________
-
-/*
-          //if (mToday.isAfter(prayerTimes!.isha)) {
-                      prayerTimes = PrayerTimes(
-              Coordinates(locationData!.latitude, locationData.longitude),
-              DateComponents.from(mToday),
-              CalculationMethod.umm_al_qura.getParameters());
-
-              print(prayerTimes!.maghrib);
-
-              NotificationService.azanScheduleNotifications(
-                //title: formattedPrayerName(next!).toString(),
-                body: ('لحاله المغرب'),
-                payload: '0',
-                schedualedDate: 
-                prayerTimes!.maghrib //'2022-01-07 01:48'
-              );
-
-    
-                    NotificationService.azanScheduleNotifications(
-      title: AllDates.replaceEngNumber(AllData.summerDate[0].day.toString()) + AllDates.replaceToEngMonth(DateFormat('MMM').format(AllData.summerDate[0]).toString()),
-      body: '  دخول صلاة المغرب',
-      payload: '0',
-      schedualedDate: DateTime(mToday.year, mToday.month, mToday.day , 9, 19), //prayerTimes!.maghrib,
-    );
-                    NotificationService.azanScheduleNotifications(
-      title: AllDates.replaceEngNumber(AllData.summerDate[0].day.toString()) + AllDates.replaceToEngMonth(DateFormat('MMM').format(AllData.summerDate[0]).toString()),
-      body: ' 2 دخول صلاة المغرب',
-      payload: '0',
-      schedualedDate: DateTime(mToday.year, mToday.month, mToday.day , 9, 20), //prayerTimes!.maghrib,
-    );
-
-          NotificationService.datesScheduleNotifications(
-           // id: dateID + 2,
-      title: 'hhh',
-      body: 'دخول الخريف',
-      payload: '0',
-      schedualedDate: DateTime(mToday.year, mToday.month, mToday.day , 9, 21),
-      
-    );
-         // }
-          
-    
-
-                NotificationService.azanScheduleNotifications(
-      title: AllDates.replaceEngNumber(AllData.summerDate[0].day.toString()) + AllDates.replaceToEngMonth(DateFormat('MMM').format(AllData.summerDate[0]).toString()),
-      body: ' 2 دخول صلاة المغرب',
-      payload: '0',
-      schedualedDate: DateTime(mToday.year, mToday.month, mToday.day , 19, 25), //prayerTimes!.maghrib,
-    );
-    
-
-        NotificationService.azanScheduleNotifications(
-      title: AllDates.replaceEngNumber(AllData.summerDate[0].day.toString()) + AllDates.replaceToEngMonth(DateFormat('MMM').format(AllData.summerDate[0]).toString()),
-      body: 'دخول صلاة المغرب',
-      payload: '0',
-      schedualedDate: prayerTimes!.isha, // DateTime(mToday.year, mToday.month, mToday.day , 16, 44), //prayerTimes!.maghrib,
-    );
-    */
-        //    }
-            
-//_____________________________________________________TEST_____________________________________________________
-
     
 
     if (AllData.summerDate[0].isAfter(mToday)) {
