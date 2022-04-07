@@ -72,9 +72,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Observer(builder: (context) {
         AlarmStatus status = AlarmStatus();
-        print('Stage 1 ok!');
         if (status.isAlarm) {
-          print('Stage 2 ok!');
           final id = status.alarmId;
           final alarm = list.alarms.firstWhere((alarm) => alarm.id == id,
               orElse: () => ObservableAlarm());

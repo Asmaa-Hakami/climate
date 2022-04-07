@@ -1,0 +1,2 @@
+android/app/build/ filter=lfs diff=lfs merge=lfs -text
+*android/app/build/ filter=lfs diff=lfs merge=lfs -text

@@ -106,7 +106,13 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                   createDrawerBodyItem(
                     icon: const AssetImage('assets/icons/alarm.png'),
                     text: 'المنبه',
-                    onTap: () => openRoute(MainScreen(alarms: list)),
+                    onTap: () {
+                          if (context.router.canPopSelfOrChildren) {
+      context.replaceRoute(MainScreen(alarms: list));
+    } else{
+                       context.navigateTo(MainScreenRouter(children: [MainScreen(alarms: list)])); // {}//openRoute(MainScreen(alarms: list)), //
+                    }
+                    }
                     ),
                   const Padding(
                     padding: EdgeInsets.only(left: 50, right: 30),
@@ -131,14 +137,18 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
   }
 
   void openRoute<T>(PageRouteInfo<T> route) {
+
     if (Scaffold.of(context).isDrawerOpen) {
       Scaffold.of(context).openEndDrawer();
     }
+
     if (context.router.canPopSelfOrChildren) {
       context.replaceRoute(route);
     } else {
-      context.pushRoute(route);
+      //context.pushRoute(route);
+      context.navigateTo(HomeRouter(children: [route]));
     }
+      
   }
 }
 

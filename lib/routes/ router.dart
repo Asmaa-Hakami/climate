@@ -1,5 +1,8 @@
 // ignore: file_names
 import 'package:auto_route/auto_route.dart';
+import 'package:climate_calendar_new/screens/edit_alarm/components/edit_alarm_days.dart';
+import 'package:climate_calendar_new/screens/edit_alarm/components/edit_alarm_head.dart';
+import 'package:climate_calendar_new/screens/edit_alarm/edit_alarm.dart';
 import 'package:climate_calendar_new/screens/main/main_screen.dart';
 import 'package:climate_calendar_new/ui/splash.dart';
 import '../about_app.dart';
@@ -61,7 +64,6 @@ import '../zodiacs/zodiac_info.dart';
             AutoRoute(path: ':drawerRamadan', page: Ramadan),
             AutoRoute(path: ':drawerAboutApp', page: AboutApp),
 
-            AutoRoute(path: 'alarmID', page: MainScreen),
           ],
         ),
         AutoRoute(
@@ -86,7 +88,6 @@ import '../zodiacs/zodiac_info.dart';
             AutoRoute(path: ':drawerRamadan', page: Ramadan),
             AutoRoute(path: ':drawerAboutApp', page: AboutApp),
 
-            AutoRoute(path: 'alarmID', page: MainScreen),
           ],
         ),
         AutoRoute(
@@ -109,7 +110,6 @@ import '../zodiacs/zodiac_info.dart';
               AutoRoute(path: ':drawerRamadan', page: Ramadan),
               AutoRoute(path: ':drawerAboutApp', page: AboutApp),
 
-              AutoRoute(path: 'alarmID', page: MainScreen), //drawerAlarm
             ]),
 
         AutoRoute(
@@ -139,9 +139,19 @@ import '../zodiacs/zodiac_info.dart';
               AutoRoute(path: ':drawerRamadan', page: Ramadan),
               AutoRoute(path: ':drawerAboutApp', page: AboutApp),
 
-              AutoRoute(path: 'alarmID', page: MainScreen),
             ]),
         
+                AutoRoute(
+            path: 'screens',
+            name: 'MainScreenRouter',
+            page: EmptyRouterPage,
+            children: [
+              AutoRoute(path: '', page: MainScreen),
+              AutoRoute(path: 'editID', page: EditAlarm),
+              AutoRoute(path: ':title', page: AlarmTitle),
+              AutoRoute(path: ':repeat', page: RepeatAlarm),
+
+            ]),
             
             ],
     ),

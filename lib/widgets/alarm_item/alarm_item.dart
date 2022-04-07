@@ -1,6 +1,6 @@
 // ignore_for_file: unnecessary_this
 
-import 'package:climate_calendar_new/screens/edit_alarm/edit_alarm.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:climate_calendar_new/services/alarm_list_manager.dart';
 import 'package:climate_calendar_new/services/alarm_scheduler.dart';
 import 'package:climate_calendar_new/stores/alarm_list/alarm_list.dart';
@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../dates.dart';
+import '../../routes/ router.gr.dart';
 
 class AlarmItem extends StatelessWidget {
   final ObservableAlarm alarm;
@@ -23,16 +24,12 @@ class AlarmItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => EditAlarm(
+        context.pushRoute(EditAlarm(
               alarm: alarm,
               manager: manager,
               alarms: alarms,
               title: 'تحرير المنبه',
             ),
-          ),
         );
         AlarmScheduler().clearAlarm(alarm);
         alarms.alarms.remove(alarm);
@@ -86,16 +83,12 @@ class AlarmItem extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 5),
                     child: GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => EditAlarm(
+                          context.pushRoute(EditAlarm(
                                 alarm: this.alarm,
                                 manager: this.manager,
                                 alarms: this.alarms,
                                 title: 'تحرير المنبه',
                               ),
-                            ),
                           );
                           AlarmScheduler().clearAlarm(alarm);
                           alarms.alarms.remove(alarm);

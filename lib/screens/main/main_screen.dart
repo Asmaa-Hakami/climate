@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:climate_calendar_new/services/alarm_list_manager.dart';
 import 'package:climate_calendar_new/services/alarm_scheduler.dart';
 import 'package:climate_calendar_new/stores/alarm_list/alarm_list.dart';
@@ -10,7 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
-import '../edit_alarm/edit_alarm.dart';
+
+import '../../routes/ router.gr.dart';
 
 class MainScreen extends StatefulWidget {
   final AlarmList alarms;
@@ -156,15 +158,16 @@ class _MainScreenState extends State<MainScreen> {
         List.filled(7, false),
         ObservableList<String>.of([]),
         <String>[]);
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => EditAlarm(
+    //Navigator.push(
+      //  context,
+       // MaterialPageRoute(
+         // builder: (context) => 
+         context.pushRoute( EditAlarm(
             alarm: newAlarm,
             manager: _manager,
             alarms: widget.alarms,
             title: 'إضافة المنبه',
           ),
-        ));
+        );
   }
 }

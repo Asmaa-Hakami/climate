@@ -15,9 +15,13 @@ class NavigationBarBottom extends StatelessWidget {
         SeasonsRouter(),
         ZodiacsRouter(),
         MonthsRouter(),
+        MainScreenRouter(),
       ],
       bottomNavigationBuilder: (_, tabsRouter) {
-        return SizedBox(
+        final showBottomBar = (context.topRouteMatch.name != EditAlarm.name); 
+        return Visibility(
+          visible: showBottomBar,
+          child: SizedBox(
             height: 75,
             width: MediaQuery.of(context).size.width,
             child: Material(
@@ -129,8 +133,9 @@ class NavigationBarBottom extends StatelessWidget {
                       title: const Text(''),
                     ),
                   ],
-                )));
-      },
+                ))
+        ));
+        },
     );
   }
 }

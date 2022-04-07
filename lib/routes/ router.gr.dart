@@ -11,7 +11,7 @@
 // ignore_for_file: type=lint
 
 import 'package:auto_route/auto_route.dart' as _i3;
-import 'package:flutter/material.dart' as _i28;
+import 'package:flutter/material.dart' as _i31;
 
 import '../about_app.dart' as _i23;
 import '../home_page.dart' as _i4;
@@ -19,14 +19,19 @@ import '../months/month.dart' as _i8;
 import '../months/month_char.dart' as _i9;
 import '../months/month_temp.dart' as _i11;
 import '../months/month_temp_map.dart' as _i10;
-import '../months/months.dart' as _i27;
+import '../months/months.dart' as _i26;
 import '../nav_bar.dart' as _i2;
 import '../qiblah/qibla.dart' as _i21;
-import '../screens/main/main_screen.dart' as _i24;
+import '../screens/edit_alarm/components/edit_alarm_days.dart' as _i30;
+import '../screens/edit_alarm/components/edit_alarm_head.dart' as _i29;
+import '../screens/edit_alarm/edit_alarm.dart' as _i28;
+import '../screens/main/main_screen.dart' as _i27;
 import '../seasons/season.dart' as _i5;
 import '../seasons/season_char.dart' as _i6;
-import '../seasons/seasons.dart' as _i25;
-import '../stores/alarm_list/alarm_list.dart' as _i29;
+import '../seasons/seasons.dart' as _i24;
+import '../services/alarm_list_manager.dart' as _i34;
+import '../stores/alarm_list/alarm_list.dart' as _i32;
+import '../stores/observable_alarm/observable_alarm.dart' as _i33;
 import '../ui/about_idea.dart' as _i12;
 import '../ui/calendar.dart' as _i18;
 import '../ui/calendar_hijri.dart' as _i17;
@@ -38,11 +43,11 @@ import '../ui/prayer_times.dart' as _i20;
 import '../ui/ramadan.dart' as _i22;
 import '../ui/splash.dart' as _i1;
 import '../ui/weather.dart' as _i16;
-import '../zodiacs/home_zodiac.dart' as _i26;
+import '../zodiacs/home_zodiac.dart' as _i25;
 import '../zodiacs/zodiac_info.dart' as _i7;
 
 class AppRouter extends _i3.RootStackRouter {
-  AppRouter([_i28.GlobalKey<_i28.NavigatorState>? navigatorKey])
+  AppRouter([_i31.GlobalKey<_i31.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
@@ -68,6 +73,10 @@ class AppRouter extends _i3.RootStackRouter {
           routeData: routeData, child: const _i3.EmptyRouterPage());
     },
     MonthsRouter.name: (routeData) {
+      return _i3.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i3.EmptyRouterPage());
+    },
+    MainScreenRouter.name: (routeData) {
       return _i3.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i3.EmptyRouterPage());
     },
@@ -168,23 +177,47 @@ class AppRouter extends _i3.RootStackRouter {
       return _i3.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i23.AboutApp());
     },
+    Seasons.name: (routeData) {
+      return _i3.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i24.Seasons());
+    },
+    HomeZodiac.name: (routeData) {
+      return _i3.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i25.HomeZodiac());
+    },
+    Months.name: (routeData) {
+      return _i3.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i26.Months());
+    },
     MainScreen.name: (routeData) {
       final args = routeData.argsAs<MainScreenArgs>();
       return _i3.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i24.MainScreen(key: args.key, alarms: args.alarms));
+          child: _i27.MainScreen(key: args.key, alarms: args.alarms));
     },
-    Seasons.name: (routeData) {
+    EditAlarm.name: (routeData) {
+      final args =
+          routeData.argsAs<EditAlarmArgs>(orElse: () => const EditAlarmArgs());
       return _i3.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i25.Seasons());
+          routeData: routeData,
+          child: _i28.EditAlarm(
+              alarm: args.alarm,
+              manager: args.manager,
+              alarms: args.alarms,
+              title: args.title));
     },
-    HomeZodiac.name: (routeData) {
+    AlarmTitle.name: (routeData) {
+      final args = routeData.argsAs<AlarmTitleArgs>();
       return _i3.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i26.HomeZodiac());
+          routeData: routeData,
+          child: _i29.AlarmTitle(key: args.key, alarm: args.alarm));
     },
-    Months.name: (routeData) {
+    RepeatAlarm.name: (routeData) {
+      final args = routeData.argsAs<RepeatAlarmArgs>();
       return _i3.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i27.Months());
+          routeData: routeData,
+          child: _i30.RepeatAlarm(args.manager, args.alarms, args.title,
+              key: args.key, alarm: args.alarm));
     }
   };
 
@@ -235,9 +268,7 @@ class AppRouter extends _i3.RootStackRouter {
                 _i3.RouteConfig(Ramadan.name,
                     path: ':drawerRamadan', parent: HomeRouter.name),
                 _i3.RouteConfig(AboutApp.name,
-                    path: ':drawerAboutApp', parent: HomeRouter.name),
-                _i3.RouteConfig(MainScreen.name,
-                    path: '', parent: HomeRouter.name)
+                    path: ':drawerAboutApp', parent: HomeRouter.name)
               ]),
           _i3.RouteConfig(SeasonsRouter.name,
               path: 'seasons',
@@ -275,9 +306,7 @@ class AppRouter extends _i3.RootStackRouter {
                 _i3.RouteConfig(Ramadan.name,
                     path: ':drawerRamadan', parent: SeasonsRouter.name),
                 _i3.RouteConfig(AboutApp.name,
-                    path: ':drawerAboutApp', parent: SeasonsRouter.name),
-                _i3.RouteConfig(MainScreen.name,
-                    path: '', parent: SeasonsRouter.name)
+                    path: ':drawerAboutApp', parent: SeasonsRouter.name)
               ]),
           _i3.RouteConfig(ZodiacsRouter.name,
               path: 'zodiacs',
@@ -311,9 +340,7 @@ class AppRouter extends _i3.RootStackRouter {
                 _i3.RouteConfig(Ramadan.name,
                     path: ':drawerRamadan', parent: ZodiacsRouter.name),
                 _i3.RouteConfig(AboutApp.name,
-                    path: ':drawerAboutApp', parent: ZodiacsRouter.name),
-                _i3.RouteConfig(MainScreen.name,
-                    path: '', parent: ZodiacsRouter.name)
+                    path: ':drawerAboutApp', parent: ZodiacsRouter.name)
               ]),
           _i3.RouteConfig(MonthsRouter.name,
               path: 'months',
@@ -358,9 +385,20 @@ class AppRouter extends _i3.RootStackRouter {
                 _i3.RouteConfig(Ramadan.name,
                     path: ':drawerRamadan', parent: MonthsRouter.name),
                 _i3.RouteConfig(AboutApp.name,
-                    path: ':drawerAboutApp', parent: MonthsRouter.name),
+                    path: ':drawerAboutApp', parent: MonthsRouter.name)
+              ]),
+          _i3.RouteConfig(MainScreenRouter.name,
+              path: 'screens',
+              parent: NavigationBarBottom.name,
+              children: [
                 _i3.RouteConfig(MainScreen.name,
-                    path: '', parent: MonthsRouter.name)
+                    path: '', parent: MainScreenRouter.name),
+                _i3.RouteConfig(EditAlarm.name,
+                    path: 'editID', parent: MainScreenRouter.name),
+                _i3.RouteConfig(AlarmTitle.name,
+                    path: ':title', parent: MainScreenRouter.name),
+                _i3.RouteConfig(RepeatAlarm.name,
+                    path: ':repeat', parent: MainScreenRouter.name)
               ])
         ])
       ];
@@ -420,6 +458,16 @@ class MonthsRouter extends _i3.PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [_i3.EmptyRouterPage]
+class MainScreenRouter extends _i3.PageRouteInfo<void> {
+  const MainScreenRouter({List<_i3.PageRouteInfo>? children})
+      : super(MainScreenRouter.name,
+            path: 'screens', initialChildren: children);
+
+  static const String name = 'MainScreenRouter';
+}
+
+/// generated route for
 /// [_i4.HomePage]
 class HomeRoute extends _i3.PageRouteInfo<void> {
   const HomeRoute() : super(HomeRoute.name, path: '');
@@ -434,7 +482,7 @@ class Season extends _i3.PageRouteInfo<SeasonArgs> {
       {required int sNum,
       required String sName,
       required String left,
-      _i28.Key? key})
+      _i31.Key? key})
       : super(Season.name,
             path: ':seasonId',
             args: SeasonArgs(sNum: sNum, sName: sName, left: left, key: key),
@@ -453,7 +501,7 @@ class SeasonArgs {
 
   final String left;
 
-  final _i28.Key? key;
+  final _i31.Key? key;
 
   @override
   String toString() {
@@ -468,7 +516,7 @@ class SeasonInfo extends _i3.PageRouteInfo<SeasonInfoArgs> {
       {required int index,
       required String sName,
       required int titleColor,
-      _i28.Key? key})
+      _i31.Key? key})
       : super(SeasonInfo.name,
             path: ':seasonChar',
             args: SeasonInfoArgs(
@@ -490,7 +538,7 @@ class SeasonInfoArgs {
 
   final int titleColor;
 
-  final _i28.Key? key;
+  final _i31.Key? key;
 
   @override
   String toString() {
@@ -501,7 +549,7 @@ class SeasonInfoArgs {
 /// generated route for
 /// [_i7.ZodiacInfo]
 class ZodiacInfo extends _i3.PageRouteInfo<ZodiacInfoArgs> {
-  ZodiacInfo({required int index, _i28.Key? key})
+  ZodiacInfo({required int index, _i31.Key? key})
       : super(ZodiacInfo.name,
             path: ':zodiacId',
             args: ZodiacInfoArgs(index: index, key: key),
@@ -515,7 +563,7 @@ class ZodiacInfoArgs {
 
   final int index;
 
-  final _i28.Key? key;
+  final _i31.Key? key;
 
   @override
   String toString() {
@@ -526,7 +574,7 @@ class ZodiacInfoArgs {
 /// generated route for
 /// [_i8.Month]
 class Month extends _i3.PageRouteInfo<MonthArgs> {
-  Month({required String mname, required int mnum, _i28.Key? key})
+  Month({required String mname, required int mnum, _i31.Key? key})
       : super(Month.name,
             path: ':monthId',
             args: MonthArgs(mname: mname, mnum: mnum, key: key),
@@ -542,7 +590,7 @@ class MonthArgs {
 
   final int mnum;
 
-  final _i28.Key? key;
+  final _i31.Key? key;
 
   @override
   String toString() {
@@ -553,7 +601,7 @@ class MonthArgs {
 /// generated route for
 /// [_i9.MonthChar]
 class MonthChar extends _i3.PageRouteInfo<MonthCharArgs> {
-  MonthChar({required String mname, required int mnum, _i28.Key? key})
+  MonthChar({required String mname, required int mnum, _i31.Key? key})
       : super(MonthChar.name,
             path: ':monthChar',
             args: MonthCharArgs(mname: mname, mnum: mnum, key: key));
@@ -568,7 +616,7 @@ class MonthCharArgs {
 
   final int mnum;
 
-  final _i28.Key? key;
+  final _i31.Key? key;
 
   @override
   String toString() {
@@ -579,7 +627,7 @@ class MonthCharArgs {
 /// generated route for
 /// [_i10.Monthgraphs]
 class Monthgraphs extends _i3.PageRouteInfo<MonthgraphsArgs> {
-  Monthgraphs({required String mname, required int mnum, _i28.Key? key})
+  Monthgraphs({required String mname, required int mnum, _i31.Key? key})
       : super(Monthgraphs.name,
             path: ':monthMaps',
             args: MonthgraphsArgs(mname: mname, mnum: mnum, key: key));
@@ -594,7 +642,7 @@ class MonthgraphsArgs {
 
   final int mnum;
 
-  final _i28.Key? key;
+  final _i31.Key? key;
 
   @override
   String toString() {
@@ -605,7 +653,7 @@ class MonthgraphsArgs {
 /// generated route for
 /// [_i11.MonthTemp]
 class MonthTemp extends _i3.PageRouteInfo<MonthTempArgs> {
-  MonthTemp({required String mname, required int mnum, _i28.Key? key})
+  MonthTemp({required String mname, required int mnum, _i31.Key? key})
       : super(MonthTemp.name,
             path: ':monthTemp',
             args: MonthTempArgs(mname: mname, mnum: mnum, key: key));
@@ -620,7 +668,7 @@ class MonthTempArgs {
 
   final int mnum;
 
-  final _i28.Key? key;
+  final _i31.Key? key;
 
   @override
   String toString() {
@@ -728,9 +776,33 @@ class AboutApp extends _i3.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i24.MainScreen]
+/// [_i24.Seasons]
+class Seasons extends _i3.PageRouteInfo<void> {
+  const Seasons() : super(Seasons.name, path: '');
+
+  static const String name = 'Seasons';
+}
+
+/// generated route for
+/// [_i25.HomeZodiac]
+class HomeZodiac extends _i3.PageRouteInfo<void> {
+  const HomeZodiac() : super(HomeZodiac.name, path: '');
+
+  static const String name = 'HomeZodiac';
+}
+
+/// generated route for
+/// [_i26.Months]
+class Months extends _i3.PageRouteInfo<void> {
+  const Months() : super(Months.name, path: '');
+
+  static const String name = 'Months';
+}
+
+/// generated route for
+/// [_i27.MainScreen]
 class MainScreen extends _i3.PageRouteInfo<MainScreenArgs> {
-  MainScreen({_i28.Key? key, required _i29.AlarmList alarms})
+  MainScreen({_i31.Key? key, required _i32.AlarmList alarms})
       : super(MainScreen.name,
             path: '', args: MainScreenArgs(key: key, alarms: alarms));
 
@@ -740,9 +812,9 @@ class MainScreen extends _i3.PageRouteInfo<MainScreenArgs> {
 class MainScreenArgs {
   const MainScreenArgs({this.key, required this.alarms});
 
-  final _i28.Key? key;
+  final _i31.Key? key;
 
-  final _i29.AlarmList alarms;
+  final _i32.AlarmList alarms;
 
   @override
   String toString() {
@@ -751,25 +823,102 @@ class MainScreenArgs {
 }
 
 /// generated route for
-/// [_i25.Seasons]
-class Seasons extends _i3.PageRouteInfo<void> {
-  const Seasons() : super(Seasons.name, path: '');
+/// [_i28.EditAlarm]
+class EditAlarm extends _i3.PageRouteInfo<EditAlarmArgs> {
+  EditAlarm(
+      {_i33.ObservableAlarm? alarm,
+      _i34.AlarmListManager? manager,
+      _i32.AlarmList? alarms,
+      String? title})
+      : super(EditAlarm.name,
+            path: 'editID',
+            args: EditAlarmArgs(
+                alarm: alarm, manager: manager, alarms: alarms, title: title));
 
-  static const String name = 'Seasons';
+  static const String name = 'EditAlarm';
+}
+
+class EditAlarmArgs {
+  const EditAlarmArgs({this.alarm, this.manager, this.alarms, this.title});
+
+  final _i33.ObservableAlarm? alarm;
+
+  final _i34.AlarmListManager? manager;
+
+  final _i32.AlarmList? alarms;
+
+  final String? title;
+
+  @override
+  String toString() {
+    return 'EditAlarmArgs{alarm: $alarm, manager: $manager, alarms: $alarms, title: $title}';
+  }
 }
 
 /// generated route for
-/// [_i26.HomeZodiac]
-class HomeZodiac extends _i3.PageRouteInfo<void> {
-  const HomeZodiac() : super(HomeZodiac.name, path: '');
+/// [_i29.AlarmTitle]
+class AlarmTitle extends _i3.PageRouteInfo<AlarmTitleArgs> {
+  AlarmTitle({_i31.Key? key, required _i33.ObservableAlarm alarm})
+      : super(AlarmTitle.name,
+            path: ':title', args: AlarmTitleArgs(key: key, alarm: alarm));
 
-  static const String name = 'HomeZodiac';
+  static const String name = 'AlarmTitle';
+}
+
+class AlarmTitleArgs {
+  const AlarmTitleArgs({this.key, required this.alarm});
+
+  final _i31.Key? key;
+
+  final _i33.ObservableAlarm alarm;
+
+  @override
+  String toString() {
+    return 'AlarmTitleArgs{key: $key, alarm: $alarm}';
+  }
 }
 
 /// generated route for
-/// [_i27.Months]
-class Months extends _i3.PageRouteInfo<void> {
-  const Months() : super(Months.name, path: '');
+/// [_i30.RepeatAlarm]
+class RepeatAlarm extends _i3.PageRouteInfo<RepeatAlarmArgs> {
+  RepeatAlarm(
+      {required _i34.AlarmListManager? manager,
+      required _i32.AlarmList? alarms,
+      required String? title,
+      _i31.Key? key,
+      required _i33.ObservableAlarm alarm})
+      : super(RepeatAlarm.name,
+            path: ':repeat',
+            args: RepeatAlarmArgs(
+                manager: manager,
+                alarms: alarms,
+                title: title,
+                key: key,
+                alarm: alarm));
 
-  static const String name = 'Months';
+  static const String name = 'RepeatAlarm';
+}
+
+class RepeatAlarmArgs {
+  const RepeatAlarmArgs(
+      {required this.manager,
+      required this.alarms,
+      required this.title,
+      this.key,
+      required this.alarm});
+
+  final _i34.AlarmListManager? manager;
+
+  final _i32.AlarmList? alarms;
+
+  final String? title;
+
+  final _i31.Key? key;
+
+  final _i33.ObservableAlarm alarm;
+
+  @override
+  String toString() {
+    return 'RepeatAlarmArgs{manager: $manager, alarms: $alarms, title: $title, key: $key, alarm: $alarm}';
+  }
 }

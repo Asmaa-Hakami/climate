@@ -126,8 +126,7 @@ class _Months extends State<Months> {
                                     )),
                               ],
                             ),
-                            onTap: () => context.router
-                                .push(Month(mnum: index, mname: months[index])),
+                            onTap: () => context.router.push(Month(mnum: index, mname: months[index])),
                           ),
                         ));
                   },
