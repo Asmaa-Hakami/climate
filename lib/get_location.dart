@@ -1,44 +1,59 @@
-import 'package:location/location.dart';
-// ignore: import_of_legacy_library_into_null_safe
+import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart' as geocoding;
 
 import 'package:weather/weather.dart';
 
-final location = Location();
-// ignore: prefer_typing_uninitialized_variables
-var add;
+final locationProvider = ChangeNotifierProvider((ref) => LocationProvider());
 
-String key = 'b4e3c02f31a7333f0a11c81d0fba3af7';
-WeatherFactory? wf;
-Weather? w;
+class LocationProvider with ChangeNotifier {
+  final _key = 'b4e3c02f31a7333f0a11c81d0fba3af7';
+  WeatherFactory? _weatherFactory;
+  Weather? _weather;
+  String? _cityName;
+  String? _temperature;
+  late Position _locationData;
 
-Future<LocationData?> getLocationData() async {
-  var _serviceEnabled = await location.serviceEnabled();
-  if (!_serviceEnabled) {
-    _serviceEnabled = await location.requestService();
-    if (!_serviceEnabled) {
-      return null;
+  Weather? get weather => _weather;
+  String? get cityName => _cityName;
+  String? get temperature => _temperature;
+  Position get locationData => _locationData;
+  Future<void> initLocationData() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
     }
-  }
 
-  var _permissionGranted = await location.hasPermission();
-  if (_permissionGranted == PermissionStatus.denied) {
-    _permissionGranted = await location.requestPermission();
-    if (_permissionGranted != PermissionStatus.granted) {
-      return null;
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
     }
-  }
 
-  if (add == null) {
-    LocationData locationData = await location.getLocation();
-    add = await geocoding.placemarkFromCoordinates(
-        locationData.latitude!, locationData.longitude!,
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    _locationData = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.low);
+
+    final addresses = await geocoding.placemarkFromCoordinates(
+        _locationData.latitude, _locationData.longitude,
         localeIdentifier: "en");
+    _weatherFactory = WeatherFactory(_key);
+    _cityName = addresses.first.locality;
+    _weather = await _weatherFactory!.currentWeatherByLocation(
+        _locationData.latitude, _locationData.longitude);
+    _temperature = _weather?.temperature?.celsius?.toInt().toString();
 
-    wf = WeatherFactory(key);
-    w = await wf!.currentWeatherByLocation(
-        locationData.latitude!, locationData.longitude!);
+    notifyListeners();
   }
-
-  return await location.getLocation();
 }

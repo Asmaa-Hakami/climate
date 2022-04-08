@@ -1,207 +1,209 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:adhan/adhan.dart';
 import 'package:climate_calendar_new/all_data.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'dates.dart';
 import 'get_location.dart';
 import 'notification_service.dart';
 import 'package:intl/intl.dart';
 
+final notificationProvider =
+    StateProvider((ref) => AllNotifications(ref.watch(locationProvider)));
+
 class AllNotifications {
   static PrayerTimes? prayerTimes;
   static DateTime mToday = DateTime.now();
+  final LocationProvider locationProvider;
 
-  static void prayerNotifications() {
-    getLocationData().then((locationData) {
-      DateTime now = DateTime.now();
-      if (locationData != null) {
-        for (var i = 0; i < 5; i++) {
-          prayerTimes = PrayerTimes(
-              Coordinates(locationData.latitude!, locationData.longitude!),
-              DateComponents.from(now.add(Duration(days: i))),
-              CalculationMethod.umm_al_qura.getParameters());
-          if (i == 0 && mToday.isAfter(prayerTimes!.fajr)) {
-            if (mToday.isBefore(prayerTimes!.dhuhr)) {
-              NotificationService.azanScheduleNotifications(
-                body: ('الظهر'),
-                payload: '0',
-                schedualedDate: DateTime(
-                    prayerTimes!.dhuhr.year,
-                    prayerTimes!.dhuhr.month,
-                    prayerTimes!.dhuhr.day,
-                    prayerTimes!.dhuhr.hour,
-                    prayerTimes!
-                        .dhuhr.minute), //prayerTimes!.isha//'2022-01-07 01:48'
-              );
+  AllNotifications(this.locationProvider);
 
-              NotificationService.azanScheduleNotifications(
-                body: ('العصر'),
-                payload: '0',
-                schedualedDate: DateTime(
-                    prayerTimes!.asr.year,
-                    prayerTimes!.asr.month,
-                    prayerTimes!.asr.day,
-                    prayerTimes!.asr.hour,
-                    prayerTimes!
-                        .asr.minute), //prayerTimes!.isha//'2022-01-07 01:48'
-              );
-              NotificationService.azanScheduleNotifications(
-                body: ('المغرب'),
-                payload: '0',
-                schedualedDate: DateTime(
-                    prayerTimes!.maghrib.year,
-                    prayerTimes!.maghrib.month,
-                    prayerTimes!.maghrib.day,
-                    prayerTimes!.maghrib.hour,
-                    prayerTimes!.maghrib
-                        .minute), //prayerTimes!.isha//'2022-01-07 01:48'
-              );
-              NotificationService.azanScheduleNotifications(
-                body: ('العشاء'),
-                payload: '0',
-                schedualedDate: DateTime(
-                    prayerTimes!.isha.year,
-                    prayerTimes!.isha.month,
-                    prayerTimes!.isha.day,
-                    prayerTimes!.isha.hour,
-                    prayerTimes!
-                        .isha.minute), //prayerTimes!.isha//'2022-01-07 01:48'
-              );
-            } else if (mToday.isBefore(prayerTimes!.asr)) {
-              NotificationService.azanScheduleNotifications(
-                body: ('العصر'),
-                payload: '0',
-                schedualedDate: DateTime(
-                    prayerTimes!.asr.year,
-                    prayerTimes!.asr.month,
-                    prayerTimes!.asr.day,
-                    prayerTimes!.asr.hour,
-                    prayerTimes!
-                        .asr.minute), //prayerTimes!.isha//'2022-01-07 01:48'
-              );
-              NotificationService.azanScheduleNotifications(
-                body: ('المغرب'),
-                payload: '0',
-                schedualedDate: DateTime(
-                    prayerTimes!.maghrib.year,
-                    prayerTimes!.maghrib.month,
-                    prayerTimes!.maghrib.day,
-                    prayerTimes!.maghrib.hour,
-                    prayerTimes!.maghrib
-                        .minute), //prayerTimes!.isha//'2022-01-07 01:48'
-              );
-              NotificationService.azanScheduleNotifications(
-                body: ('العشاء'),
-                payload: '0',
-                schedualedDate: DateTime(
-                    prayerTimes!.isha.year,
-                    prayerTimes!.isha.month,
-                    prayerTimes!.isha.day,
-                    prayerTimes!.isha.hour,
-                    prayerTimes!
-                        .isha.minute), //prayerTimes!.isha//'2022-01-07 01:48'
-              );
-            } else if (mToday.isBefore(prayerTimes!.maghrib)) {
-              NotificationService.azanScheduleNotifications(
-                body: ('المغرب'),
-                payload: '0',
-                schedualedDate: DateTime(
-                    prayerTimes!.maghrib.year,
-                    prayerTimes!.maghrib.month,
-                    prayerTimes!.maghrib.day,
-                    prayerTimes!.maghrib.hour,
-                    prayerTimes!.maghrib
-                        .minute), //prayerTimes!.isha//'2022-01-07 01:48'
-              );
-              NotificationService.azanScheduleNotifications(
-                body: ('العشاء'),
-                payload: '0',
-                schedualedDate: DateTime(
-                    prayerTimes!.isha.year,
-                    prayerTimes!.isha.month,
-                    prayerTimes!.isha.day,
-                    prayerTimes!.isha.hour,
-                    prayerTimes!
-                        .isha.minute), //prayerTimes!.isha//'2022-01-07 01:48'
-              );
-            } else if (mToday.isBefore(prayerTimes!.isha)) {
-              NotificationService.azanScheduleNotifications(
-                body: ('العشاء'),
-                payload: '0',
-                schedualedDate: DateTime(
-                    prayerTimes!.isha.year,
-                    prayerTimes!.isha.month,
-                    prayerTimes!.isha.day,
-                    prayerTimes!.isha.hour,
-                    prayerTimes!
-                        .isha.minute), //prayerTimes!.isha//'2022-01-07 01:48'
-              );
-            } else {}
-          } else {
-            NotificationService.azanScheduleNotifications(
-              body: ('الفجر'),
-              payload: '0',
-              schedualedDate: DateTime(
-                  prayerTimes!.fajr.year,
-                  prayerTimes!.fajr.month,
-                  prayerTimes!.fajr.day,
-                  prayerTimes!.fajr.hour,
-                  prayerTimes!
-                      .fajr.minute), //prayerTimes!.isha//'2022-01-07 01:48'
-            );
-            NotificationService.azanScheduleNotifications(
-              body: ('الظهر'),
-              payload: '0',
-              schedualedDate: DateTime(
-                  prayerTimes!.dhuhr.year,
-                  prayerTimes!.dhuhr.month,
-                  prayerTimes!.dhuhr.day,
-                  prayerTimes!.dhuhr.hour,
-                  prayerTimes!
-                      .dhuhr.minute), //prayerTimes!.isha//'2022-01-07 01:48'
-            );
+  void prayerNotifications() {
+    DateTime now = DateTime.now();
 
-            NotificationService.azanScheduleNotifications(
-              body: ('العصر'),
-              payload: '0',
-              schedualedDate: DateTime(
-                  prayerTimes!.asr.year,
-                  prayerTimes!.asr.month,
-                  prayerTimes!.asr.day,
-                  prayerTimes!.asr.hour,
-                  prayerTimes!
-                      .asr.minute), //prayerTimes!.isha//'2022-01-07 01:48'
-            );
-            NotificationService.azanScheduleNotifications(
-              body: ('المغرب'),
-              payload: '0',
-              schedualedDate: DateTime(
-                  prayerTimes!.maghrib.year,
-                  prayerTimes!.maghrib.month,
-                  prayerTimes!.maghrib.day,
-                  prayerTimes!.maghrib.hour,
-                  prayerTimes!
-                      .maghrib.minute), //prayerTimes!.isha//'2022-01-07 01:48'
-            );
-            NotificationService.azanScheduleNotifications(
-              //title: formattedPrayerName(next!).toString(),
-              body: ('العشاء'),
-              payload: '0',
-              schedualedDate: DateTime(
-                  prayerTimes!.isha.year,
-                  prayerTimes!.isha.month,
-                  prayerTimes!.isha.day,
-                  prayerTimes!.isha.hour,
-                  prayerTimes!
-                      .isha.minute), //prayerTimes!.isha//'2022-01-07 01:48'
-            );
-          }
-        }
-      } else {}
-    });
+    for (var i = 0; i < 5; i++) {
+      prayerTimes = PrayerTimes(
+          Coordinates(locationProvider.locationData.latitude,
+              locationProvider.locationData.longitude),
+          DateComponents.from(now.add(Duration(days: i))),
+          CalculationMethod.umm_al_qura.getParameters());
+      if (i == 0 && mToday.isAfter(prayerTimes!.fajr)) {
+        if (mToday.isBefore(prayerTimes!.dhuhr)) {
+          NotificationService.azanScheduleNotifications(
+            body: ('الظهر'),
+            payload: '0',
+            schedualedDate: DateTime(
+                prayerTimes!.dhuhr.year,
+                prayerTimes!.dhuhr.month,
+                prayerTimes!.dhuhr.day,
+                prayerTimes!.dhuhr.hour,
+                prayerTimes!
+                    .dhuhr.minute), //prayerTimes!.isha//'2022-01-07 01:48'
+          );
+
+          NotificationService.azanScheduleNotifications(
+            body: ('العصر'),
+            payload: '0',
+            schedualedDate: DateTime(
+                prayerTimes!.asr.year,
+                prayerTimes!.asr.month,
+                prayerTimes!.asr.day,
+                prayerTimes!.asr.hour,
+                prayerTimes!
+                    .asr.minute), //prayerTimes!.isha//'2022-01-07 01:48'
+          );
+          NotificationService.azanScheduleNotifications(
+            body: ('المغرب'),
+            payload: '0',
+            schedualedDate: DateTime(
+                prayerTimes!.maghrib.year,
+                prayerTimes!.maghrib.month,
+                prayerTimes!.maghrib.day,
+                prayerTimes!.maghrib.hour,
+                prayerTimes!
+                    .maghrib.minute), //prayerTimes!.isha//'2022-01-07 01:48'
+          );
+          NotificationService.azanScheduleNotifications(
+            body: ('العشاء'),
+            payload: '0',
+            schedualedDate: DateTime(
+                prayerTimes!.isha.year,
+                prayerTimes!.isha.month,
+                prayerTimes!.isha.day,
+                prayerTimes!.isha.hour,
+                prayerTimes!
+                    .isha.minute), //prayerTimes!.isha//'2022-01-07 01:48'
+          );
+        } else if (mToday.isBefore(prayerTimes!.asr)) {
+          NotificationService.azanScheduleNotifications(
+            body: ('العصر'),
+            payload: '0',
+            schedualedDate: DateTime(
+                prayerTimes!.asr.year,
+                prayerTimes!.asr.month,
+                prayerTimes!.asr.day,
+                prayerTimes!.asr.hour,
+                prayerTimes!
+                    .asr.minute), //prayerTimes!.isha//'2022-01-07 01:48'
+          );
+          NotificationService.azanScheduleNotifications(
+            body: ('المغرب'),
+            payload: '0',
+            schedualedDate: DateTime(
+                prayerTimes!.maghrib.year,
+                prayerTimes!.maghrib.month,
+                prayerTimes!.maghrib.day,
+                prayerTimes!.maghrib.hour,
+                prayerTimes!
+                    .maghrib.minute), //prayerTimes!.isha//'2022-01-07 01:48'
+          );
+          NotificationService.azanScheduleNotifications(
+            body: ('العشاء'),
+            payload: '0',
+            schedualedDate: DateTime(
+                prayerTimes!.isha.year,
+                prayerTimes!.isha.month,
+                prayerTimes!.isha.day,
+                prayerTimes!.isha.hour,
+                prayerTimes!
+                    .isha.minute), //prayerTimes!.isha//'2022-01-07 01:48'
+          );
+        } else if (mToday.isBefore(prayerTimes!.maghrib)) {
+          NotificationService.azanScheduleNotifications(
+            body: ('المغرب'),
+            payload: '0',
+            schedualedDate: DateTime(
+                prayerTimes!.maghrib.year,
+                prayerTimes!.maghrib.month,
+                prayerTimes!.maghrib.day,
+                prayerTimes!.maghrib.hour,
+                prayerTimes!
+                    .maghrib.minute), //prayerTimes!.isha//'2022-01-07 01:48'
+          );
+          NotificationService.azanScheduleNotifications(
+            body: ('العشاء'),
+            payload: '0',
+            schedualedDate: DateTime(
+                prayerTimes!.isha.year,
+                prayerTimes!.isha.month,
+                prayerTimes!.isha.day,
+                prayerTimes!.isha.hour,
+                prayerTimes!
+                    .isha.minute), //prayerTimes!.isha//'2022-01-07 01:48'
+          );
+        } else if (mToday.isBefore(prayerTimes!.isha)) {
+          NotificationService.azanScheduleNotifications(
+            body: ('العشاء'),
+            payload: '0',
+            schedualedDate: DateTime(
+                prayerTimes!.isha.year,
+                prayerTimes!.isha.month,
+                prayerTimes!.isha.day,
+                prayerTimes!.isha.hour,
+                prayerTimes!
+                    .isha.minute), //prayerTimes!.isha//'2022-01-07 01:48'
+          );
+        } else {}
+      } else {
+        NotificationService.azanScheduleNotifications(
+          body: ('الفجر'),
+          payload: '0',
+          schedualedDate: DateTime(
+              prayerTimes!.fajr.year,
+              prayerTimes!.fajr.month,
+              prayerTimes!.fajr.day,
+              prayerTimes!.fajr.hour,
+              prayerTimes!.fajr.minute), //prayerTimes!.isha//'2022-01-07 01:48'
+        );
+        NotificationService.azanScheduleNotifications(
+          body: ('الظهر'),
+          payload: '0',
+          schedualedDate: DateTime(
+              prayerTimes!.dhuhr.year,
+              prayerTimes!.dhuhr.month,
+              prayerTimes!.dhuhr.day,
+              prayerTimes!.dhuhr.hour,
+              prayerTimes!
+                  .dhuhr.minute), //prayerTimes!.isha//'2022-01-07 01:48'
+        );
+
+        NotificationService.azanScheduleNotifications(
+          body: ('العصر'),
+          payload: '0',
+          schedualedDate: DateTime(
+              prayerTimes!.asr.year,
+              prayerTimes!.asr.month,
+              prayerTimes!.asr.day,
+              prayerTimes!.asr.hour,
+              prayerTimes!.asr.minute), //prayerTimes!.isha//'2022-01-07 01:48'
+        );
+        NotificationService.azanScheduleNotifications(
+          body: ('المغرب'),
+          payload: '0',
+          schedualedDate: DateTime(
+              prayerTimes!.maghrib.year,
+              prayerTimes!.maghrib.month,
+              prayerTimes!.maghrib.day,
+              prayerTimes!.maghrib.hour,
+              prayerTimes!
+                  .maghrib.minute), //prayerTimes!.isha//'2022-01-07 01:48'
+        );
+        NotificationService.azanScheduleNotifications(
+          //title: formattedPrayerName(next!).toString(),
+          body: ('العشاء'),
+          payload: '0',
+          schedualedDate: DateTime(
+              prayerTimes!.isha.year,
+              prayerTimes!.isha.month,
+              prayerTimes!.isha.day,
+              prayerTimes!.isha.hour,
+              prayerTimes!.isha.minute), //prayerTimes!.isha//'2022-01-07 01:48'
+        );
+      }
+    }
   }
 
-  static Future<void> appNotifications() async {
+  Future<void> appNotifications() async {
     //LocationData? locationData = await getLocationData();
     prayerNotifications();
 

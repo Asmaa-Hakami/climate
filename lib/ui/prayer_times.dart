@@ -6,6 +6,7 @@ import 'package:adhan/adhan.dart';
 import 'package:climate_calendar_new/dates.dart';
 import 'package:climate_calendar_new/ui/text_scale.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:location/location.dart';
 
 import '../get_location.dart';
@@ -13,59 +14,44 @@ import 'navdraw.dart';
 import 'top_icons.dart';
 import 'package:intl/intl.dart';
 
-class Prayers extends StatefulWidget {
+class Prayers extends ConsumerStatefulWidget {
   const Prayers({Key? key}) : super(key: key);
 
   @override
-  State<Prayers> createState() => _PrayerTimesState();
+  ConsumerState<Prayers> createState() => _PrayerTimesState();
 }
 
-class _PrayerTimesState extends State<Prayers> {
+class _PrayerTimesState extends ConsumerState<Prayers> {
   String? locationError;
   PrayerTimes? prayerTimes;
   Prayer? next;
   DateTime? nextPrayerTime;
   final date = DateTime.now();
   String yourCityName = '';
-  final location = Location();
 
   late String textAdzanRemaining = '';
 
   @override
   void initState() {
-    getLocationData().then((locationData) {
-      if (!mounted) {
-        return;
-      }
-      if (locationData != null) {
-        setState(() {
-          prayerTimes = PrayerTimes(
-              Coordinates(locationData.latitude!, locationData.longitude!),
-              DateComponents.from(DateTime.now()),
-              CalculationMethod.umm_al_qura.getParameters());
-          if (prayerTimes!.nextPrayer() == Prayer.none) {
-            prayerTimes = PrayerTimes(
-                Coordinates(locationData.latitude!, locationData.longitude!),
-                DateComponents.from(
-                    DateTime.now().add(const Duration(days: 1))),
-                CalculationMethod.umm_al_qura.getParameters());
-          }
-        });
-      } else {
-        setState(() {
-          locationError = "Couldn't Get Your Location!";
-        });
+    super.initState();
+    setState(() {
+      prayerTimes = PrayerTimes(
+          Coordinates(ref.read(locationProvider).locationData.latitude,
+              ref.read(locationProvider).locationData.longitude),
+          DateComponents.from(DateTime.now()),
+          CalculationMethod.umm_al_qura.getParameters());
+      if (prayerTimes!.nextPrayer() == Prayer.none) {
+        prayerTimes = PrayerTimes(
+            Coordinates(ref.read(locationProvider).locationData.latitude,
+                ref.read(locationProvider).locationData.longitude),
+            DateComponents.from(DateTime.now().add(const Duration(days: 1))),
+            CalculationMethod.umm_al_qura.getParameters());
       }
     });
-    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (add != null) {
-      yourCityName = add.first.locality.toString();
-    }
-
     return Scaffold(
       body: SafeArea(
         top: false,

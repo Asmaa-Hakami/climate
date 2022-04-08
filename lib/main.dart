@@ -14,6 +14,7 @@ import 'package:climate_calendar_new/utils/schedule_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:wakelock/wakelock.dart';
 import 'notification_service.dart';
@@ -51,7 +52,7 @@ void main() async {
   await NotificationService().init(); // <----
   //NotificationService().requestIOSPermissions; //
 
-  runApp(MyApp());
+  runApp(ProviderScope(child: MyApp()));
 }
 
 void restartApp() {
