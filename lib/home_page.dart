@@ -106,13 +106,18 @@ class _HomePageState extends ConsumerState<HomePage> {
                       children: [
                         TextScaleFactorClamper(
                             child: Text(
-                          AllDates.replaceEngNumber(
-                              ' ْ ${ref.read(locationProvider).temperature}'),
+                          AllDates.replaceEngNumber(ref
+                                      .read(locationProvider)
+                                      .temperature ==
+                                  null
+                              ? ''
+                              : ' ْ ${ref.read(locationProvider).temperature}'),
                           style: const TextStyle(
                               color: Colors.white, fontSize: 23),
                         )),
                         TextScaleFactorClamper(
-                          child: Text(' ${ref.read(locationProvider).cityName}',
+                          child: Text(
+                              ' ${ref.read(locationProvider).cityName ?? ''}',
                               style: const TextStyle(
                                   color: Colors.white,
                                   overflow: TextOverflow.ellipsis,

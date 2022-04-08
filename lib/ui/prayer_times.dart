@@ -34,20 +34,24 @@ class _PrayerTimesState extends ConsumerState<Prayers> {
   @override
   void initState() {
     super.initState();
-    setState(() {
-      prayerTimes = PrayerTimes(
-          Coordinates(ref.read(locationProvider).locationData.latitude,
-              ref.read(locationProvider).locationData.longitude),
-          DateComponents.from(DateTime.now()),
-          CalculationMethod.umm_al_qura.getParameters());
-      if (prayerTimes!.nextPrayer() == Prayer.none) {
+
+    if (ref.read(locationProvider).locationData != null) {
+      yourCityName = ref.read(locationProvider).cityName ?? '';
+      setState(() {
         prayerTimes = PrayerTimes(
-            Coordinates(ref.read(locationProvider).locationData.latitude,
-                ref.read(locationProvider).locationData.longitude),
-            DateComponents.from(DateTime.now().add(const Duration(days: 1))),
+            Coordinates(ref.read(locationProvider).locationData!.latitude,
+                ref.read(locationProvider).locationData!.longitude),
+            DateComponents.from(DateTime.now()),
             CalculationMethod.umm_al_qura.getParameters());
-      }
-    });
+        if (prayerTimes!.nextPrayer() == Prayer.none) {
+          prayerTimes = PrayerTimes(
+              Coordinates(ref.read(locationProvider).locationData!.latitude,
+                  ref.read(locationProvider).locationData!.longitude),
+              DateComponents.from(DateTime.now().add(const Duration(days: 1))),
+              CalculationMethod.umm_al_qura.getParameters());
+        }
+      });
+    }
   }
 
   @override

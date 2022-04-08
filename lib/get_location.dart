@@ -13,18 +13,17 @@ class LocationProvider with ChangeNotifier {
   Weather? _weather;
   String? _cityName;
   String? _temperature;
-  late Position _locationData;
+  Position? _locationData;
 
   Weather? get weather => _weather;
   String? get cityName => _cityName;
   String? get temperature => _temperature;
-  Position get locationData => _locationData;
+  Position? get locationData => _locationData;
   Future<void> initLocationData() async {
-    bool serviceEnabled;
-    LocationPermission permission;
+    late LocationPermission permission;
 
     // Test if location services are enabled.
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    final serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       return Future.error('Location services are disabled.');
     }
@@ -41,19 +40,17 @@ class LocationProvider with ChangeNotifier {
       return Future.error(
           'Location permissions are permanently denied, we cannot request permissions.');
     }
-
     _locationData = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.low);
-
-    final addresses = await geocoding.placemarkFromCoordinates(
-        _locationData.latitude, _locationData.longitude,
-        localeIdentifier: "en");
-    _weatherFactory = WeatherFactory(_key);
-    _cityName = addresses.first.locality;
-    _weather = await _weatherFactory!.currentWeatherByLocation(
-        _locationData.latitude, _locationData.longitude);
-    _temperature = _weather?.temperature?.celsius?.toInt().toString();
-
-    notifyListeners();
+        desiredAccuracy: LocationAccuracy.lowest);
+    if (_locationData != null) {
+      final addresses = await geocoding.placemarkFromCoordinates(
+          _locationData!.latitude, _locationData!.longitude,
+          localeIdentifier: "en");
+      _weatherFactory = WeatherFactory(_key);
+      _cityName = addresses.first.locality;
+      _weather = await _weatherFactory!.currentWeatherByLocation(
+          _locationData!.latitude, _locationData!.longitude);
+      _temperature = _weather?.temperature?.celsius?.toInt().toString();
+    }
   }
 }
