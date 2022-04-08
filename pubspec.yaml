@@ -69,7 +69,7 @@ dependencies:
   
   hijri_picker: ^3.0.0
   flutter_calendar_carousel: ^2.1.0
-  adhan: ^1.1.16
+  adhan: ^2.0.0-nullsafety.2
 
   location: ^4.3.0 
   
