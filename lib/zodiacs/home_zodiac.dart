@@ -38,7 +38,7 @@ class _HomeZodiac extends State<HomeZodiac> {
                     const Padding(padding: EdgeInsets.only(right: 15)),
                     const TextScaleFactorClamper(
                         child: Text('المواسم',
-                            //textScaleFactor: 1.0,
+                            // 
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 25,
@@ -106,7 +106,7 @@ class _HomeZodiac extends State<HomeZodiac> {
                                     TextScaleFactorClamper(
                                         child: Text(
                                             'موسم ${ZodiacsData().zodiacData[index][0]}',
-                                            //textScaleFactor: 1.0,
+                                            // 
                                             style: const TextStyle(
                                                 color: Color(0xFF3A6978),
                                                 fontSize: 17,

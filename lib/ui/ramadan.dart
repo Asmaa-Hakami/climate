@@ -83,7 +83,7 @@ class _RamadanState extends State<Ramadan> {
                               alignment: Alignment.centerRight,
                               child: Text(
                                   '${AllDates.mDate} ${AllDates.mMonth}، ${AllDates.mYear}',
-                                  textScaleFactor: 1.0,
+                                   
                                   style: const TextStyle(
                                       color: Colors.white,
                                       height: 1.5,
@@ -102,7 +102,7 @@ class _RamadanState extends State<Ramadan> {
                           top: MediaQuery.of(context).size.height * 0.015),
                       child: const Text(
                         'شهر رمضان فلكيًا',
-                        textScaleFactor: 1.0,
+                         
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 30,
@@ -220,7 +220,7 @@ class _RamadanState extends State<Ramadan> {
                                               horizontal: 25, vertical: 30),
                                           child: Text(
                                             'قم بإدخال سنة من ١٤٤٣ - ١٤٨٠',
-                                            textScaleFactor: 1.0,
+                                             
                                             style: TextStyle(
                                                 fontSize: 18,
                                                 color: Color(0xff4C7884)),
@@ -264,7 +264,7 @@ class _RamadanState extends State<Ramadan> {
                                             horizontal: 15, vertical: 20),
                                         child: Text(
                                           'قم بإدخال السنة',
-                                          textScaleFactor: 1.0,
+                                           
                                           style: TextStyle(
                                               fontSize: 18,
                                               color: Color(0xff4C7884)),
@@ -284,7 +284,7 @@ class _RamadanState extends State<Ramadan> {
                             width: MediaQuery.of(context).size.width * 0.35),
                         const Text(
                           "ابحث",
-                          textScaleFactor: 1.0,
+                           
                           style: TextStyle(
                               fontSize: 18.0,
                               color: Colors.white,

@@ -31,7 +31,7 @@ class AboutIdea extends StatelessWidget {
                         top: MediaQuery.of(context).size.height * 0.01)),
                 const Text(
                   'المفكرة المناخية',
-                  textScaleFactor: 1.0,
+                   
                   style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -41,7 +41,7 @@ class AboutIdea extends StatelessWidget {
                 ),
                 const Text(
                   'للمملكة العربية السعودية',
-                  textScaleFactor: 1.0,
+                   
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Colors.white,

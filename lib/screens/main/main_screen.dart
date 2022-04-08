@@ -77,7 +77,7 @@ class _MainScreenState extends State<MainScreen> {
                                   ),
                                   const Text(
                                     '     منبه جديد',
-                                    textScaleFactor: 1.0,
+                                     
                                     style: TextStyle(
                                         color: Color(0xff506B75),
                                         fontSize: 17,

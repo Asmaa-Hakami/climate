@@ -1,13 +1,9 @@
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import '../main.dart';
 import '../routes/ router.gr.dart';
 //import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-
-
-
 
 class NavigationDrawer extends StatefulWidget {
   const NavigationDrawer({Key? key}) : super(key: key);
@@ -102,23 +98,21 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                     padding: EdgeInsets.only(left: 50, right: 30),
                     child: Image(image: AssetImage('assets/icons/line.png')),
                   ),
-
                   createDrawerBodyItem(
-                    icon: const AssetImage('assets/icons/alarm.png'),
-                    text: 'المنبه',
-                    onTap: () {
-                          if (context.router.canPopSelfOrChildren) {
-      context.replaceRoute(MainScreen(alarms: list));
-    } else{
-                       context.navigateTo(MainScreenRouter(children: [MainScreen(alarms: list)])); // {}//openRoute(MainScreen(alarms: list)), //
-                    }
-                    }
-                    ),
+                      icon: const AssetImage('assets/icons/alarm.png'),
+                      text: 'المنبه',
+                      onTap: () {
+                        if (Scaffold.of(context).isDrawerOpen) {
+                          Scaffold.of(context).openEndDrawer();
+                        }
+                        context.navigateTo(MainScreenRouter(children: [
+                          MainScreen(alarms: list)
+                        ])); // {}//openRoute(MainScreen(alarms: list)), //
+                      }),
                   const Padding(
                     padding: EdgeInsets.only(left: 50, right: 30),
                     child: Image(image: AssetImage('assets/icons/line.png')),
                   ),
-
                   createDrawerBodyItem(
                       icon: const AssetImage('assets/icons/ramadan.png'),
                       text: 'شهر رمضان فلكيًا',
@@ -137,7 +131,6 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
   }
 
   void openRoute<T>(PageRouteInfo<T> route) {
-
     if (Scaffold.of(context).isDrawerOpen) {
       Scaffold.of(context).openEndDrawer();
     }
@@ -148,7 +141,6 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
       //context.pushRoute(route);
       context.navigateTo(HomeRouter(children: [route]));
     }
-      
   }
 }
 
@@ -164,7 +156,6 @@ Widget createDrawerBodyItem(
     ),
     minLeadingWidth: 20,
     title: Text(text,
-        textScaleFactor: 1.0,
         style: const TextStyle(
             color: Color(0xFF3A6978), fontSize: 15, fontFamily: 'ArbFONTS')),
     trailing: const Icon(

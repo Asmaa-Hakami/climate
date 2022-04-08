@@ -55,7 +55,7 @@ class AlarmItem extends StatelessWidget {
                     children: <Widget>[
                       Text(
                         '   ${AllDates.replaceEngNumber(alarm.hour.toString().padLeft(2, '0'))}:${AllDates.replaceEngNumber(alarm.minute.toString().padLeft(2, '0'))} ${alarm.period == 'am' ? 'ص' : 'م'}', //${alarm.period == 'am'? 'ص' : 'م'}
-                        textScaleFactor: 1.0,
+                         
                         style: const TextStyle(
                             fontSize: 30, color: Color(0xff506B75)),
                       ),
@@ -98,7 +98,7 @@ class AlarmItem extends StatelessWidget {
                               width: MediaQuery.of(context).size.width * 0.27),
                           const Text(
                             "تحرير",
-                            textScaleFactor: 1.0,
+                             
                             style: TextStyle(
                                 fontSize: 17.0,
                                 height: 1,
@@ -120,7 +120,7 @@ class AlarmItem extends StatelessWidget {
                         ),
                         const Text(
                           "حذف",
-                          textScaleFactor: 1.0,
+                           
                           style: TextStyle(
                               fontSize: 17.0,
                               height: 1,

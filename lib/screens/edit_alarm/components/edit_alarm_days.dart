@@ -90,9 +90,6 @@ class _EditAlarmDays extends State<EditAlarmDays> {
                     onTap: //() { setState(() {RepeatAlarm(alarm: this.widget.alarm); }); }
                     () { setState(() {
                        Navigator.push(context, MaterialPageRoute(builder: (context) => RepeatAlarm( this.widget.manager,  this.widget.alarms, this.widget.title,  alarm: this.widget.alarm,)));
-                    //  context.pushRoute(g.RepeatAlarm(
-                      //                manager: this.widget.manager,  alarms: this.widget.alarms,  title: this.widget.title, alarm: this.widget.alarm,
-                        //          ));
                     });
                     },
                     child: Stack(
@@ -162,8 +159,6 @@ class _RepeatAlarm extends State<RepeatAlarm> {
                       const TextScaleFactorClamper(
                               child:Text(
                         'التكرار',
-                        //textScaleFactor: 1.0,
-                        //textAlign: TextAlign.right,
                         style: TextStyle(color: Colors.white, fontSize: 30),
                       )),
                     ],
@@ -272,7 +267,7 @@ class _RepeatAlarm extends State<RepeatAlarm> {
                           ),
                           const Text(
                             "موافق",
-                            textScaleFactor: 1.0,
+                             
                             style: TextStyle(
                                 fontSize: 20.0,
                                 fontWeight: FontWeight.normal,

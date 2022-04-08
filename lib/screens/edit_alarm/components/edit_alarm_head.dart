@@ -95,7 +95,7 @@ class AlarmTitle extends StatelessWidget {
                   const TextScaleFactorClamper(
                               child:Text(
                     'العنوان',
-                    textScaleFactor: 1.0,
+                     
                     style: TextStyle(color: Colors.white, fontSize: 25),
                   )),
                 ],
@@ -147,7 +147,7 @@ class AlarmTitle extends StatelessWidget {
                       ),
                       const Text(
                         "موافق",
-                        textScaleFactor: 1.0,
+                         
                         style: TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.normal,

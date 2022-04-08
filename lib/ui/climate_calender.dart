@@ -25,7 +25,7 @@ class ClimateCalendar extends StatelessWidget {
                     padding: EdgeInsets.only(
                         top: MediaQuery.of(context).size.height * 0.1)),
                 Text('التقويم المناخي',
-                textScaleFactor: 1.0,
+                 
                     style: TextStyle(
                         color: Color(0xFF4C7884),
                         fontSize: 35,
@@ -42,7 +42,7 @@ class ClimateCalendar extends StatelessWidget {
                       bottom: MediaQuery.of(context).size.height * 0.04),
                   child: Text(
                     'للإطلاع على التقويم المناخي ومشاركته',
-                    textScaleFactor: 1.0,
+                     
                     style: TextStyle(
                         color: Color(0xFF5D5C5D),
                         fontSize: 15,
@@ -60,7 +60,7 @@ class ClimateCalendar extends StatelessWidget {
                             //fit: BoxFit.fill,
                           ),
                                 Text('التقويم المناخي',
-                                    textScaleFactor: 1.0,
+                                     
                                     style: const TextStyle(
                                         fontSize: 16,
                                         color: Colors.white,
@@ -98,7 +98,7 @@ class ClimateCalendar extends StatelessWidget {
                             padding: EdgeInsets.only(left: 10, right: 10),
                             child: Text(
                               "مشاركة",
-                              textScaleFactor: 1.0,
+                               
                               style: TextStyle(
                                   fontSize: 16.0,
                                   color: Colors.white,

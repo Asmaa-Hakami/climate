@@ -96,7 +96,7 @@ class _Season extends State<Season> {
                           Image.asset(
                             'assets/images/char_botton.png',
                             color: Color(seasonsData[widget.sNum][5][5]),
-                            width: MediaQuery.of(context).size.width * 0.45,
+                            width: MediaQuery.of(context).size.width * 0.47,
                             fit: BoxFit.fill,
                           ),
                           Row(
@@ -109,7 +109,7 @@ class _Season extends State<Season> {
                               Padding(padding: EdgeInsets.only(right: 7)),
                               Text(
                                 'خصائص فصل ' + widget.sName,
-                                textScaleFactor: 1.0,
+                                 
                                 style: TextStyle(
                                     fontSize: 15,
                                     height: 1.0,
@@ -542,7 +542,7 @@ class _Season extends State<Season> {
               TextScaleFactorClamper(
                   child: Text(
                 tawalea[0],
-                //textScaleFactor: 1.0,
+                // 
                 style: const TextStyle(
                     fontSize: 18.0,
                     color: Color(0xff506B75),
@@ -568,7 +568,7 @@ class _Season extends State<Season> {
               TextScaleFactorClamper(
                   child: Text(
                 ' ${tawalea[1]} ',
-                //textScaleFactor: 1.0,
+                // 
                 style: const TextStyle(
                     fontSize: 20.0,
                     height: 1.0,

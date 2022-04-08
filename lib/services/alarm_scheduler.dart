@@ -27,30 +27,21 @@ class AlarmScheduler {
     final days = alarm.days;
 
     final scheduleId = alarm.id! * 7;
-    //print("scheduleId: $scheduleId");
-    //print("days.length: ${days.length}");
     bool repeatAlarm = false;
     for (var i = 0; i < days.length; i++) {
       await AndroidAlarmManager.cancel(scheduleId + i);
-      //print("alarm.active: ${alarm.active}");
-      //print("days[$i]: ${days[i]}");
       if (alarm.active! && days[i]) {
         // Repeat alarm
-        //print("Alarm active for day $i");
         repeatAlarm = true;
         final targetDateTime =
             nextWeekday(i + 1, alarm.hour!, alarm.minute!, alarm.period!);
         await newShot(targetDateTime, scheduleId + i);
       } else if (alarm.active! && !repeatAlarm && i == days.length - 1) {
         // One time alarm
-        var checkedDay = DateTime
-            .now(); // TimeOfDay.fromDateTime(DateTime.now());//DateTime.now();
-        var targetDateTime = //DateTime.parse('${checkedDay.year}-${checkedDay.month}-${checkedDay.day} ${alarm.hour}:${alarm.minute} ${alarm.period}}');
+        var checkedDay = DateTime.now(); 
+        var targetDateTime = 
             DateFormat('yyyyy.MM.dd h:mm a').parse(
                 '${checkedDay.year}.${checkedDay.month}.${checkedDay.day} ${alarm.hour}:${alarm.minute} ${alarm.period.toString().toUpperCase()} }');
-        //DateTime(checkedDay.year, checkedDay.month,  dd-MM-yyyy hh:mm aa
-        //  checkedDay.day, alarm.hour!, alarm.minute!);
-
         if (targetDateTime.millisecondsSinceEpoch <
             checkedDay.millisecondsSinceEpoch) {
           targetDateTime = targetDateTime.add(const Duration(days: 1));
@@ -66,7 +57,7 @@ class AlarmScheduler {
     var checkedDay = DateTime.now();
 
     if (checkedDay.weekday == weekday) {
-      final todayAlarm = //DateTime.parse('${checkedDay.year}-${checkedDay.month}-${checkedDay.day} $alarmHour:$alarmMinute:$AlarmPriod}');
+      final todayAlarm = 
           DateFormat('yyyyy.MM.dd h:mm a').parse(
               '${checkedDay.year}.${checkedDay.month}.${checkedDay.day} $alarmHour:$alarmMinute ${AlarmPriod.toString().toUpperCase()}}');
 
@@ -103,9 +94,10 @@ class AlarmScheduler {
   static void createAlarmFlag(int id) async {
     print('Creating a new alarm flag for ID $id');
     final dir = await getApplicationDocumentsDirectory();
+    print('After flag');
     JsonFileStorage.toFile(File(dir.path + "/$id.alarm")).writeList([]);
 
-    final alarms = await new JsonFileStorage().readList();
+    final alarms = await JsonFileStorage().readList();
     var alarm = alarms.firstWhere((element) => element.id == id);
 
     if (alarm.active! && Platform.isAndroid) {

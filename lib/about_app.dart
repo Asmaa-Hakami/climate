@@ -24,7 +24,7 @@ class AboutApp extends StatelessWidget {
                       ),
                   const Text(
                     '١.٠.٢',
-                    textScaleFactor: 1.0,
+                     
                     style: TextStyle(
                         color: Color(0xFF506B75),
                         fontSize: 30,
@@ -35,7 +35,7 @@ class AboutApp extends StatelessWidget {
                         top: MediaQuery.of(context).size.height * 0.03),
                     child: const Text(
                       'فكرة التطبيق',
-                      textScaleFactor: 1.0,
+                       
                       style: TextStyle(
                           color: Color(0xFF506B75),
                           fontSize: 20,
@@ -44,7 +44,7 @@ class AboutApp extends StatelessWidget {
                   ),
                   const Text(
                     'طارق بن محمد أبانمي',
-                    textScaleFactor: 1.0,
+                     
                     style: TextStyle(
                         color: Color(0xFF506B75),
                         fontSize: 30,
@@ -55,7 +55,7 @@ class AboutApp extends StatelessWidget {
                         top: MediaQuery.of(context).size.height * 0.03),
                     child: const Text(
                       'قيم التطبيق',
-                      textScaleFactor: 1.0,
+                       
                       style: TextStyle(
                           color: Color(0xFF506B75),
                           fontSize: 20,
@@ -65,7 +65,7 @@ class AboutApp extends StatelessWidget {
                   ),
                   const Text(
                     'إذا كان لديك أي اقتراحات \nنسعد جداً بتواصلك معنا',
-                    textScaleFactor: 1.0,
+                     
                     style: TextStyle(
                         color: Color(0xFF506B75),
                         fontSize: 20,
@@ -73,7 +73,7 @@ class AboutApp extends StatelessWidget {
                   ),
                   const Text(
                     'Tareqabanmi@gmail.com',
-                    textScaleFactor: 1.0,
+                     
                     style: TextStyle(
                         color: Color(0xFF506B75),
                         fontSize: 20,
@@ -114,7 +114,7 @@ class AboutApp extends StatelessWidget {
                                         EdgeInsets.only(left: 10, right: 10),
                                     child: Text(
                                       "مشاركة",
-                                      textScaleFactor: 1.0,
+                                       
                                       style: TextStyle(
                                           fontSize: 20.0,
                                           color: Colors.white,
@@ -134,7 +134,7 @@ class AboutApp extends StatelessWidget {
                   ),
                   const Text(
                     'تصميم\n شذى الشيخي   Shatha.alsheikhii@gmail.com\n',
-                    textScaleFactor: 1.0,
+                     
                     style: TextStyle(
                         color: Color(0xFF506B75),
                         fontSize: 10,
@@ -144,7 +144,7 @@ class AboutApp extends StatelessWidget {
                   ),
                   const Text(
                     'برمجة\n أسماء حكمي   asmaa.a.hakami@gmail.com',
-                    textScaleFactor: 1.0,
+                     
                     style: TextStyle(
                         color: Color(0xFF506B75),
                         fontSize: 10,

@@ -20,7 +20,7 @@ class AlarmListScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           const Text('المنبه',
-          textScaleFactor: 1.0,
+           
           style: TextStyle(
                  fontFamily: 'ArbFONTS',
                 fontSize: 33,

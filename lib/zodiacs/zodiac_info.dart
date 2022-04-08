@@ -97,7 +97,7 @@ class _ZodiacInfoState extends State<ZodiacInfo> {
                                   padding: EdgeInsets.only(right: 5),
                                   child: Text(
                                     "مشاركة",
-                                    textScaleFactor: 1.0,
+                                     
                                     style: TextStyle(
                                         fontSize: 14.0,
                                         color: Colors.white,
@@ -115,7 +115,7 @@ class _ZodiacInfoState extends State<ZodiacInfo> {
                         child: TextScaleFactorClamper(
                             child: Text(
                           datatoprint,
-                          //textScaleFactor: 1.0,
+                          // 
                           textAlign: TextAlign.justify,
                           style: const TextStyle(
                               color: Color(0xFF3A6978),

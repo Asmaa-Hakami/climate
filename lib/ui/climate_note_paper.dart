@@ -25,7 +25,7 @@ class ClimateNotePaper extends StatelessWidget {
                     padding: EdgeInsets.only(
                         top: MediaQuery.of(context).size.height * 0.1)),
                 Text('المفكرة المناخية\n الورقية',
-                textScaleFactor: 1.0,
+                 
                     style: TextStyle(
                         color: Color(0xFF4C7884),
                         fontSize: 35,
@@ -41,7 +41,7 @@ class ClimateNotePaper extends StatelessWidget {
                       bottom: MediaQuery.of(context).size.height * 0.04),
                   child: Text(
                     'للإطلاع على المفكرة المناخية الورقية ومشاركتها',
-                    textScaleFactor: 1.0,
+                     
                     style: TextStyle(
                         color: Color(0xFF5D5C5D),
                         fontSize: 15,
@@ -59,7 +59,7 @@ class ClimateNotePaper extends StatelessWidget {
                             //fit: BoxFit.fill,
                           ),
                                 Text('المفكرة المناخية الورقية',
-                                    textScaleFactor: 1.0,
+                                     
                                     style: const TextStyle(
                                         fontSize: 16,
                                         color: Colors.white,
@@ -97,7 +97,7 @@ class ClimateNotePaper extends StatelessWidget {
                             padding: EdgeInsets.only(left: 10, right: 10),
                             child: Text(
                               "مشاركة",
-                              textScaleFactor: 1.0,
+                               
                               style: TextStyle(
                                   fontSize: 16.0,
                                   color: Colors.white,

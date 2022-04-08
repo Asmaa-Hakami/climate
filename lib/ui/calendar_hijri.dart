@@ -69,17 +69,13 @@ class _CalendarHijri extends State<CalendarHijri> {
                         Container(
                             width: MediaQuery.of(context).size.width * 0.9,
                             alignment: Alignment.centerRight,
-                            child: TextScaleFactorClamper(
-                              child: Text(
+                            child: Text(
                                 AllDates.hday,
-                                //textScaleFactor: 1.0,
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 22,
                                     height: 1.3,
                                     fontFamily: 'ArbFONTS'),
-                                //textAlign: TextAlign.right,
-                              ),
                             )),
                         Container(
                           alignment: Alignment.centerRight,
@@ -91,7 +87,7 @@ class _CalendarHijri extends State<CalendarHijri> {
                                   AllDates.hMonth +
                                   '، ' +
                                   AllDates.hYear,
-                              //textScaleFactor: 1.0,
+                              // 
                               style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 15,
@@ -108,7 +104,7 @@ class _CalendarHijri extends State<CalendarHijri> {
                                   AllDates.mMonth +
                                   '، ' +
                                   AllDates.mYear,
-                              textScaleFactor: 1.0,
+                               
                               style: const TextStyle(
                                   color: Colors.white,
                                   height: 1.5,
@@ -126,7 +122,6 @@ class _CalendarHijri extends State<CalendarHijri> {
                     const Padding(padding: EdgeInsets.only(right: 20)),
                         Text(
                           'التقويم',
-                          textScaleFactor: 1.0,
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 30,
@@ -137,7 +132,6 @@ class _CalendarHijri extends State<CalendarHijri> {
                           padding: EdgeInsets.only(top: 12),
                           child: Text(
                             ' هجري-ميلادي',
-                            textScaleFactor: 1.0,
                             style: TextStyle(
                                 color: Color(0xFFD4E0E2),
                                 fontSize: 20,
@@ -148,7 +142,7 @@ class _CalendarHijri extends State<CalendarHijri> {
                       ],
                     ),
                     SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.05,
+                      height: MediaQuery.of(context).size.height * 0.03,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -159,7 +153,6 @@ class _CalendarHijri extends State<CalendarHijri> {
                             child: Padding(padding: EdgeInsets.only(top: 20),
                             child: Text(
                               'هجري\n•',
-                              textScaleFactor: 1.0,
                               style: TextStyle(
                                   color: Color(0xff3D5B67),
                                   fontSize: 18,
@@ -173,7 +166,6 @@ class _CalendarHijri extends State<CalendarHijri> {
                             onPressed: () =>  context.pushRoute(Calendar()),
                             child: Text(
                               'ميلادي',
-                              textScaleFactor: 1.0,
                               style: TextStyle(
                                   color: Color(0xffAFAFAF),
                                   fontSize: 18,
@@ -185,25 +177,18 @@ class _CalendarHijri extends State<CalendarHijri> {
                         
                       ],
                     ),
-                    Padding(padding: EdgeInsets.only(bottom: 30)),
+                    Padding(padding: EdgeInsets.only(bottom: 10)),
                     SingleChildScrollView(
                         child: 
                         Stack(
                          alignment: Alignment.bottomCenter,
                          children:[
-                          
-                          Padding(padding: EdgeInsets.only(bottom: 15), //MediaQuery.of(context).textScaleFactor <= 1.3 ? 15: 
+                          Padding(padding: EdgeInsets.only(bottom: 30), 
                         child:Image.asset('assets/images/cal_back.png', width: MediaQuery.of(context).size.width * 0.75, ),
                           ),
                         Container(
-           //   decoration: BoxDecoration(
-             //   image: DecorationImage(
-              //    image: AssetImage('assets/images/cal_back.png'),
-                  
-                  //fit: BoxFit.fill,
-                //),
-              //),
                       margin: EdgeInsets.symmetric(horizontal: 16.0),
+                      height: 350,
                         child: _calendarCarousel,
                       ), 
                         ]),

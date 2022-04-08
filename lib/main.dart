@@ -44,6 +44,7 @@ void main() async {
   await NotificationService().init(); // <----
   //NotificationService().requestIOSPermissions; //
 
+
   runApp(MyApp());
 
   AlarmPollingWorker().createPollingWorker();
@@ -66,8 +67,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AllNotifications.appNotifications();
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Observer(builder: (context) {

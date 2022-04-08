@@ -9,9 +9,6 @@ import '../dates.dart';
 import '../routes/ router.gr.dart';
 import 'navdraw.dart';
 import 'top_icons.dart';
-//import 'package:easy_localization/easy_localization.dart' as localized;
-
-
 
 class Calendar extends StatefulWidget {
   const Calendar({Key? key}) : super(key: key);
@@ -26,21 +23,18 @@ class _Calendar extends State<Calendar> {
 
   @override
   Widget build(BuildContext context) {
-                                                     // print(' text scale ${MediaQuery.of(context).textScaleFactor}');
-
-
     final _calendarCarousel = CalendarCarousel(
       showOnlyCurrentMonthDate: true,
-      weekendTextStyle:  TextStyle(
-        color: const Color(0xff4C7884),
-        fontFamily: 'ArbFONTS',
-        fontSize: MediaQuery.of(context).textScaleFactor > 1.2 ? 14 : 20,// * fontScale,
-      ),
+      weekendTextStyle: const TextStyle(
+          color: Color(0xff4C7884),
+          fontFamily: 'ArbFONTS',
+          fontSize:
+              18 //MediaQuery.of(context).textScaleFactor > 1.2 ? 14 : 20,// * fontScale,
+          ),
       headerMargin: const EdgeInsets.only(bottom: 25),
       thisMonthDayBorderColor: Colors.white,
       //weekDayMargin: const EdgeInsets.symmetric(horizontal: 10),
-      customWeekDayBuilder: (weekday, weekdayName) =>
-          weekDayNames(weekday), 
+      customWeekDayBuilder: (weekday, weekdayName) => weekDayNames(weekday),
       firstDayOfWeek: 0,
       //markedDatesMap: _markedDateMap,
       height: 420.0,
@@ -52,20 +46,22 @@ class _Calendar extends State<Calendar> {
           ' ' +
           _targetDateTime.year.toString(),
 
-      headerTextStyle: TextStyle(
-          color: const Color(0xff4C7884), fontSize: MediaQuery.of(context).textScaleFactor > 1.2 ? 14 : 20 , fontFamily: 'ArbFONTS'),
-  
+      headerTextStyle: const TextStyle(
+          color: Color(0xff4C7884), fontSize: 20, fontFamily: 'ArbFONTS'),
 
       iconColor: Colors.black,
-      todayTextStyle: TextStyle(
+      todayTextStyle: const TextStyle(
         color: Colors.white,
         fontWeight: FontWeight.bold,
         fontFamily: 'ArbFONTS',
-        fontSize: MediaQuery.of(context).textScaleFactor > 1.2 ? 14 : 20 ,
-        letterSpacing: -1, 
+        fontSize: 18,
+        letterSpacing: -1,
       ),
-      daysTextStyle: TextStyle(
-          color: const Color(0xff4C7884), fontFamily: 'ArbFONTS',letterSpacing: -1, fontSize: MediaQuery.of(context).textScaleFactor > 1.2 ? 14 :  20 ),
+      daysTextStyle: const TextStyle(
+          color: Color(0xff4C7884),
+          fontFamily: 'ArbFONTS',
+          letterSpacing: -1,
+          fontSize: 18),
 
       todayButtonColor: const Color(0xff4C7884),
       selectedDayTextStyle: const TextStyle(
@@ -73,7 +69,6 @@ class _Calendar extends State<Calendar> {
       ),
       minSelectedDate: _currentDate.subtract(const Duration(days: 360)),
       maxSelectedDate: _currentDate.add(const Duration(days: 360)),
-      
 
       onCalendarChanged: (DateTime date) {
         setState(() {
@@ -86,119 +81,111 @@ class _Calendar extends State<Calendar> {
       body: SafeArea(
           top: false,
           bottom: false,
-             child: Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage('https://i.postimg.cc/qqdPg7tr/ramadan.png'),
-                  fit: BoxFit.fill,
-                ),
+          child: Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image:
+                    NetworkImage('https://i.postimg.cc/qqdPg7tr/ramadan.png'),
+                fit: BoxFit.fill,
               ),
-              child: Column(
-                  //mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TopIconsWhite(context, 1),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Padding(padding: const EdgeInsets.only(right: 10),
-                    child: Column(
-                      children: [
-                        Container(
-                            width: MediaQuery.of(context).size.width * 0.9,
-                            alignment: Alignment.centerRight,
-                            child: TextScaleFactorClamper(
+            ),
+            child: Column(
+                //mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TopIconsWhite(context, 1),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: Column(
+                          children: [
+                            Container(
+                                width: MediaQuery.of(context).size.width * 0.9,
+                                alignment: Alignment.centerRight,
+                                child: Text(
+                                  AllDates.hday,
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 22,
+                                      height: 1.3,
+                                      fontFamily: 'ArbFONTS'),
+                                )),
+                            Container(
+                              alignment: Alignment.centerRight,
+                              width: MediaQuery.of(context).size.width * 0.9,
                               child: Text(
-                                AllDates.hday,
-                                //textScaleFactor: 1.0,
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 22,
-                                    height: 1.3,
-                                    fontFamily: 'ArbFONTS'),
-                                //textAlign: TextAlign.right,
-                              ),
-                            )),
-                        Container(
-                          alignment: Alignment.centerRight,
-                          width: MediaQuery.of(context).size.width * 0.9,
-                          child: TextScaleFactorClamper(
+                                  AllDates.hdate +
+                                      ' ' +
+                                      AllDates.hMonth +
+                                      '، ' +
+                                      AllDates.hYear,
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                      fontFamily: 'ArbFONTS'),
+                                  textAlign: TextAlign.left),
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.9,
+                              alignment: Alignment.centerRight,
                               child: Text(
-                              AllDates.hdate +
-                                  ' ' +
-                                  AllDates.hMonth +
-                                  '، ' +
-                                  AllDates.hYear,
-                              //textScaleFactor: 1.0,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                  fontFamily: 'ArbFONTS'),
-                              textAlign: TextAlign.left),
-                        )),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.9,
-                          alignment: Alignment.centerRight,
-                          child: TextScaleFactorClamper(
-                              child: Text(
-                              AllDates.mDate +
-                                  ' ' +
-                                  AllDates.mMonth +
-                                  '، ' +
-                                  AllDates.mYear,
-                              textScaleFactor: 1.0,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  height: 1.5,
-                                  fontSize: 15,
-                                  fontFamily: 'ArbFONTS')),
-                        )),
-                      ],
-                    ),
-                    ),
-                ],
-              ),
-                                    Row(
-                      // ignore: prefer_const_literals_to_create_immutables
-                      children: [
-                    const Padding(padding: EdgeInsets.only(right: 20)),
-                        const Text(
-                          'التقويم',
-                          textScaleFactor: 1.0,
+                                  AllDates.mDate +
+                                      ' ' +
+                                      AllDates.mMonth +
+                                      '، ' +
+                                      AllDates.mYear,
+                                   
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      height: 1.5,
+                                      fontSize: 15,
+                                      fontFamily: 'ArbFONTS')),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    // ignore: prefer_const_literals_to_create_immutables
+                    children: [
+                      const Padding(padding: EdgeInsets.only(right: 20)),
+                      const Text(
+                        'التقويم',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 30,
+                            height: 2,
+                            fontFamily: 'ArbFONTS'),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(top: 12),
+                        child: Text(
+                          ' هجري-ميلادي',
+                           
                           style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 30,
+                              color: Color(0xFFD4E0E2),
+                              fontSize: 20,
                               height: 2,
                               fontFamily: 'ArbFONTS'),
                         ),
-                        const Padding(
-                          padding: EdgeInsets.only(top: 12),
-                          child: Text(
-                            ' هجري-ميلادي',
-                            textScaleFactor: 1.0,
-                            style: TextStyle(
-                                color: Color(0xFFD4E0E2),
-                                fontSize: 20,
-                                height: 2,
-                                fontFamily: 'ArbFONTS'),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.05,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      
-                      children: [
-
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.03,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
                       TextButton(
-                          onPressed: () => context.pushRoute(const CalendarHijri(),
+                          onPressed: () => context.pushRoute(
+                                const CalendarHijri(),
                               ),
-
                           child: const Text(
                             'هجري',
-                            textScaleFactor: 1.0,
+                             
                             style: TextStyle(
                                 color: Color(0xffAFAFAF),
                                 fontSize: 18,
@@ -212,7 +199,7 @@ class _Calendar extends State<Calendar> {
                             padding: EdgeInsets.only(top: 20),
                             child: Text(
                               'ميلادي\n•',
-                              textScaleFactor: 1.0,
+                               
                               style: TextStyle(
                                   color: Color(0xff4C7884),
                                   fontSize: 18,
@@ -222,97 +209,97 @@ class _Calendar extends State<Calendar> {
                               textAlign: TextAlign.center,
                             )),
                       ),
-                        
-                      ],
-                    ),                  
-                    const Padding(padding: EdgeInsets.only(bottom: 15)),
-
+                    ],
+                  ),
+                  //const Padding(padding: EdgeInsets.only(bottom: 10)),
                   SingleChildScrollView(
-                                            child: 
-                        Stack(
-                         alignment: Alignment.center,
-                         children:[
-                          
-                          Padding(padding: EdgeInsets.only(top: MediaQuery.of(context).textScaleFactor <= 1.3 ? 0: 40 ),
-                        child:Image.asset('assets/images/cal_back.png', width: MediaQuery.of(context).size.width * 0.75 ),
-                          ),
-                     Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 40.0),
-                      width: MediaQuery.of(context).size.width * 0.75,
-                      child: _calendarCarousel,
-                    ),
-                         ]),
+                    child: Stack(alignment: Alignment.bottomCenter, children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            bottom: 30),
+                        child: Image.asset('assets/images/cal_back.png',
+                            width: MediaQuery.of(context).size.width * 0.75),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 40.0),
+                        width: MediaQuery.of(context).size.width * 0.75,
+                        height: 350,
+                        child: _calendarCarousel,
+                      ),
+                    ]),
                   ),
                 ]),
           )),
-              drawer: const NavigationDrawer(),
+      drawer: const NavigationDrawer(),
     );
   }
 
   Widget weekDayNames(int weekday) {
     return SizedBox(
-      //width: MediaQuery.of(context).size.width * 0.75,
-    child: Row(
-    children: [
-
+        child: Row(children: [
       if (weekday == 0)
-         Container(
+        Container(
           alignment: Alignment.center,
           width: MediaQuery.of(context).size.width * 0.1,
-          child:  Text(
+          child: const Text(
             'ح',
-            style: TextStyle(fontSize: MediaQuery.of(context).textScaleFactor > 1.2 ? 12 : 16),
+            style: TextStyle(fontSize: 16),
           ),
         ),
-      if (weekday == 1)          Container(
-         alignment: Alignment.center,
+      if (weekday == 1)
+        Container(
+          alignment: Alignment.center,
           width: MediaQuery.of(context).size.width * 0.1,
-          child:  Text(
+          child: const Text(
             'ن',
-            style: TextStyle(fontSize: MediaQuery.of(context).textScaleFactor > 1.2 ? 12 : 16),
+            style: TextStyle(fontSize: 16),
           ),
         ),
-      if (weekday == 2)          Container(
-         alignment: Alignment.center,
+      if (weekday == 2)
+        Container(
+          alignment: Alignment.center,
           width: MediaQuery.of(context).size.width * 0.1,
-          child:  Text(
+          child: const Text(
             'ث',
-            style: TextStyle(fontSize: MediaQuery.of(context).textScaleFactor > 1.2 ? 12 : 16),
+            style: TextStyle(fontSize: 16),
           ),
         ),
-      if (weekday == 3)          Container(
-         alignment: Alignment.center,
+      if (weekday == 3)
+        Container(
+          alignment: Alignment.center,
           width: MediaQuery.of(context).size.width * 0.1,
-          child:  Text(
+          child: const Text(
             'ر',
-            style: TextStyle(fontSize: MediaQuery.of(context).textScaleFactor > 1.2 ? 12 : 16),
+            style: TextStyle(fontSize: 16),
           ),
         ),
-      if (weekday == 4)          Container(
-         alignment: Alignment.center,
+      if (weekday == 4)
+        Container(
+          alignment: Alignment.center,
           width: MediaQuery.of(context).size.width * 0.1,
-          child:  Text(
+          child: const Text(
             'خ',
-            style: TextStyle(fontSize: MediaQuery.of(context).textScaleFactor > 1.2 ? 12 : 16),
+            style: TextStyle(fontSize: 16),
           ),
         ),
-      if (weekday == 5)          Container(
-         alignment: Alignment.center,
+      if (weekday == 5)
+        Container(
+          alignment: Alignment.center,
           width: MediaQuery.of(context).size.width * 0.1,
-          child:  Text(
+          child: const Text(
             'ج',
-            style: TextStyle(fontSize: MediaQuery.of(context).textScaleFactor > 1.2 ? 12 : 16),
+            style: TextStyle(fontSize: 16),
           ),
         ),
-                    if (weekday == 6)          Container(
-         alignment: Alignment.center,
+      if (weekday == 6)
+        Container(
+          alignment: Alignment.center,
           width: MediaQuery.of(context).size.width * 0.1,
-          child:  Text(
+          child: const Text(
             'س',
-            style: TextStyle(fontSize: MediaQuery.of(context).textScaleFactor > 1.2 ? 12 : 16),
+            style: TextStyle(fontSize: 16),
           ),
         ),
-
     ]));
   }
 }

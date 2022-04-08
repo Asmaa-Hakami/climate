@@ -99,7 +99,7 @@ class _MonthChar extends State<MonthChar> {
                               const Padding(padding: EdgeInsets.only(right: 5)),
                               const Text(
                                 "مشاركة",
-                                textScaleFactor: 1.0,
+                                 
                                 style: TextStyle(
                                     fontSize: 14,
                                     color: Colors.white,

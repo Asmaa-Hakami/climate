@@ -40,14 +40,14 @@ class AlarmScreen extends StatelessWidget {
                     maxLines: 3,
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
-                    textScaleFactor: 1.0,
+                     
                     style: const TextStyle(color: Color(0xff506B75), fontSize: 30),
                   ),
                 )),
                 TextScaleFactorClamper(
                             child:Text(
                     AllDates.replaceEngNumber(format.format(now)), //format.format(now) //'${alarm!.hour}:${alarm!.minute}'
-                    textScaleFactor: 1.0,
+                     
                     style: const TextStyle(
                         fontSize: 45,
                         fontWeight: FontWeight.bold,
@@ -95,7 +95,7 @@ class AlarmScreen extends StatelessWidget {
               const TextScaleFactorClamper(
                             child:Text(
                 "غفوة",
-                textScaleFactor: 1.0,
+                 
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.white, fontSize: 20),
               )),
@@ -115,7 +115,7 @@ class AlarmScreen extends StatelessWidget {
             const TextScaleFactorClamper(
                             child:Text("إيقاف",
                 textAlign: TextAlign.center,
-                textScaleFactor: 1.0,
+                 
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,

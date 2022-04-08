@@ -91,7 +91,7 @@ class _SeasonInfo extends State<SeasonInfo> {
                           const Padding(padding: EdgeInsets.only(right: 5)),
                           const Text(
                             "مشاركة",
-                            textScaleFactor: 1.0,
+                             
                             style: TextStyle(
                                 fontSize: 14.0,
                                 color: Colors.white,

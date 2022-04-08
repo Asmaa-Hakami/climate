@@ -66,7 +66,7 @@ class _Qiblah extends State<Qiblah> {
                 ),
                 Text(
                   'اتجاه القبلة',
-                  textScaleFactor: 1.0,
+                   
                   style: TextStyle(fontSize: 30, color: Colors.white),
                 ),
                 Padding(

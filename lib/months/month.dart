@@ -55,7 +55,7 @@ class _Month extends State<Month> {
                             child: TextScaleFactorClamper(
                               child: Text(
                                 AllDates.hday,
-                                //textScaleFactor: 1.0,
+                                // 
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 22,
@@ -74,7 +74,7 @@ class _Month extends State<Month> {
                                       AllDates.hMonth +
                                       '، ' +
                                       AllDates.hYear,
-                                  //textScaleFactor: 1.0,
+                                  // 
                                   style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 15,
@@ -91,7 +91,7 @@ class _Month extends State<Month> {
                                       AllDates.mMonth +
                                       '، ' +
                                       AllDates.mYear,
-                                  textScaleFactor: 1.0,
+                                   
                                   style: const TextStyle(
                                       color: Colors.white,
                                       height: 1.5,
@@ -111,7 +111,7 @@ class _Month extends State<Month> {
                     children: [
                       TextScaleFactorClamper(
                           child: Text('شهر ' + widget.mname,
-                              //textScaleFactor: 1.0,
+                              // 
                               style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 30,
@@ -136,7 +136,7 @@ class _Month extends State<Month> {
                     TextScaleFactorClamper(
                         child: Text(
                       AllData.getMWhen(widget.mnum + 1),
-                      textScaleFactor: 1.0,
+                       
                       style: const TextStyle(
                           fontSize: 15.0,
                           color: Colors.white,
@@ -153,7 +153,7 @@ class _Month extends State<Month> {
                   const TextScaleFactorClamper(
                       child: Text(
                     'الفصل',
-                    //textScaleFactor: 1.0,
+                    // 
                     style: TextStyle(
                         fontSize: 17.0,
                         color: Colors.white,
@@ -183,7 +183,7 @@ class _Month extends State<Month> {
                             ),
                             TextScaleFactorClamper(
                                 child: Text(mSeason,
-                                    //textScaleFactor: 1.0,
+                                    // 
                                     style: const TextStyle(
                                         fontSize: 15,
                                         color: Color(0xff3F6E7B),
@@ -207,7 +207,7 @@ class _Month extends State<Month> {
                               TextScaleFactorClamper(
                                   child: Text(
                                       MonthsData().monthInfo[widget.mnum][1][1],
-                                      //textScaleFactor: 1.0,
+                                      // 
                                       style: const TextStyle(
                                           fontSize: 15,
                                           color: Color(0xff3F6E7B),

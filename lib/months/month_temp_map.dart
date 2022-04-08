@@ -48,7 +48,7 @@ class _Monthgraphs extends State<Monthgraphs> {
                     padding: EdgeInsets.only(
                         top: MediaQuery.of(context).size.height * 0.01)),
                 Text(widget.mname,
-                    textScaleFactor: 1.0,
+                     
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 40,
@@ -81,7 +81,7 @@ class _Monthgraphs extends State<Monthgraphs> {
                             width: MediaQuery.of(context).size.width * 0.5,
                             alignment: Alignment.center,
                             child: Text('درجات الحرارة',
-                                textScaleFactor: 1.0,
+                                 
                                 style: TextStyle(
                                     color: Color(0xff506B75),
                                     fontSize: 16,
@@ -102,7 +102,7 @@ class _Monthgraphs extends State<Monthgraphs> {
                           //padding: EdgeInsets.only(
                           //  right: MediaQuery.of(context).size.width * 0.2),
                           child: Text('الخريطة',
-                              textScaleFactor: 1.0,
+                               
                               style: TextStyle(
                                   color: Color(0xff506B75),
                                   fontSize: 16,
@@ -224,7 +224,7 @@ class _Monthgraphs extends State<Monthgraphs> {
                 children: [
                   const Text(
                     "مشاركة",
-                    textScaleFactor: 1.0,
+                     
                     style: TextStyle(
                         fontSize: 12.0,
                         color: Colors.white,

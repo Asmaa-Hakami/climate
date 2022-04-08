@@ -5,15 +5,10 @@ import 'dart:async';
 import 'package:adhan/adhan.dart';
 import 'package:climate_calendar_new/dates.dart';
 import 'package:climate_calendar_new/ui/text_scale.dart';
-//import 'package:climate_calendar_new/notification_service.dart';
 import 'package:flutter/material.dart';
-
-// ignore: import_of_legacy_library_into_null_safe
-//import 'package:geocoder/geocoder.dart' as geocoder;
 import 'package:location/location.dart';
 
 import '../get_location.dart';
-import '../nav_bar.dart';
 import 'navdraw.dart';
 import 'top_icons.dart';
 import 'package:intl/intl.dart';
@@ -26,13 +21,12 @@ class Prayers extends StatefulWidget {
 }
 
 class _PrayerTimesState extends State<Prayers> {
-  //final location = Location(); //loc.Location
   String? locationError;
-  PrayerTimes? prayerTimes; //= PrayerTimes.today(, calculationParameters);
+  PrayerTimes? prayerTimes; 
   Prayer? next;
   DateTime? nextPrayerTime;
   final date = DateTime.now();
-  String yourCityName = '';//add.first.locality.toString(); //'';
+  String yourCityName = '';
   final location = Location(); 
 
   late String textAdzanRemaining = '';
@@ -92,7 +86,7 @@ class _PrayerTimesState extends State<Prayers> {
                   width: MediaQuery.of(context).size.width * 0.9,
                   child: const  TextScaleFactorClamper(
                               child: Text('مواقيت الأذان',
-                  //textScaleFactor: 1.0,
+                  // 
                       style: TextStyle(
                           color: Color(0xff3D5B67),
                           fontSize: 27,
@@ -113,7 +107,7 @@ class _PrayerTimesState extends State<Prayers> {
                        TextScaleFactorClamper(
                               child:Text(
                         yourCityName, // ' $yourCityName',
-                        //textScaleFactor: 1.0,
+                        // 
                         style: const TextStyle(
                             color: Colors.white,
                             fontSize: 23,
@@ -170,7 +164,7 @@ class _PrayerTimesState extends State<Prayers> {
                              TextScaleFactorClamper(
                               child:Text(
                             "$timeTo ${formattedPrayerName(next!).toString()} ",
-                            //textScaleFactor: 1.0,
+                            // 
                             style: const TextStyle(
                                 color: Color(0xFFD4E0E2),
                                 fontSize: 15,
@@ -180,7 +174,7 @@ class _PrayerTimesState extends State<Prayers> {
                             TextScaleFactorClamper(
                               child:Text(
                             textAdzanRemaining,
-                            //textScaleFactor: 1.0,
+                            // 
                             style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 15,
@@ -195,7 +189,7 @@ class _PrayerTimesState extends State<Prayers> {
                               TextScaleFactorClamper(
                               child:Text(
                                 formattedPrayerName(next!).toString(),
-                                //textScaleFactor: 1.0,
+                                // 
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 20,
@@ -206,7 +200,7 @@ class _PrayerTimesState extends State<Prayers> {
                               child:Text(
                                 prayerTime(DateFormat.jm().format(
                                     nextPrayerTime!)), // AllDates.replaceEngNumber(nextPrayerTime.toString().substring(nextPrayerTime.toString().length - 12 ,nextPrayerTime.toString().length - 7)) + ' ' + char(),
-                                //textScaleFactor: 1.0,
+                                // 
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 30,
@@ -306,7 +300,7 @@ class _PrayerTimesState extends State<Prayers> {
               width: MediaQuery.of(context).size.width * 0.22,
               child: TextScaleFactorClamper(
                               child:Text(text,
-              //textScaleFactor: 1.0,
+              // 
                   style: TextStyle(
                       color: Color(titleColor), //0xFF4C646C
                       fontSize: 17,
@@ -317,7 +311,7 @@ class _PrayerTimesState extends State<Prayers> {
               width: MediaQuery.of(context).size.width * 0.22,
               child: TextScaleFactorClamper(
                               child:Text(text2,
-              //textScaleFactor: 1.0,
+              // 
                   style:  TextStyle(
                       color: Color(subColor), //0xFF7A8B8E
                       fontSize: 17,

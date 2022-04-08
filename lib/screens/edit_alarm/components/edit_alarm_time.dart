@@ -216,7 +216,7 @@ super.initState();
                     const TextScaleFactorClamper(
                               child:Text(
                       'صباح',
-                      //textScaleFactor: 1.0,
+                      // 
                          style: TextStyle(
                                 color: Color(0xff506B75),
                                 fontSize: 13,
@@ -242,7 +242,7 @@ super.initState();
                     const TextScaleFactorClamper(
                               child:Text(
                       'مساء',
-                      //textScaleFactor: 1.0,
+                      // 
                          style: TextStyle(
                                 color: Color(0xff506B75),
                                 fontSize: 13,

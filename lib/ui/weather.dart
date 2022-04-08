@@ -30,7 +30,7 @@ class Weather extends StatelessWidget {
                   width: MediaQuery.of(context).size.width * 0.9,
                   
                   child: const Text('توقعات الطقس',
-                  textScaleFactor: 1.0,
+                   
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 30,
@@ -50,7 +50,7 @@ class Weather extends StatelessWidget {
                             //fit: BoxFit.fill,
                           ),
                                 const Text('المركز الوطني للأرصاد',
-                                    textScaleFactor: 1.0,
+                                     
                                     style: TextStyle(
                                         fontSize: 15,
                                         color: Colors.white,
@@ -70,7 +70,7 @@ class Weather extends StatelessWidget {
                             //fit: BoxFit.fill,
                           ),
                                 const Text('Windy',
-                                    textScaleFactor: 1.0,
+                                     
                                     style: TextStyle(
                                         fontSize: 15,
                                         color: Colors.white,
@@ -90,7 +90,7 @@ class Weather extends StatelessWidget {
                             //fit: BoxFit.fill,
                           ),
                                 const Text('توقعات حالة الطقس Meteologix',
-                                    textScaleFactor: 1.0,
+                                     
                                     style: TextStyle(
                                         fontSize: 15,
                                         color: Colors.white,
@@ -112,7 +112,7 @@ class Weather extends StatelessWidget {
                             //fit: BoxFit.fill,
                           ),
                                 const Text('رادار الأمطار Rainviewer',
-                                    textScaleFactor: 1.0,
+                                     
                                     style: TextStyle(
                                         fontSize: 15,
                                         color: Colors.white,

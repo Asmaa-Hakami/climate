@@ -41,7 +41,7 @@ class _MonthTemp extends State<MonthTemp> {
                     padding: EdgeInsets.only(
                         top: MediaQuery.of(context).size.height * 0.01)),
                 Text(widget.mname,
-                    textScaleFactor: 1.0,
+                     
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 40,
@@ -69,7 +69,7 @@ class _MonthTemp extends State<MonthTemp> {
                             width: MediaQuery.of(context).size.width * 0.5,
                             alignment: Alignment.center,
                             child: Text('درجات الحرارة',
-                                textScaleFactor: 1.0,
+                                 
                                 style: TextStyle(
                                     color: Color(0xff506B75),
                                     fontSize: 16,
@@ -94,7 +94,7 @@ class _MonthTemp extends State<MonthTemp> {
                           width: MediaQuery.of(context).size.width * 0.5,
                           alignment: Alignment.center,
                           child: Text('الخريطة',
-                              textScaleFactor: 1.0,
+                               
                               style: TextStyle(
                                   color: Color(0xff506B75),
                                   fontSize: 16,
@@ -158,7 +158,7 @@ class _MonthTemp extends State<MonthTemp> {
                                 child: Text(
                                   MonthsData().monthInfo[widget.mnum][3][index]
                                       [0],
-                                  textScaleFactor: 1.0,
+                                   
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 16,
@@ -182,7 +182,7 @@ class _MonthTemp extends State<MonthTemp> {
                                     child: Text(
                                       MonthsData().monthInfo[widget.mnum][3]
                                           [index][i],
-                                      textScaleFactor: 1.0,
+                                       
                                       style: TextStyle(
                                           color: Color(0xff506B75),
                                           fontSize: 20,

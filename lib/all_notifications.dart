@@ -1,7 +1,6 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:adhan/adhan.dart';
 import 'package:climate_calendar_new/all_data.dart';
-import 'package:location/location.dart';
 
 import 'dates.dart';
 import 'get_location.dart';
@@ -10,12 +9,11 @@ import 'package:intl/intl.dart';
 
 class AllNotifications {
   static PrayerTimes? prayerTimes;
-  final location = Location();
    static DateTime mToday = DateTime.now(); 
 
 
-static void prayerNotifications(locationData){
-      //getLocationData().then((locationData) {
+static void prayerNotifications(){
+      getLocationData().then((locationData) {
          DateTime now = DateTime.now(); 
       if (locationData != null) {
         for (var i = 0; i < 5; i++) {
@@ -114,13 +112,13 @@ static void prayerNotifications(locationData){
         }}
       else{
       }
+      });
 }
 
 
   static Future<void> appNotifications() async {
-   LocationData? locationData = await getLocationData();  
-
-    prayerNotifications(locationData);
+   //LocationData? locationData = await getLocationData();  
+    prayerNotifications();
     
         for (var i = 0; i < AllData.zodiacDates.length; i++) {
         if  (mToday.isBefore(AllData.zodiacDates[i][1])) {

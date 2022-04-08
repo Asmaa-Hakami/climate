@@ -33,7 +33,7 @@ class _ConvertState extends State<Convert> {
   @override
   Widget build(BuildContext context) {
 return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       body: GestureDetector(
           onTap: () {
             FocusManager.instance.primaryFocus?.unfocus();
@@ -98,7 +98,7 @@ return Scaffold(
                                           AllDates.mMonth +
                                           '، ' +
                                           AllDates.mYear,
-                                      textScaleFactor: 1.0,
+                                       
                                       style: const TextStyle(
                                           color: Colors.white,
                                           height: 1.5,
@@ -156,11 +156,8 @@ return Scaffold(
                                   height:
                                       MediaQuery.of(context).size.height * 0.06,
                                   alignment: Alignment.center,
-                                  //padding: EdgeInsets.only(
-                                  //  right: MediaQuery.of(context).size.width * 0.2),
                                   child: const Text(
                                     'هجري إلى ميلادي',
-                                    textScaleFactor: 1.0,
                                     style: TextStyle(
                                         color: Color(0xff506B75),
                                         fontSize: 15,
@@ -184,11 +181,8 @@ return Scaffold(
                                     height: MediaQuery.of(context).size.height *
                                         0.06,
                                     alignment: Alignment.center,
-                                    //padding: EdgeInsets.only(
-                                    //  right: MediaQuery.of(context).size.width * 0.2),
                                     child: const Text(
                                       'ميلادي إلى هجري',
-                                      textScaleFactor: 1.0,
                                       style: TextStyle(
                                           color: Color(0xff506B75),
                                           fontSize: 15,
@@ -211,7 +205,7 @@ return Scaffold(
                                 children: [
                                   const Text(
                                     'اليـوم',
-                                    // textScaleFactor: 1.0,
+                                    //  
                                     style: TextStyle(
                                         color: Color(0xff5D5C5D),
                                         fontSize: 16,
@@ -457,7 +451,7 @@ return Scaffold(
                                     MediaQuery.of(context).size.width * 0.45),
                             const Text(
                               "تحويل",
-                              textScaleFactor: 1.0,
+                               
                               style: TextStyle(
                                   fontSize: 18.0,
                                   color: Colors.white,
@@ -579,7 +573,7 @@ return Scaffold(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
               child: Text(
                 error,
-                textScaleFactor: 1.0,
+                 
                 style: const TextStyle(fontSize: 18, color: Color(0xff4C7884)),
                 textAlign: TextAlign.center,
               ),
@@ -609,7 +603,7 @@ return Scaffold(
             children: [
               const Text(
                 'هجري: ',
-                textScaleFactor: 1.0,
+                 
                 style: TextStyle(
                     color: Color(0xff5D5C5D),
                     fontSize: 16,
@@ -617,7 +611,7 @@ return Scaffold(
               ),
               Text(
                 originDate,
-                textScaleFactor: 1.0,
+                 
                 style: const TextStyle(
                     color: Color(0xff4C7884),
                     fontSize: 20,
@@ -633,7 +627,7 @@ return Scaffold(
             children: [
               const Text(
                 'ميلادي: ',
-                textScaleFactor: 1.0,
+                 
                 style: TextStyle(
                     color: Color(0xff5D5C5D),
                     fontSize: 16,
@@ -641,7 +635,7 @@ return Scaffold(
               ),
               Text(
                 newDate,
-                textScaleFactor: 1.0,
+                 
                 style: const TextStyle(
                     color: Color(0xff4C7884),
                     fontSize: 20,

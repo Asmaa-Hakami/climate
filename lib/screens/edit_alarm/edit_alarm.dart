@@ -96,7 +96,7 @@ class EditAlarm extends StatelessWidget {
                             ),
                              Text(
                               title == 'إضافة المنبه'? "إضافة" : 'حفظ',
-                              textScaleFactor: 1.0,
+                               
                               style: const TextStyle(
                                   fontSize: 20.0,
                                   fontWeight: FontWeight.normal,
