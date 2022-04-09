@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:climate_calendar_new/palette.dart';
 import 'package:climate_calendar_new/screens/alarm_screen/alarm_screen.dart';
@@ -12,9 +14,9 @@ import 'package:climate_calendar_new/utils/schedule_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:wakelock/wakelock.dart';
-import 'all_notifications.dart';
 import 'notification_service.dart';
 import 'routes/ router.gr.dart';
 
@@ -38,20 +40,19 @@ void main() async {
   }
   WidgetsBinding.instance!.addObserver(LifeCycleListener(list));
 
-  await AndroidAlarmManager.initialize();
+  if (Platform.isAndroid) {
+    await AndroidAlarmManager.initialize();
+    final externalPath = await getExternalStorageDirectory();
+    print("This is external path" + externalPath!.path);
 
+    if (!externalPath.existsSync()) externalPath.create(recursive: true);
+    AlarmPollingWorker().createPollingWorker();
+  }
 
   await NotificationService().init(); // <----
   //NotificationService().requestIOSPermissions; //
 
-
-  runApp(MyApp());
-
-  AlarmPollingWorker().createPollingWorker();
-
-  final externalPath = await getExternalStorageDirectory();
-  print("This is external path" + externalPath!.path);
-  if (!externalPath.existsSync()) externalPath.create(recursive: true);
+  runApp(ProviderScope(child: MyApp()));
 }
 
 void restartApp() {
@@ -79,9 +80,7 @@ class MyApp extends StatelessWidget {
           mediaHandler.playMusic(alarm);
           Wakelock.enable();
 
-          return Material(
-              child: AlarmScreen(
-                  alarm: alarm)); 
+          return Material(child: AlarmScreen(alarm: alarm));
         }
 
         return MaterialApp.router(
@@ -122,7 +121,6 @@ class MyApp extends StatelessWidget {
                 ));
           },
         );
-
       }),
     );
   }

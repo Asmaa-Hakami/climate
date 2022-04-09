@@ -9,6 +9,7 @@ import 'package:climate_calendar_new/ui/text_scale.dart';
 import 'package:climate_calendar_new/ui/top_icons.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter_qiblah/flutter_qiblah.dart';
@@ -42,9 +43,6 @@ class _Qiblah extends State<Qiblah> {
 
   @override
   Widget build(BuildContext context) {
-    if (add != null) {
-      yourCityName = add.first.locality.toString();
-    }
     return Scaffold(
       body: SafeArea(
           top: false,
@@ -66,7 +64,6 @@ class _Qiblah extends State<Qiblah> {
                 ),
                 Text(
                   'اتجاه القبلة',
-                   
                   style: TextStyle(fontSize: 30, color: Colors.white),
                 ),
                 Padding(
@@ -81,14 +78,16 @@ class _Qiblah extends State<Qiblah> {
                         ),
                       ),
                       TextScaleFactorClamper(
-                          child: Text(
-                        yourCityName,
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 23,
-                            height: 2,
-                            fontFamily: 'ArbFONTS'),
-                      )),
+                          child: Consumer(builder: (context, ref, child) {
+                        return Text(
+                          ref.read(locationProvider).cityName ?? '',
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 23,
+                              height: 2,
+                              fontFamily: 'ArbFONTS'),
+                        );
+                      })),
                     ],
                   ),
                 ),

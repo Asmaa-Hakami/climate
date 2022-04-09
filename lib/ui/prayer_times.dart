@@ -6,6 +6,7 @@ import 'package:adhan/adhan.dart';
 import 'package:climate_calendar_new/dates.dart';
 import 'package:climate_calendar_new/ui/text_scale.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:location/location.dart';
 
 import '../get_location.dart';
@@ -13,59 +14,48 @@ import 'navdraw.dart';
 import 'top_icons.dart';
 import 'package:intl/intl.dart';
 
-class Prayers extends StatefulWidget {
+class Prayers extends ConsumerStatefulWidget {
   const Prayers({Key? key}) : super(key: key);
 
   @override
-  State<Prayers> createState() => _PrayerTimesState();
+  ConsumerState<Prayers> createState() => _PrayerTimesState();
 }
 
-class _PrayerTimesState extends State<Prayers> {
+class _PrayerTimesState extends ConsumerState<Prayers> {
   String? locationError;
-  PrayerTimes? prayerTimes; 
+  PrayerTimes? prayerTimes;
   Prayer? next;
   DateTime? nextPrayerTime;
   final date = DateTime.now();
   String yourCityName = '';
-  final location = Location(); 
 
   late String textAdzanRemaining = '';
-  
+
   @override
   void initState() {
-    getLocationData().then((locationData) {
-      if (!mounted) {
-        return;
-      }
-      if (locationData != null) {
-        setState(() {
-          prayerTimes = PrayerTimes(
-              Coordinates(locationData.latitude, locationData.longitude),
-              DateComponents.from(DateTime.now()),
-              CalculationMethod.umm_al_qura.getParameters());
-          if (prayerTimes!.nextPrayer() == Prayer.none) {
-            prayerTimes = PrayerTimes(
-                Coordinates(locationData.latitude, locationData.longitude),
-                DateComponents.from(
-                    DateTime.now().add(const Duration(days: 1))),
-                CalculationMethod.umm_al_qura.getParameters());
-               }
-        });
-      } else {
-        setState(() {
-          locationError = "Couldn't Get Your Location!";
-        });
-      }
-    });
     super.initState();
+
+    if (ref.read(locationProvider).locationData != null) {
+      yourCityName = ref.read(locationProvider).cityName ?? '';
+      setState(() {
+        prayerTimes = PrayerTimes(
+            Coordinates(ref.read(locationProvider).locationData!.latitude,
+                ref.read(locationProvider).locationData!.longitude),
+            DateComponents.from(DateTime.now()),
+            CalculationMethod.umm_al_qura.getParameters());
+        if (prayerTimes!.nextPrayer() == Prayer.none) {
+          prayerTimes = PrayerTimes(
+              Coordinates(ref.read(locationProvider).locationData!.latitude,
+                  ref.read(locationProvider).locationData!.longitude),
+              DateComponents.from(DateTime.now().add(const Duration(days: 1))),
+              CalculationMethod.umm_al_qura.getParameters());
+        }
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-        if(add != null){
-            yourCityName =  add.first.locality.toString();
-    }
-    
     return Scaffold(
       body: SafeArea(
         top: false,
@@ -73,7 +63,8 @@ class _PrayerTimesState extends State<Prayers> {
         child: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: NetworkImage('https://i.postimg.cc/Bvj9VkWr/prayer-times.png'), //'assets/images/prayer_times.png'),
+              image: NetworkImage(
+                  'https://i.postimg.cc/Bvj9VkWr/prayer-times.png'), //'assets/images/prayer_times.png'),
               fit: BoxFit.fill,
             ),
           ),
@@ -82,19 +73,20 @@ class _PrayerTimesState extends State<Prayers> {
               TopIconsGreen(context, 1),
               Column(children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.07,
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  child: const  TextScaleFactorClamper(
-                              child: Text('مواقيت الأذان',
-                  // 
-                      style: TextStyle(
-                          color: Color(0xff3D5B67),
-                          fontSize: 27,
-                          fontFamily: 'ArbFONTS')),
-                )),
+                    height: MediaQuery.of(context).size.height * 0.07,
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    child: const TextScaleFactorClamper(
+                      child: Text('مواقيت الأذان',
+                          //
+                          style: TextStyle(
+                              color: Color(0xff3D5B67),
+                              fontSize: 27,
+                              fontFamily: 'ArbFONTS')),
+                    )),
                 Padding(
                   padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.23, right: 25),
+                      top: MediaQuery.of(context).size.height * 0.23,
+                      right: 25),
                   child: Row(
                     children: [
                       Padding(
@@ -104,10 +96,10 @@ class _PrayerTimesState extends State<Prayers> {
                           height: 20,
                         ),
                       ),
-                       TextScaleFactorClamper(
-                              child:Text(
+                      TextScaleFactorClamper(
+                          child: Text(
                         yourCityName, // ' $yourCityName',
-                        // 
+                        //
                         style: const TextStyle(
                             color: Colors.white,
                             fontSize: 23,
@@ -128,7 +120,9 @@ class _PrayerTimesState extends State<Prayers> {
                 builder: (BuildContext context) {
                   if (prayerTimes != null) {
                     next = prayerTimes!.nextPrayer();
-                    nextPrayerTime = prayerTimes!.timeForPrayer(next);
+                    if (next != null) {
+                      nextPrayerTime = prayerTimes!.timeForPrayer(next!);
+                    }
 
                     Timer(const Duration(seconds: 1), () {
                       var curTime = DateTime.now();
@@ -141,7 +135,8 @@ class _PrayerTimesState extends State<Prayers> {
                             strsecondDiff; //: $strminuteDiff : $strHourDiff
                       });
                     });
-                    var timeTo = next == Prayer.sunrise ? 'متبقي على' : 'متبقي على أذان';
+                    var timeTo =
+                        next == Prayer.sunrise ? 'متبقي على' : 'متبقي على أذان';
 /*
                     NotificationService.twoScheduleNotifications(
                       //title: formattedPrayerName(next!).toString(),
@@ -155,61 +150,63 @@ class _PrayerTimesState extends State<Prayers> {
                     return Column(
                       children: [
                         //Padding(
-                          //padding: EdgeInsets.only(
-                            //  left: MediaQuery.of(context).size.width * 0.5,
-                              //top: 10),
-                          //child: 
-                          Row(children: [
+                        //padding: EdgeInsets.only(
+                        //  left: MediaQuery.of(context).size.width * 0.5,
+                        //top: 10),
+                        //child:
+                        Row(
+                          children: [
                             const Padding(padding: EdgeInsets.only(right: 25)),
-                             TextScaleFactorClamper(
-                              child:Text(
-                            "$timeTo ${formattedPrayerName(next!).toString()} ",
-                            // 
-                            style: const TextStyle(
-                                color: Color(0xFFD4E0E2),
-                                fontSize: 15,
-                                height: 1.5,
-                                fontFamily: 'ArbFONTS'),
-                          )),
                             TextScaleFactorClamper(
-                              child:Text(
-                            textAdzanRemaining,
-                            // 
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 15,
-                                height: 1.5,
-                                fontFamily: 'ArbFONTS'),
-                          )),
-                          ],),
+                                child: Text(
+                              "$timeTo ${formattedPrayerName(next!).toString()} ",
+                              //
+                              style: const TextStyle(
+                                  color: Color(0xFFD4E0E2),
+                                  fontSize: 15,
+                                  height: 1.5,
+                                  fontFamily: 'ArbFONTS'),
+                            )),
+                            TextScaleFactorClamper(
+                                child: Text(
+                              textAdzanRemaining,
+                              //
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  height: 1.5,
+                                  fontFamily: 'ArbFONTS'),
+                            )),
+                          ],
+                        ),
 
-                           Row(
-                            children: [
+                        Row(
+                          children: [
                             const Padding(padding: EdgeInsets.only(right: 25)),
-                              TextScaleFactorClamper(
-                              child:Text(
-                                formattedPrayerName(next!).toString(),
-                                // 
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    height: 1.3,
-                                    fontFamily: 'ArbFONTS'),
-                              )),
-                              TextScaleFactorClamper(
-                              child:Text(
-                                prayerTime(DateFormat.jm().format(
-                                    nextPrayerTime!)), // AllDates.replaceEngNumber(nextPrayerTime.toString().substring(nextPrayerTime.toString().length - 12 ,nextPrayerTime.toString().length - 7)) + ' ' + char(),
-                                // 
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 30,
-                                    height: 1.5,
-                                    fontFamily: 'ArbFONTS'),
-                              )),
-                            ],
-                          ),
-                        
+                            TextScaleFactorClamper(
+                                child: Text(
+                              formattedPrayerName(next!).toString(),
+                              //
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  height: 1.3,
+                                  fontFamily: 'ArbFONTS'),
+                            )),
+                            TextScaleFactorClamper(
+                                child: Text(
+                              prayerTime(DateFormat.jm().format(
+                                  nextPrayerTime!)), // AllDates.replaceEngNumber(nextPrayerTime.toString().substring(nextPrayerTime.toString().length - 12 ,nextPrayerTime.toString().length - 7)) + ' ' + char(),
+                              //
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 30,
+                                  height: 1.5,
+                                  fontFamily: 'ArbFONTS'),
+                            )),
+                          ],
+                        ),
+
                         const Padding(
                           padding: EdgeInsets.all(4.0),
                         ),
@@ -262,7 +259,7 @@ class _PrayerTimesState extends State<Prayers> {
           ),
         ),
       ),
-              drawer: const NavigationDrawer(),
+      drawer: const NavigationDrawer(),
     );
   }
 
@@ -279,8 +276,8 @@ class _PrayerTimesState extends State<Prayers> {
       subColor = 0xff566F79;
     } else {
       image = 'assets/images/gray_prayer.png';
-     titleColor = 0xff4C646C;
-     subColor = 0xff7A8B8E;
+      titleColor = 0xff4C646C;
+      subColor = 0xff7A8B8E;
     }
     return GestureDetector(
       child: Container(
@@ -299,23 +296,23 @@ class _PrayerTimesState extends State<Prayers> {
               height: MediaQuery.of(context).size.height * 0.11,
               width: MediaQuery.of(context).size.width * 0.22,
               child: TextScaleFactorClamper(
-                              child:Text(text,
-              // 
-                  style: TextStyle(
-                      color: Color(titleColor), //0xFF4C646C
-                      fontSize: 17,
-                      fontFamily: 'ArbFONTS'))),
+                  child: Text(text,
+                      //
+                      style: TextStyle(
+                          color: Color(titleColor), //0xFF4C646C
+                          fontSize: 17,
+                          fontFamily: 'ArbFONTS'))),
             ),
             Container(
               alignment: Alignment.bottomRight,
               width: MediaQuery.of(context).size.width * 0.22,
               child: TextScaleFactorClamper(
-                              child:Text(text2,
-              // 
-                  style:  TextStyle(
-                      color: Color(subColor), //0xFF7A8B8E
-                      fontSize: 17,
-                      fontFamily: 'ArbFONTS'))),
+                  child: Text(text2,
+                      //
+                      style: TextStyle(
+                          color: Color(subColor), //0xFF7A8B8E
+                          fontSize: 17,
+                          fontFamily: 'ArbFONTS'))),
             ),
           ],
         ),

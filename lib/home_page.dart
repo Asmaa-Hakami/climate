@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:climate_calendar_new/routes/%20router.gr.dart';
 import 'package:climate_calendar_new/ui/top_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 //import 'package:location/location.dart';
 import 'all_data.dart';
 import 'all_notifications.dart';
@@ -10,13 +11,13 @@ import 'get_location.dart';
 import 'ui/navdraw.dart';
 import 'ui/text_scale.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({Key? key}) : super(key: key);
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends ConsumerState<HomePage> {
   DateTime mToday = DateTime.now();
   String? locationError;
   String temp = '';
@@ -27,11 +28,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    if (add != null) {
-      yourCityName = add.first.locality.toString();
-      temp = ' ْ' + (w!.temperature!.celsius!.toInt()).toString();
-    }
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
@@ -76,7 +72,7 @@ class _HomePageState extends State<HomePage> {
                                     AllDates.hMonth +
                                     '، ' +
                                     AllDates.hYear,
-                                // 
+                                //
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 15,
@@ -93,7 +89,6 @@ class _HomePageState extends State<HomePage> {
                                     AllDates.mMonth +
                                     '، ' +
                                     AllDates.mYear,
-                                 
                                 style: const TextStyle(
                                     color: Colors.white,
                                     height: 1.5,
@@ -111,12 +106,18 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         TextScaleFactorClamper(
                             child: Text(
-                          AllDates.replaceEngNumber(temp),
+                          AllDates.replaceEngNumber(ref
+                                      .read(locationProvider)
+                                      .temperature ==
+                                  null
+                              ? ''
+                              : ' ْ ${ref.read(locationProvider).temperature}'),
                           style: const TextStyle(
                               color: Colors.white, fontSize: 23),
                         )),
                         TextScaleFactorClamper(
-                          child: Text(' $yourCityName',
+                          child: Text(
+                              ' ${ref.read(locationProvider).cityName ?? ''}',
                               style: const TextStyle(
                                   color: Colors.white,
                                   overflow: TextOverflow.ellipsis,
@@ -260,7 +261,7 @@ class _HomePageState extends State<HomePage> {
                     TextScaleFactorClamper(
                         child: Text(
                       'الموسم الحالي',
-                      // 
+                      //
                       style: TextStyle(
                           color: Color(0xFF4F707E),
                           fontSize: 15,
@@ -405,7 +406,7 @@ class _HomePageState extends State<HomePage> {
               TextScaleFactorClamper(
                   child: Text(
                 tawalea[0],
-                // 
+                //
                 style: const TextStyle(
                     fontSize: 18.0,
                     color: Color(0xff506B75),
@@ -431,7 +432,7 @@ class _HomePageState extends State<HomePage> {
               TextScaleFactorClamper(
                   child: Text(
                 ' ${tawalea[1]} ',
-                // 
+                //
                 style: const TextStyle(
                     fontSize: 20.0,
                     height: 1.0,
@@ -444,7 +445,7 @@ class _HomePageState extends State<HomePage> {
                 child: const TextScaleFactorClamper(
                     child: Text(
                   ":وقت الدخول",
-                  // 
+                  //
                   style: TextStyle(
                       fontSize: 15.0,
                       height: 1.0,
@@ -465,7 +466,7 @@ class _HomePageState extends State<HomePage> {
                 TextScaleFactorClamper(
                     child: Text(
                   ' ${tawalea[2]}',
-                  // 
+                  //
                   style: const TextStyle(
                       fontSize: 20.0,
                       height: 2,
@@ -478,7 +479,7 @@ class _HomePageState extends State<HomePage> {
                   child: const TextScaleFactorClamper(
                       child: Text(
                     ":عدد الأيام",
-                    // 
+                    //
                     style: TextStyle(
                         fontSize: 15.0,
                         height: 2,

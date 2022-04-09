@@ -69,13 +69,16 @@ dependencies:
   
   hijri_picker: ^3.0.0
   flutter_calendar_carousel: ^2.1.0
-  adhan: ^1.1.16
+  adhan: ^2.0.0-nullsafety.2
 
   location: ^4.3.0 
   
   geolocator: ^8.2.0
   weather: ^2.0.1
   geocoding: ^2.0.2
+
+
+  flutter_riverpod: ^1.0.3
 
   flutter_qiblah:
     git: https://github.com/geekhenno/flutter_qiblah.git
